@@ -4,6 +4,9 @@ module Data.Semilattice where
 class JoinSemilattice s where
   (\/) :: s -> s -> s
 
+class MeetSemilattice s where
+  (/\) :: s -> s -> s
+
 class LowerBounded s where
   bottom :: s
 
