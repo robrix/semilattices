@@ -52,9 +52,11 @@ class MeetSemilattice s where
   (/\) :: s -> s -> s
 
 class LowerBound s where
+  -- | The greatest lower bound of @s@.
   bottom :: s
 
 class UpperBound s where
+  -- | The least upper bound of @s@.
   top :: s
 
 
