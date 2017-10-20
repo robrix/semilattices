@@ -151,7 +151,6 @@ instance Applicative Tumble where
   (<*>) = coerce
   liftA2 = coerce
 
-
 instance Monad Tumble where
   (>>) = (*>)
   Tumble a >>= f = f a
