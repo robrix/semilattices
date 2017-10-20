@@ -12,3 +12,16 @@ class LowerBounded s where
 
 class UpperBounded s where
   top :: s
+
+
+instance JoinSemilattice () where
+  _ \/ _ = ()
+
+instance MeetSemilattice () where
+  _ /\ _ = ()
+
+instance LowerBounded () where
+  bottom = ()
+
+instance UpperBounded () where
+  top = ()
