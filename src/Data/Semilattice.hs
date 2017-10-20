@@ -122,6 +122,13 @@ instance Bounded a => LowerBound (Semigroup.Max a) where
   bottom = minBound
 
 
+instance Ord a => MeetSemilattice (Semigroup.Min a) where
+  (/\) = (Semigroup.<>)
+
+instance Bounded a => UpperBound (Semigroup.Min a) where
+  top = maxBound
+
+
 instance Ord a => JoinSemilattice (Set.Set a) where
   (\/) = Set.union
 
