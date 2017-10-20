@@ -17,6 +17,10 @@ class JoinSemilattice s where
   --   Commutativity:
   --
   --   > a \/ b = b \/ a
+  --
+  --   Additionally, if @s@ has a 'LowerBound', the identity law must hold:
+  --
+  --   > bottom \/ a = a
   (\/) :: s -> s -> s
 
 class MeetSemilattice s where
