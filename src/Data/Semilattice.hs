@@ -1,7 +1,9 @@
 {-# LANGUAGE DeriveDataTypeable, DeriveGeneric, DeriveTraversable, GeneralizedNewtypeDeriving #-}
 module Data.Semilattice where
 
+import Control.Applicative
 import Control.Monad.Fix
+import Data.Coerce
 import Data.Data
 import qualified Data.Semigroup as Semigroup
 import qualified Data.Set as Set
@@ -144,9 +146,14 @@ newtype Tumble a = Tumble { getTumble :: a }
 
 instance Applicative Tumble where
   pure = Tumble
-  Tumble f <*> Tumble a = Tumble (f a)
+  a <* _ = a
+  _ *> a = a
+  (<*>) = coerce
+  liftA2 = coerce
+
 
 instance Monad Tumble where
+  (>>) = (*>)
   Tumble a >>= f = f a
 
 instance MonadFix Tumble where
