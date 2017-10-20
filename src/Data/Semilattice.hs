@@ -2,6 +2,21 @@ module Data.Semilattice where
 
 -- | A join semilattice is an idempotent commutative semigroup.
 class JoinSemilattice s where
+  -- | The join operation.
+  --
+  --   Laws:
+  --
+  --   Idempotence:
+  --
+  --   > x \/ x = x
+  --
+  --   Associativity:
+  --
+  --   > a \/ (b \/ c) = (a \/ b) \/ c
+  --
+  --   Commutativity:
+  --
+  --   > a \/ b = b \/ a
   (\/) :: s -> s -> s
 
 class MeetSemilattice s where
