@@ -24,6 +24,25 @@ class JoinSemilattice s where
   (\/) :: s -> s -> s
 
 class MeetSemilattice s where
+  -- | The meet operation.
+  --
+  --   Laws:
+  --
+  --   Idempotence:
+  --
+  --   > x /\ x = x
+  --
+  --   Associativity:
+  --
+  --   > a /\ (b /\ c) = (a /\ b) /\ c
+  --
+  --   Commutativity:
+  --
+  --   > a /\ b = b /\ a
+  --
+  --   Additionally, if @s@ has an 'UpperBound', the identity law must hold:
+  --
+  --   > top /\ a = a
   (/\) :: s -> s -> s
 
 class LowerBound s where
