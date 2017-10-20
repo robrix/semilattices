@@ -6,3 +6,6 @@ class JoinSemilattice s where
 
 class LowerBounded s where
   bottom :: s
+
+class UpperBounded s where
+  top :: s
