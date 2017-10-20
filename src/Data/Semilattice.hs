@@ -22,10 +22,10 @@ class JoinSemilattice s where
 class MeetSemilattice s where
   (/\) :: s -> s -> s
 
-class LowerBounded s where
+class LowerBound s where
   bottom :: s
 
-class UpperBounded s where
+class UpperBound s where
   top :: s
 
 
@@ -35,8 +35,8 @@ instance JoinSemilattice () where
 instance MeetSemilattice () where
   _ /\ _ = ()
 
-instance LowerBounded () where
+instance LowerBound () where
   bottom = ()
 
-instance UpperBounded () where
+instance UpperBound () where
   top = ()
