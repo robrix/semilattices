@@ -1,7 +1,7 @@
 {-# LANGUAGE DefaultSignatures #-}
 module Data.Semilattice where
 
-class Semilattice s where
+class JoinSemilattice s where
   bottom :: s
   default bottom :: Monoid s => s
   bottom = mempty
