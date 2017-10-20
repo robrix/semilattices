@@ -70,5 +70,8 @@ instance UpperBound () where
 instance Ord a => JoinSemilattice (Set.Set a) where
   (\/) = Set.union
 
+instance Ord a => MeetSemilattice (Set.Set a) where
+  (/\) = Set.intersection
+
 instance LowerBound (Set.Set a) where
   bottom = Set.empty
