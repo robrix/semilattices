@@ -1,5 +1,7 @@
 module Data.Semilattice where
 
+import qualified Data.Set as Set
+
 -- | A join semilattice is an idempotent commutative semigroup.
 class JoinSemilattice s where
   -- | The join operation.
@@ -63,3 +65,7 @@ instance LowerBound () where
 
 instance UpperBound () where
   top = ()
+
+
+instance Ord a => JoinSemilattice (Set.Set a) where
+  (\/) = Set.union
