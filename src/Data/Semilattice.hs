@@ -1,6 +1,10 @@
+{-# LANGUAGE DeriveDataTypeable, DeriveGeneric, DeriveTraversable, GeneralizedNewtypeDeriving #-}
 module Data.Semilattice where
 
+import Control.Monad.Fix
+import Data.Data
 import qualified Data.Set as Set
+import GHC.Generics
 
 -- | A join semilattice is an idempotent commutative semigroup.
 class JoinSemilattice s where
@@ -75,3 +79,29 @@ instance Ord a => MeetSemilattice (Set.Set a) where
 
 instance LowerBound (Set.Set a) where
   bottom = Set.empty
+
+
+newtype Tumble a = Tumble { getTumble :: a }
+  deriving (Bounded, Data, Enum, Eq, Foldable, Functor, Generic, Generic1, Num, Ord, Read, Show, Traversable)
+
+instance Applicative Tumble where
+  pure = Tumble
+  Tumble f <*> Tumble a = Tumble (f a)
+
+instance Monad Tumble where
+  Tumble a >>= f = f a
+
+instance MonadFix Tumble where
+  mfix f = fix (f . getTumble)
+
+instance JoinSemilattice a => MeetSemilattice (Tumble a) where
+  Tumble a /\ Tumble b = Tumble (a \/ b)
+
+instance MeetSemilattice a => JoinSemilattice (Tumble a) where
+  Tumble a \/ Tumble b = Tumble (a /\ b)
+
+instance LowerBound a => UpperBound (Tumble a) where
+  top = Tumble bottom
+
+instance UpperBound a => LowerBound (Tumble a) where
+  bottom = Tumble top
