@@ -3,6 +3,7 @@ module Data.Semilattice where
 
 import Control.Monad.Fix
 import Data.Data
+import qualified Data.Semigroup as Semigroup
 import qualified Data.Set as Set
 import GHC.Generics
 
@@ -112,6 +113,10 @@ instance LowerBound Bool where
 
 instance UpperBound Bool where
   top = True
+
+
+instance Ord a => JoinSemilattice (Semigroup.Max a) where
+  (\/) = (Semigroup.<>)
 
 
 instance Ord a => JoinSemilattice (Set.Set a) where
