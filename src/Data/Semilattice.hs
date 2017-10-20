@@ -101,6 +101,19 @@ instance UpperBound () where
   top = ()
 
 
+instance JoinSemilattice Bool where
+  (\/) = (||)
+
+instance MeetSemilattice Bool where
+  (/\) = (&&)
+
+instance LowerBound Bool where
+  bottom = False
+
+instance UpperBound Bool where
+  top = True
+
+
 instance Ord a => JoinSemilattice (Set.Set a) where
   (\/) = Set.union
 
