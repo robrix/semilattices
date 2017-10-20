@@ -53,10 +53,38 @@ class MeetSemilattice s where
 
 class LowerBound s where
   -- | The greatest lower bound of @s@.
+  --
+  --   Laws:
+  --
+  --   If @s@ is 'Bounded', we require 'bottom' and 'minBound' to agree:
+  --
+  --   > bottom = minBound
+  --
+  --   If @s@ is a 'JoinSemilattice', 'bottom' must be the identity of '(\/)':
+  --
+  --   > bottom \/ a = a
+  --
+  --   If @s@ is 'Ord'ered, 'bottom' must be at least as small as every terminating value:
+  --
+  --   > compare bottom a /= GT
   bottom :: s
 
 class UpperBound s where
   -- | The least upper bound of @s@.
+  --
+  --   Laws:
+  --
+  --   If @s@ is 'Bounded', we require 'top' and 'maxBound' to agree:
+  --
+  --   > top = maxBound
+  --
+  --   If @s@ is a 'MeetSemilattice', 'top' must be the identity of '(/\)':
+  --
+  --   > top \/ a = a
+  --
+  --   If @s@ is 'Ord'ered, 'top' must be at least as large as every terminating value:
+  --
+  --   > compare top a /= LT
   top :: s
 
 
