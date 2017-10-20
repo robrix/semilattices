@@ -6,3 +6,6 @@ class (Monoid s, Semigroup s) => Semilattice s
 
 bottom :: Semilattice s => s
 bottom = mempty
+
+(\/) :: Semilattice s => s -> s -> s
+(\/) = mappend
