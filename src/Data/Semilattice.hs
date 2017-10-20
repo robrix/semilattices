@@ -1,11 +1,11 @@
+{-# LANGUAGE DefaultSignatures #-}
 module Data.Semilattice where
 
-import Data.Semigroup
+class Semilattice s where
+  bottom :: s
+  default bottom :: Monoid s => s
+  bottom = mempty
 
-class (Monoid s, Semigroup s) => Semilattice s
-
-bottom :: Semilattice s => s
-bottom = mempty
-
-(\/) :: Semilattice s => s -> s -> s
-(\/) = mappend
+  (\/) :: s -> s -> s
+  default (\/) :: Monoid s => s -> s -> s
+  (\/) = mappend
