@@ -32,6 +32,8 @@ class JoinSemilattice s where
   --   > bottom \/ a = a
   (\/) :: s -> s -> s
 
+  infixr 6 \/
+
 class MeetSemilattice s where
   -- | The meet operation.
   --
@@ -53,6 +55,8 @@ class MeetSemilattice s where
   --
   --   > top /\ a = a
   (/\) :: s -> s -> s
+
+  infixr 7 /\
 
 class LowerBound s where
   -- | The greatest lower bound of @s@.
