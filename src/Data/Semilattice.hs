@@ -1,7 +1,8 @@
 module Data.Semilattice where
 
--- | A (bounded) join semilattice is a idempotent commutative monoid.
+-- | A join semilattice is an idempotent commutative semigroup.
 class JoinSemilattice s where
-  bottom :: s
-
   (\/) :: s -> s -> s
+
+class LowerBounded s where
+  bottom :: s
