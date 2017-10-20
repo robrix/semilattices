@@ -118,6 +118,9 @@ instance UpperBound Bool where
 instance Ord a => JoinSemilattice (Semigroup.Max a) where
   (\/) = (Semigroup.<>)
 
+instance Bounded a => LowerBound (Semigroup.Max a) where
+  bottom = minBound
+
 
 instance Ord a => JoinSemilattice (Set.Set a) where
   (\/) = Set.union
