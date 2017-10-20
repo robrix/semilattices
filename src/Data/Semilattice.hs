@@ -69,3 +69,6 @@ instance UpperBound () where
 
 instance Ord a => JoinSemilattice (Set.Set a) where
   (\/) = Set.union
+
+instance LowerBound (Set.Set a) where
+  bottom = Set.empty
