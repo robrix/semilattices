@@ -10,7 +10,7 @@ import qualified Data.Set as Set
 import GHC.Generics
 
 -- | A join semilattice is an idempotent commutative semigroup.
-class JoinSemilattice s where
+class Join s where
   -- | The join operation.
   --
   --   Laws:
@@ -34,7 +34,7 @@ class JoinSemilattice s where
 
   infixr 6 \/
 
-class MeetSemilattice s where
+class Meet s where
   -- | The meet operation.
   --
   --   Laws:
@@ -67,7 +67,7 @@ class LowerBound s where
   --
   --   > bottom = minBound
   --
-  --   If @s@ is a 'JoinSemilattice', 'bottom' must be the identity of '(\/)':
+  --   If @s@ is a 'Join', 'bottom' must be the identity of '(\/)':
   --
   --   > bottom \/ a = a
   --
@@ -85,7 +85,7 @@ class UpperBound s where
   --
   --   > top = maxBound
   --
-  --   If @s@ is a 'MeetSemilattice', 'top' must be the identity of '(/\)':
+  --   If @s@ is a 'Meet', 'top' must be the identity of '(/\)':
   --
   --   > top \/ a = a
   --
@@ -95,10 +95,10 @@ class UpperBound s where
   top :: s
 
 
-instance JoinSemilattice () where
+instance Join () where
   _ \/ _ = ()
 
-instance MeetSemilattice () where
+instance Meet () where
   _ /\ _ = ()
 
 instance LowerBound () where
@@ -108,10 +108,10 @@ instance UpperBound () where
   top = ()
 
 
-instance JoinSemilattice Bool where
+instance Join Bool where
   (\/) = (||)
 
-instance MeetSemilattice Bool where
+instance Meet Bool where
   (/\) = (&&)
 
 instance LowerBound Bool where
@@ -121,24 +121,24 @@ instance UpperBound Bool where
   top = True
 
 
-instance Ord a => JoinSemilattice (Semigroup.Max a) where
+instance Ord a => Join (Semigroup.Max a) where
   (\/) = (Semigroup.<>)
 
 instance Bounded a => LowerBound (Semigroup.Max a) where
   bottom = minBound
 
 
-instance Ord a => MeetSemilattice (Semigroup.Min a) where
+instance Ord a => Meet (Semigroup.Min a) where
   (/\) = (Semigroup.<>)
 
 instance Bounded a => UpperBound (Semigroup.Min a) where
   top = maxBound
 
 
-instance Ord a => JoinSemilattice (Set.Set a) where
+instance Ord a => Join (Set.Set a) where
   (\/) = Set.union
 
-instance Ord a => MeetSemilattice (Set.Set a) where
+instance Ord a => Meet (Set.Set a) where
   (/\) = Set.intersection
 
 instance LowerBound (Set.Set a) where
@@ -162,10 +162,10 @@ instance Monad Tumble where
 instance MonadFix Tumble where
   mfix f = fix (f . getTumble)
 
-instance JoinSemilattice a => MeetSemilattice (Tumble a) where
+instance Join a => Meet (Tumble a) where
   Tumble a /\ Tumble b = Tumble (a \/ b)
 
-instance MeetSemilattice a => JoinSemilattice (Tumble a) where
+instance Meet a => Join (Tumble a) where
   Tumble a \/ Tumble b = Tumble (a /\ b)
 
 instance LowerBound a => UpperBound (Tumble a) where
