@@ -1,6 +1,7 @@
 {-# LANGUAGE DeriveTraversable, GeneralizedNewtypeDeriving #-}
 module Data.Join where
 
+import Data.Lower
 import Data.Semigroup
 import qualified Data.Set as Set
 
@@ -45,7 +46,7 @@ instance Ord a => Join (Set.Set a) where
 
 
 newtype Joining a = Joining { getJoining :: a }
-  deriving (Enum, Eq, Foldable, Functor, Join, Num, Ord, Read, Show, Traversable)
+  deriving (Enum, Eq, Foldable, Functor, Join, Lower, Num, Ord, Read, Show, Traversable)
 
 instance Join a => Semigroup (Joining a) where
   (<>) = (\/)
