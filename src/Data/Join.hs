@@ -1,5 +1,4 @@
 {-# LANGUAGE DeriveTraversable, GeneralizedNewtypeDeriving #-}
-
 module Data.Join where
 
 import Data.Semigroup
