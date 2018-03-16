@@ -3,6 +3,7 @@ module Data.Meet where
 import Data.Semigroup
 import qualified Data.Set as Set
 
+-- | A meet semilattice is an idempotent commutative semigroup.
 class Meet s where
   -- | The meet operation.
   --
