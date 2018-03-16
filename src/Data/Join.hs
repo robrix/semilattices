@@ -1,3 +1,5 @@
+{-# LANGUAGE DeriveTraversable, GeneralizedNewtypeDeriving #-}
+
 module Data.Join where
 
 import Data.Semigroup
@@ -40,3 +42,10 @@ instance Ord a => Join (Max a) where
 
 instance Ord a => Join (Set.Set a) where
   (\/) = Set.union
+
+
+newtype Joining a = Joining { getJoining :: a }
+  deriving (Enum, Eq, Foldable, Functor, Join, Num, Ord, Read, Show, Traversable)
+
+instance Join a => Semigroup (Joining a) where
+  (<>) = (\/)
