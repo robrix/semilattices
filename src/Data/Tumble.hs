@@ -1,4 +1,4 @@
-{-# LANGUAGE DeriveDataTypeable, DeriveGeneric, DeriveTraversable, GeneralizedNewtypeDeriving #-}
+{-# LANGUAGE DeriveTraversable, GeneralizedNewtypeDeriving #-}
 module Data.Tumble where
 
 import Control.Applicative
