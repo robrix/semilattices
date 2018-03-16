@@ -5,34 +5,10 @@ import Control.Applicative
 import Control.Monad.Fix
 import Data.Coerce
 import Data.Data
+import Data.Join
 import qualified Data.Semigroup as Semigroup
 import qualified Data.Set as Set
 import GHC.Generics
-
--- | A join semilattice is an idempotent commutative semigroup.
-class Join s where
-  -- | The join operation.
-  --
-  --   Laws:
-  --
-  --   Idempotence:
-  --
-  --   > x \/ x = x
-  --
-  --   Associativity:
-  --
-  --   > a \/ (b \/ c) = (a \/ b) \/ c
-  --
-  --   Commutativity:
-  --
-  --   > a \/ b = b \/ a
-  --
-  --   Additionally, if @s@ has a 'LowerBound', the identity law must hold:
-  --
-  --   > bottom \/ a = a
-  (\/) :: s -> s -> s
-
-  infixr 6 \/
 
 class Meet s where
   -- | The meet operation.
@@ -95,9 +71,6 @@ class UpperBound s where
   top :: s
 
 
-instance Join () where
-  _ \/ _ = ()
-
 instance Meet () where
   _ /\ _ = ()
 
@@ -107,9 +80,6 @@ instance LowerBound () where
 instance UpperBound () where
   top = ()
 
-
-instance Join Bool where
-  (\/) = (||)
 
 instance Meet Bool where
   (/\) = (&&)
@@ -121,9 +91,6 @@ instance UpperBound Bool where
   top = True
 
 
-instance Ord a => Join (Semigroup.Max a) where
-  (\/) = (Semigroup.<>)
-
 instance Bounded a => LowerBound (Semigroup.Max a) where
   bottom = minBound
 
@@ -134,9 +101,6 @@ instance Ord a => Meet (Semigroup.Min a) where
 instance Bounded a => UpperBound (Semigroup.Min a) where
   top = maxBound
 
-
-instance Ord a => Join (Set.Set a) where
-  (\/) = Set.union
 
 instance Ord a => Meet (Set.Set a) where
   (/\) = Set.intersection
