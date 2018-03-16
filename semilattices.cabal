@@ -16,7 +16,7 @@ library
   exposed-modules:     Data.Join
                      , Data.Lower
                      , Data.Meet
-                     , Data.Semilattice
+                     , Data.Tumble
                      , Data.Upper
   build-depends:       base >=4.10 && <4.11
                      , containers

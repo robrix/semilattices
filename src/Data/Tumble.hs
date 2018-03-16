@@ -1,5 +1,5 @@
 {-# LANGUAGE DeriveDataTypeable, DeriveGeneric, DeriveTraversable, GeneralizedNewtypeDeriving #-}
-module Data.Semilattice where
+module Data.Tumble where
 
 import Control.Applicative
 import Control.Monad.Fix
