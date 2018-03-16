@@ -20,7 +20,7 @@ class Meet s where
   --
   --   > a /\ b = b /\ a
   --
-  --   Additionally, if @s@ has an 'UpperBound', the identity law must hold:
+  --   Additionally, if @s@ has an 'Upper', the identity law must hold:
   --
   --   > top /\ a = a
   (/\) :: s -> s -> s

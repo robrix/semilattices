@@ -29,7 +29,7 @@ class Lower s where
   --   > compare bottom a /= GT
   bottom :: s
 
-class UpperBound s where
+class Upper s where
   -- | The least upper bound of @s@.
   --
   --   Laws:
@@ -51,14 +51,14 @@ class UpperBound s where
 instance Lower () where
   bottom = ()
 
-instance UpperBound () where
+instance Upper () where
   top = ()
 
 
 instance Lower Bool where
   bottom = False
 
-instance UpperBound Bool where
+instance Upper Bool where
   top = True
 
 
@@ -66,7 +66,7 @@ instance Bounded a => Lower (Semigroup.Max a) where
   bottom = minBound
 
 
-instance Bounded a => UpperBound (Semigroup.Min a) where
+instance Bounded a => Upper (Semigroup.Min a) where
   top = maxBound
 
 
@@ -97,8 +97,8 @@ instance Join a => Meet (Tumble a) where
 instance Meet a => Join (Tumble a) where
   Tumble a \/ Tumble b = Tumble (a /\ b)
 
-instance Lower a => UpperBound (Tumble a) where
+instance Lower a => Upper (Tumble a) where
   top = Tumble bottom
 
-instance UpperBound a => Lower (Tumble a) where
+instance Upper a => Lower (Tumble a) where
   bottom = Tumble top
