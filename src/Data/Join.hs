@@ -1,6 +1,6 @@
 module Data.Join where
 
-import qualified Data.Semigroup as Semigroup
+import Data.Semigroup
 import qualified Data.Set as Set
 
 -- | A join semilattice is an idempotent commutative semigroup.
@@ -35,8 +35,8 @@ instance Join () where
 instance Join Bool where
   (\/) = (||)
 
-instance Ord a => Join (Semigroup.Max a) where
-  (\/) = (Semigroup.<>)
+instance Ord a => Join (Max a) where
+  (\/) = (<>)
 
 instance Ord a => Join (Set.Set a) where
   (\/) = Set.union
