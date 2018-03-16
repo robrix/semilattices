@@ -1,7 +1,9 @@
+{-# LANGUAGE DeriveTraversable, GeneralizedNewtypeDeriving #-}
 module Data.Meet where
 
 import Data.Semigroup
 import qualified Data.Set as Set
+import Data.Upper
 
 -- | A meet semilattice is an idempotent commutative semigroup.
 class Meet s where
@@ -41,3 +43,14 @@ instance Ord a => Meet (Min a) where
 
 instance Ord a => Meet (Set.Set a) where
   (/\) = Set.intersection
+
+
+newtype Meeting a = Meeting { getMeeting :: a }
+  deriving (Enum, Eq, Foldable, Functor, Meet, Num, Ord, Read, Show, Traversable, Upper)
+
+instance Meet a => Semigroup (Meeting a) where
+  (<>) = (/\)
+
+instance (Upper a, Meet a) => Monoid (Meeting a) where
+  mappend = (<>)
+  mempty = top
