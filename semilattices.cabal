@@ -17,6 +17,7 @@ library
                      , Data.Lower
                      , Data.Meet
                      , Data.Semilattice
+                     , Data.Upper
   build-depends:       base >=4.10 && <4.11
                      , containers
   hs-source-dirs:      src

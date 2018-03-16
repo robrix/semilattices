@@ -8,41 +8,8 @@ import Data.Data
 import Data.Join
 import Data.Lower
 import Data.Meet
-import qualified Data.Semigroup as Semigroup
+import Data.Upper
 import GHC.Generics
-
-class Upper s where
-  -- | The least upper bound of @s@.
-  --
-  --   Laws:
-  --
-  --   If @s@ is 'Bounded', we require 'top' and 'maxBound' to agree:
-  --
-  --   > top = maxBound
-  --
-  --   If @s@ is a 'Meet', 'top' must be the identity of '(/\)':
-  --
-  --   > top \/ a = a
-  --
-  --   If @s@ is 'Ord'ered, 'top' must be at least as large as every terminating value:
-  --
-  --   > compare top a /= LT
-  top :: s
-
-
-instance Upper () where
-  top = ()
-
-
-instance Upper Bool where
-  top = True
-
-
-
-
-instance Bounded a => Upper (Semigroup.Min a) where
-  top = maxBound
-
 
 newtype Tumble a = Tumble { getTumble :: a }
   deriving (Bounded, Data, Enum, Eq, Foldable, Functor, Generic, Generic1, Num, Ord, Read, Show, Traversable)
