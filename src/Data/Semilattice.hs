@@ -11,7 +11,7 @@ import qualified Data.Semigroup as Semigroup
 import qualified Data.Set as Set
 import GHC.Generics
 
-class LowerBound s where
+class Lower s where
   -- | The greatest lower bound of @s@.
   --
   --   Laws:
@@ -48,21 +48,21 @@ class UpperBound s where
   top :: s
 
 
-instance LowerBound () where
+instance Lower () where
   bottom = ()
 
 instance UpperBound () where
   top = ()
 
 
-instance LowerBound Bool where
+instance Lower Bool where
   bottom = False
 
 instance UpperBound Bool where
   top = True
 
 
-instance Bounded a => LowerBound (Semigroup.Max a) where
+instance Bounded a => Lower (Semigroup.Max a) where
   bottom = minBound
 
 
@@ -70,7 +70,7 @@ instance Bounded a => UpperBound (Semigroup.Min a) where
   top = maxBound
 
 
-instance LowerBound (Set.Set a) where
+instance Lower (Set.Set a) where
   bottom = Set.empty
 
 
@@ -97,8 +97,8 @@ instance Join a => Meet (Tumble a) where
 instance Meet a => Join (Tumble a) where
   Tumble a \/ Tumble b = Tumble (a /\ b)
 
-instance LowerBound a => UpperBound (Tumble a) where
+instance Lower a => UpperBound (Tumble a) where
   top = Tumble bottom
 
-instance UpperBound a => LowerBound (Tumble a) where
+instance UpperBound a => Lower (Tumble a) where
   bottom = Tumble top

@@ -21,7 +21,7 @@ class Join s where
   --
   --   > a \/ b = b \/ a
   --
-  --   Additionally, if @s@ has a 'LowerBound', the identity law must hold:
+  --   Additionally, if @s@ has a 'Lower', the identity law must hold:
   --
   --   > bottom \/ a = a
   (\/) :: s -> s -> s
