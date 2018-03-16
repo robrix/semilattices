@@ -4,15 +4,13 @@ module Data.Tumble where
 import Control.Applicative
 import Control.Monad.Fix
 import Data.Coerce
-import Data.Data
 import Data.Join
 import Data.Lower
 import Data.Meet
 import Data.Upper
-import GHC.Generics
 
 newtype Tumble a = Tumble { getTumble :: a }
-  deriving (Data, Enum, Eq, Foldable, Functor, Generic, Generic1, Num, Ord, Read, Show, Traversable)
+  deriving (Enum, Eq, Foldable, Functor, Num, Ord, Read, Show, Traversable)
 
 instance Applicative Tumble where
   pure = Tumble
