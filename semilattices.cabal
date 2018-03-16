@@ -14,6 +14,7 @@ cabal-version:       >=1.10
 
 library
   exposed-modules:     Data.Join
+                     , Data.Meet
                      , Data.Semilattice
   build-depends:       base >=4.10 && <4.11
                      , containers

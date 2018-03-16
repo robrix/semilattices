@@ -6,33 +6,10 @@ import Control.Monad.Fix
 import Data.Coerce
 import Data.Data
 import Data.Join
+import Data.Meet
 import qualified Data.Semigroup as Semigroup
 import qualified Data.Set as Set
 import GHC.Generics
-
-class Meet s where
-  -- | The meet operation.
-  --
-  --   Laws:
-  --
-  --   Idempotence:
-  --
-  --   > x /\ x = x
-  --
-  --   Associativity:
-  --
-  --   > a /\ (b /\ c) = (a /\ b) /\ c
-  --
-  --   Commutativity:
-  --
-  --   > a /\ b = b /\ a
-  --
-  --   Additionally, if @s@ has an 'UpperBound', the identity law must hold:
-  --
-  --   > top /\ a = a
-  (/\) :: s -> s -> s
-
-  infixr 7 /\
 
 class LowerBound s where
   -- | The greatest lower bound of @s@.
@@ -71,18 +48,12 @@ class UpperBound s where
   top :: s
 
 
-instance Meet () where
-  _ /\ _ = ()
-
 instance LowerBound () where
   bottom = ()
 
 instance UpperBound () where
   top = ()
 
-
-instance Meet Bool where
-  (/\) = (&&)
 
 instance LowerBound Bool where
   bottom = False
@@ -95,15 +66,9 @@ instance Bounded a => LowerBound (Semigroup.Max a) where
   bottom = minBound
 
 
-instance Ord a => Meet (Semigroup.Min a) where
-  (/\) = (Semigroup.<>)
-
 instance Bounded a => UpperBound (Semigroup.Min a) where
   top = maxBound
 
-
-instance Ord a => Meet (Set.Set a) where
-  (/\) = Set.intersection
 
 instance LowerBound (Set.Set a) where
   bottom = Set.empty
