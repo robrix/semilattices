@@ -6,28 +6,10 @@ import Control.Monad.Fix
 import Data.Coerce
 import Data.Data
 import Data.Join
+import Data.Lower
 import Data.Meet
 import qualified Data.Semigroup as Semigroup
-import qualified Data.Set as Set
 import GHC.Generics
-
-class Lower s where
-  -- | The greatest lower bound of @s@.
-  --
-  --   Laws:
-  --
-  --   If @s@ is 'Bounded', we require 'bottom' and 'minBound' to agree:
-  --
-  --   > bottom = minBound
-  --
-  --   If @s@ is a 'Join', 'bottom' must be the identity of '(\/)':
-  --
-  --   > bottom \/ a = a
-  --
-  --   If @s@ is 'Ord'ered, 'bottom' must be at least as small as every terminating value:
-  --
-  --   > compare bottom a /= GT
-  bottom :: s
 
 class Upper s where
   -- | The least upper bound of @s@.
@@ -48,30 +30,18 @@ class Upper s where
   top :: s
 
 
-instance Lower () where
-  bottom = ()
-
 instance Upper () where
   top = ()
 
-
-instance Lower Bool where
-  bottom = False
 
 instance Upper Bool where
   top = True
 
 
-instance Bounded a => Lower (Semigroup.Max a) where
-  bottom = minBound
 
 
 instance Bounded a => Upper (Semigroup.Min a) where
   top = maxBound
-
-
-instance Lower (Set.Set a) where
-  bottom = Set.empty
 
 
 newtype Tumble a = Tumble { getTumble :: a }
