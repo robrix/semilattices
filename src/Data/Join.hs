@@ -50,3 +50,7 @@ newtype Joining a = Joining { getJoining :: a }
 
 instance Join a => Semigroup (Joining a) where
   (<>) = (\/)
+
+instance (Lower a, Join a) => Monoid (Joining a) where
+  mappend = (<>)
+  mempty = bottom
