@@ -23,9 +23,10 @@ class Join s where
   --
   --   > a \/ b = b \/ a
   --
-  --   Additionally, if @s@ has a 'Lower', the identity law must hold:
+  --   Additionally, if @s@ has a 'Lower' bound, then 'bottom' must be its left- and right-identity.
   --
   --   > bottom \/ a = a
+  --   > a \/ bottom = a
   (\/) :: s -> s -> s
 
   infixr 6 \/

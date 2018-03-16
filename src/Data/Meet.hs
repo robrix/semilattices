@@ -20,9 +20,10 @@ class Meet s where
   --
   --   > a /\ b = b /\ a
   --
-  --   Additionally, if @s@ has an 'Upper', the identity law must hold:
+  --   Additionally, if @s@ has an 'Upper' bound, then 'top' must be its left- and right-identity.
   --
   --   > top /\ a = a
+  --   > a /\ top = a
   (/\) :: s -> s -> s
 
   infixr 7 /\
