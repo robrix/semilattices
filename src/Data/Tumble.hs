@@ -12,7 +12,7 @@ import Data.Upper
 import GHC.Generics
 
 newtype Tumble a = Tumble { getTumble :: a }
-  deriving (Bounded, Data, Enum, Eq, Foldable, Functor, Generic, Generic1, Num, Ord, Read, Show, Traversable)
+  deriving (Data, Enum, Eq, Foldable, Functor, Generic, Generic1, Num, Ord, Read, Show, Traversable)
 
 instance Applicative Tumble where
   pure = Tumble
@@ -33,6 +33,10 @@ instance Join a => Meet (Tumble a) where
 
 instance Meet a => Join (Tumble a) where
   Tumble a \/ Tumble b = Tumble (a /\ b)
+
+instance Bounded a => Bounded (Tumble a) where
+  minBound = Tumble maxBound
+  maxBound = Tumble minBound
 
 instance Lower a => Upper (Tumble a) where
   top = Tumble bottom
