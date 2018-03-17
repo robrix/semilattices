@@ -133,7 +133,7 @@ instance (Upper a, Meet a) => Monoid (Meeting a) where
 --
 --   Absorption:
 --   prop> \ a -> bottom /\ Met a == (bottom :: Met Int)
-newtype Met a = Met a
+newtype Met a = Met { getMet :: a }
   deriving (Bounded, Enum, Eq, Foldable, Functor, Lower, Num, Ord, Read, Show, Traversable, Upper)
 
 instance Ord a => Meet (Met a) where

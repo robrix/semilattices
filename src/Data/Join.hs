@@ -133,7 +133,7 @@ instance (Lower a, Join a) => Monoid (Joining a) where
 --
 --   Absorption:
 --   prop> \ a -> top \/ Joined a == (top :: Joined Int)
-newtype Joined a = Joined a
+newtype Joined a = Joined { getJoined :: a }
   deriving (Bounded, Enum, Eq, Foldable, Functor, Lower, Num, Ord, Read, Show, Traversable, Upper)
 
 instance Ord a => Join (Joined a) where
