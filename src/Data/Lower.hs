@@ -15,6 +15,7 @@ import Data.Type.Equality
 import Data.Word
 import Foreign.C.Types
 import Foreign.Ptr
+import GHC.Generics
 
 class Lower s where
   -- | The greatest lower bound of @s@.
@@ -129,6 +130,12 @@ instance Lower CChar
 -- Foreign.Ptr
 instance Lower IntPtr
 instance Lower WordPtr
+
+-- GHC.Generics
+instance Lower DecidedStrictness
+instance Lower SourceStrictness
+instance Lower SourceUnpackedness
+instance Lower Associativity
 
 -- containers
 instance Lower (Set a) where
