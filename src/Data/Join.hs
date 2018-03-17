@@ -227,12 +227,22 @@ instance (Eq k, Hashable k, Join a) => Join (HashMap k a) where
 instance (Eq a, Hashable a) => Join (HashSet a) where
   (\/) = HashSet.union
 
+
+-- | A 'Semigroup' for any 'Join' semilattice.
+--
+--   If the semilattice has a 'Lower' bound, there is additionally a 'Monoid' instance.
 newtype Joining a = Joining { getJoining :: a }
   deriving (Bounded, Enum, Eq, Foldable, Functor, Join, Lower, Num, Ord, Read, Show, Traversable)
 
+-- | 'Joining' '(<>)' is associative.
+--
+--   prop> \ a b c -> Joining a <> (Joining b <> Joining c) == (Joining a <> Joining b) <> Joining (c :: IntSet)
 instance Join a => Semigroup (Joining a) where
   (<>) = (\/)
 
+-- | 'Joining' 'mempty' is the left- and right-identity.
+--
+--   prop> \ x -> let (l, r) = (mappend mempty (Joining x), mappend (Joining x) mempty) in l == Joining x && r == Joining (x :: IntSet)
 instance (Lower a, Join a) => Monoid (Joining a) where
   mappend = (<>)
   mempty = lower
