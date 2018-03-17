@@ -14,7 +14,12 @@ import Data.Upper
 
 -- $setup
 -- >>> import Test.QuickCheck
+-- >>> import Test.QuickCheck.Function
 -- >>> import Test.QuickCheck.Instances.UnorderedContainers ()
+-- >>> :{
+-- let infix 4 ~=
+--     f ~= g = \ x -> f x == g x
+-- :}
 
 -- | A join semilattice is an idempotent commutative semigroup.
 class Join s where
@@ -95,6 +100,22 @@ instance Join Ordering where
   a \/ LT = a
   _ \/ _ = EQ
 
+-- | Functions with semilattice codomains form a semilattice.
+--
+--   Idempotence:
+--   prop> \ (Fn x) -> x \/ x ~= (x :: Int -> Bool)
+--
+--   Associativity:
+--   prop> \ (Fn a) (Fn b) (Fn c) -> a \/ (b \/ c) ~= (a \/ b) \/ (c :: Int -> Bool)
+--
+--   Commutativity:
+--   prop> \ (Fn a) (Fn b) -> a \/ b ~= b \/ (a :: Int -> Bool)
+--
+--   Identity:
+--   prop> \ (Fn a) -> lower \/ a ~= (a :: Int -> Bool)
+--
+--   Absorption:
+--   prop> \ (Fn a) -> upper \/ a ~= (upper :: Int -> Bool)
 instance Join b => Join (a -> b) where
   f \/ g = (\/) <$> f <*> g
 
