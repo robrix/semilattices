@@ -6,12 +6,9 @@ import Data.Coerce
 import Data.Functor.Const
 import Data.Functor.Identity
 import Data.Int
-import Data.IntMap as IntMap
-import Data.Map as Map
 import Data.Monoid as Monoid
 import Data.Proxy
 import Data.Semigroup as Semigroup
-import Data.Set as Set
 import Data.Type.Coercion
 import Data.Type.Equality
 import Data.Word
@@ -61,9 +58,6 @@ instance (Upper a, Upper b, Upper c, Upper d, Upper e, Upper f, Upper g, Upper h
 instance (Upper a, Upper b, Upper c, Upper d, Upper e, Upper f, Upper g, Upper h, Upper i, Upper j, Upper k, Upper l, Upper m) => Upper (a, b, c, d, e, f, g, h, i, j, k, l, m) where upper = (upper, upper, upper, upper, upper, upper, upper, upper, upper, upper, upper, upper, upper)
 instance (Upper a, Upper b, Upper c, Upper d, Upper e, Upper f, Upper g, Upper h, Upper i, Upper j, Upper k, Upper l, Upper m, Upper n) => Upper (a, b, c, d, e, f, g, h, i, j, k, l, m, n) where upper = (upper, upper, upper, upper, upper, upper, upper, upper, upper, upper, upper, upper, upper, upper)
 instance (Upper a, Upper b, Upper c, Upper d, Upper e, Upper f, Upper g, Upper h, Upper i, Upper j, Upper k, Upper l, Upper m, Upper n, Upper o) => Upper (a, b, c, d, e, f, g, h, i, j, k, l, m, n, o) where upper = (upper, upper, upper, upper, upper, upper, upper, upper, upper, upper, upper, upper, upper, upper, upper)
-
-instance Upper (Maybe a) where upper = Nothing
-instance Upper [a] where upper = []
 
 
 -- Data.Char
@@ -163,8 +157,3 @@ instance Upper COff
 instance Upper CMode
 instance Upper CIno
 instance Upper CDev
-
--- containers
-instance Upper (IntMap a) where upper = IntMap.empty
-instance Upper (Map k a) where upper = Map.empty
-instance Upper (Set a) where upper = Set.empty
