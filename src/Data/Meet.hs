@@ -23,10 +23,15 @@ class Meet s where
   --
   --   > a /\ b = b /\ a
   --
-  --   Additionally, if @s@ has an 'Upper' bound, then 'top' must be its left- and right-identity.
+  --   Additionally, if @s@ has an 'Upper' bound, then 'top' must be its left- and right-identity:
   --
   --   > top /\ a = a
   --   > a /\ top = a
+  --
+  --   If @s@ has a 'Lower' bound, then 'bottom' must be its left- and right-annihilator:
+  --
+  --   > bottom /\ a = bottom
+  --   > a /\ bottom = bottom
   (/\) :: s -> s -> s
 
   infixr 7 /\
