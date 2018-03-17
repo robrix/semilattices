@@ -1,12 +1,12 @@
 {-# LANGUAGE DeriveTraversable, GeneralizedNewtypeDeriving #-}
 module Data.Meet where
 
+import Data.Lower
 import Data.Semigroup
 import Data.Set
 import Data.Upper
 
 -- $setup
--- >>> import Data.Lower
 -- >>> import Test.QuickCheck
 
 -- | A meet semilattice is an idempotent commutative semigroup.
@@ -115,6 +115,31 @@ instance Meet a => Semigroup (Meeting a) where
 instance (Upper a, Meet a) => Monoid (Meeting a) where
   mappend = (<>)
   mempty = top
+
+
+-- | Orderings form a meet semilattice.
+--
+--   Idempotence:
+--   prop> \ x -> Met x /\ Met x == Met (x :: Int)
+--
+--   Associativity:
+--   prop> \ a b c -> Met a /\ (Met b /\ Met c) == (Met a /\ Met b) /\ (Met (c :: Int))
+--
+--   Commutativity:
+--   prop> \ a b -> Met a /\ Met b == Met b /\ Met (a :: Int)
+--
+--   Identity:
+--   prop> \ a -> top /\ Met a == Met (a :: Int)
+--
+--   Absorption:
+--   prop> \ a -> bottom /\ Met a == (bottom :: Met Int)
+newtype Met a = Met a
+  deriving (Bounded, Enum, Eq, Foldable, Functor, Lower, Num, Ord, Read, Show, Traversable, Upper)
+
+instance Ord a => Meet (Met a) where
+  a /\ b
+    | a <= b    = a
+    | otherwise = b
 
 
 newtype GreaterThan a = GreaterThan { getGreaterThan :: a }
