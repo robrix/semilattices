@@ -84,7 +84,7 @@ instance Ord a => Join (Set a) where
 
 
 newtype Joining a = Joining { getJoining :: a }
-  deriving (Enum, Eq, Foldable, Functor, Join, Lower, Num, Ord, Read, Show, Traversable)
+  deriving (Bounded, Enum, Eq, Foldable, Functor, Join, Lower, Num, Ord, Read, Show, Traversable)
 
 instance Join a => Semigroup (Joining a) where
   (<>) = (\/)

@@ -84,7 +84,7 @@ instance Ord a => Meet (Set a) where
 
 
 newtype Meeting a = Meeting { getMeeting :: a }
-  deriving (Enum, Eq, Foldable, Functor, Meet, Num, Ord, Read, Show, Traversable, Upper)
+  deriving (Bounded, Enum, Eq, Foldable, Functor, Meet, Num, Ord, Read, Show, Traversable, Upper)
 
 instance Meet a => Semigroup (Meeting a) where
   (<>) = (/\)
