@@ -63,6 +63,22 @@ instance Meet () where
 instance Meet Bool where
   (/\) = (&&)
 
+-- | Orderings form a semilattice.
+--
+--   Idempotence:
+--   prop> \ x -> x /\ x == (x :: Ordering)
+--
+--   Associativity:
+--   prop> \ a b c -> a /\ (b /\ c) == (a /\ b) /\ (c :: Ordering)
+--
+--   Commutativity:
+--   prop> \ a b -> a /\ b == b /\ (a :: Ordering)
+--
+--   Identity:
+--   prop> \ a -> top /\ a == (a :: Ordering)
+--
+--   Absorption:
+--   prop> \ a -> bottom /\ a == (bottom :: Ordering)
 instance Meet Ordering where
   LT /\ _ = LT
   _ /\ LT = LT

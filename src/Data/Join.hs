@@ -63,6 +63,22 @@ instance Join () where
 instance Join Bool where
   (\/) = (||)
 
+-- | Orderings form a semilattice.
+--
+--   Idempotence:
+--   prop> \ x -> x \/ x == (x :: Ordering)
+--
+--   Associativity:
+--   prop> \ a b c -> a \/ (b \/ c) == (a \/ b) \/ (c :: Ordering)
+--
+--   Commutativity:
+--   prop> \ a b -> a \/ b == b \/ (a :: Ordering)
+--
+--   Identity:
+--   prop> \ a -> bottom \/ a == (a :: Ordering)
+--
+--   Absorption:
+--   prop> \ a -> top \/ a == (top :: Ordering)
 instance Join Ordering where
   GT \/ _ = GT
   _ \/ GT = GT
