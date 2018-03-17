@@ -5,6 +5,10 @@ import Data.Semigroup
 import qualified Data.Set as Set
 import Data.Upper
 
+-- $setup
+-- >>> import Data.Lower
+-- >>> import Test.QuickCheck
+
 -- | A meet semilattice is an idempotent commutative semigroup.
 class Meet s where
   -- | The meet operation.
@@ -40,6 +44,22 @@ class Meet s where
 instance Meet () where
   _ /\ _ = ()
 
+-- | Boolean conjunction forms a semilattice.
+--
+--   Idempotence:
+--   prop> \ x -> x /\ x == (x :: Bool)
+--
+--   Associativity:
+--   prop> \ a b c -> a /\ (b /\ c) == (a /\ b) /\ (c :: Bool)
+--
+--   Commutativity:
+--   prop> \ a b -> a /\ b == b /\ (a :: Bool)
+--
+--   Identity:
+--   prop> \ a -> top /\ a == (a :: Bool)
+--
+--   Absorption:
+--   prop> \ a -> bottom /\ a == (bottom :: Bool)
 instance Meet Bool where
   (/\) = (&&)
 
