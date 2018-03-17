@@ -95,6 +95,9 @@ instance Join Ordering where
   a \/ LT = a
   _ \/ _ = EQ
 
+instance Join b => Join (a -> b) where
+  f \/ g = (\/) <$> f <*> g
+
 
 -- Data.Semigroup
 

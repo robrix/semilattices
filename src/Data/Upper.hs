@@ -58,6 +58,7 @@ instance (Upper a, Upper b, Upper c, Upper d, Upper e, Upper f, Upper g, Upper h
 instance (Upper a, Upper b, Upper c, Upper d, Upper e, Upper f, Upper g, Upper h, Upper i, Upper j, Upper k, Upper l, Upper m) => Upper (a, b, c, d, e, f, g, h, i, j, k, l, m) where upper = (upper, upper, upper, upper, upper, upper, upper, upper, upper, upper, upper, upper, upper)
 instance (Upper a, Upper b, Upper c, Upper d, Upper e, Upper f, Upper g, Upper h, Upper i, Upper j, Upper k, Upper l, Upper m, Upper n) => Upper (a, b, c, d, e, f, g, h, i, j, k, l, m, n) where upper = (upper, upper, upper, upper, upper, upper, upper, upper, upper, upper, upper, upper, upper, upper)
 instance (Upper a, Upper b, Upper c, Upper d, Upper e, Upper f, Upper g, Upper h, Upper i, Upper j, Upper k, Upper l, Upper m, Upper n, Upper o) => Upper (a, b, c, d, e, f, g, h, i, j, k, l, m, n, o) where upper = (upper, upper, upper, upper, upper, upper, upper, upper, upper, upper, upper, upper, upper, upper, upper)
+instance Upper b => Upper (a -> b) where upper = const upper
 
 
 -- Data.Char

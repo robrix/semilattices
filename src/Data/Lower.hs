@@ -64,6 +64,7 @@ instance (Lower a, Lower b, Lower c, Lower d, Lower e, Lower f, Lower g, Lower h
 instance (Lower a, Lower b, Lower c, Lower d, Lower e, Lower f, Lower g, Lower h, Lower i, Lower j, Lower k, Lower l, Lower m) => Lower (a, b, c, d, e, f, g, h, i, j, k, l, m) where lower = (lower, lower, lower, lower, lower, lower, lower, lower, lower, lower, lower, lower, lower)
 instance (Lower a, Lower b, Lower c, Lower d, Lower e, Lower f, Lower g, Lower h, Lower i, Lower j, Lower k, Lower l, Lower m, Lower n) => Lower (a, b, c, d, e, f, g, h, i, j, k, l, m, n) where lower = (lower, lower, lower, lower, lower, lower, lower, lower, lower, lower, lower, lower, lower, lower)
 instance (Lower a, Lower b, Lower c, Lower d, Lower e, Lower f, Lower g, Lower h, Lower i, Lower j, Lower k, Lower l, Lower m, Lower n, Lower o) => Lower (a, b, c, d, e, f, g, h, i, j, k, l, m, n, o) where lower = (lower, lower, lower, lower, lower, lower, lower, lower, lower, lower, lower, lower, lower, lower, lower)
+instance Lower b => Lower (a -> b) where lower = const lower
 
 instance Lower (Maybe a) where lower = Nothing
 instance Lower [a] where lower = []

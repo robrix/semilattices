@@ -95,6 +95,9 @@ instance Meet Ordering where
   a /\ GT = a
   _ /\ _ = EQ
 
+instance Meet b => Meet (a -> b) where
+  f /\ g = (/\) <$> f <*> g
+
 
 -- Data.Semigroup
 
