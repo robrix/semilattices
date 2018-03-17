@@ -43,6 +43,19 @@ class Join s where
 instance Join () where
   _ \/ _ = ()
 
+-- | Boolean disjunction forms a semilattice.
+--
+--   Idempotence:
+--   prop> \ x -> x \/ x == (x :: Bool)
+--
+--   Associativity:
+--   prop> \ a b c -> a \/ (b \/ c) == (a \/ b) \/ (c :: Bool)
+--
+--   Commutativity:
+--   prop> \ a b -> a \/ b == b \/ (a :: Bool)
+--
+--   Identity:
+--   prop> \ a -> bottom \/ a == (a :: Bool)
 instance Join Bool where
   (\/) = (||)
 
