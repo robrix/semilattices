@@ -1,6 +1,9 @@
 {-# LANGUAGE DeriveTraversable, GeneralizedNewtypeDeriving #-}
 module Data.Join where
 
+import Data.Hashable
+import Data.HashMap.Lazy as HashMap
+import Data.HashSet as HashSet
 import Data.IntMap as IntMap
 import Data.IntSet as IntSet
 import Data.Lower
@@ -11,6 +14,7 @@ import Data.Upper
 
 -- $setup
 -- >>> import Test.QuickCheck
+-- >>> import Test.QuickCheck.Instances.UnorderedContainers ()
 
 -- | A join semilattice is an idempotent commutative semigroup.
 class Join s where
@@ -164,6 +168,40 @@ instance (Ord k, Join a) => Join (Map k a) where
 instance Ord a => Join (Set a) where
   (\/) = Set.union
 
+
+-- unordered-containers
+
+-- | HashMap union with 'Join'able values forms a semilattice.
+--
+--   Idempotence:
+--   prop> \ x -> x \/ x == (x :: HashMap Char (Set Char))
+--
+--   Associativity:
+--   prop> \ a b c -> a \/ (b \/ c) == (a \/ b) \/ (c :: HashMap Char (Set Char))
+--
+--   Commutativity:
+--   prop> \ a b -> a \/ b == b \/ (a :: HashMap Char (Set Char))
+--
+--   Identity:
+--   prop> \ a -> lower \/ a == (a :: HashMap Char (Set Char))
+instance (Eq k, Hashable k, Join a) => Join (HashMap k a) where
+  (\/) = HashMap.unionWith (\/)
+
+-- | HashSet union forms a semilattice.
+--
+--   Idempotence:
+--   prop> \ x -> x \/ x == (x :: HashSet Char)
+--
+--   Associativity:
+--   prop> \ a b c -> a \/ (b \/ c) == (a \/ b) \/ (c :: HashSet Char)
+--
+--   Commutativity:
+--   prop> \ a b -> a \/ b == b \/ (a :: HashSet Char)
+--
+--   Identity:
+--   prop> \ a -> lower \/ a == (a :: HashSet Char)
+instance (Eq a, Hashable a) => Join (HashSet a) where
+  (\/) = HashSet.union
 
 newtype Joining a = Joining { getJoining :: a }
   deriving (Bounded, Enum, Eq, Foldable, Functor, Join, Lower, Num, Ord, Read, Show, Traversable)

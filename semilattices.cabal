@@ -21,6 +21,7 @@ library
                      , Data.Upper
   build-depends:       base >=4.10 && <4.11
                      , containers
+                     , hashable
                      , unordered-containers
   hs-source-dirs:      src
   default-language:    Haskell2010
@@ -34,3 +35,4 @@ test-suite doctests
   build-depends:       base
                      , doctest
                      , QuickCheck
+                     , quickcheck-instances
