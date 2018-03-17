@@ -7,6 +7,7 @@ import Data.Functor.Const
 import Data.Functor.Identity
 import Data.Int
 import Data.IntMap as IntMap
+import Data.IntSet as IntSet
 import Data.Map as Map
 import Data.Monoid as Monoid
 import Data.Proxy
@@ -166,5 +167,6 @@ instance Lower CDev
 
 -- containers
 instance Lower (IntMap a) where lower = IntMap.empty
+instance Lower IntSet where lower = IntSet.empty
 instance Lower (Map k a) where lower = Map.empty
 instance Lower (Set a) where lower = Set.empty
