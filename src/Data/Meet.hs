@@ -92,3 +92,15 @@ instance Meet a => Semigroup (Meeting a) where
 instance (Upper a, Meet a) => Monoid (Meeting a) where
   mappend = (<>)
   mempty = top
+
+
+newtype GreaterThan a = GreaterThan { getGreaterThan :: a }
+  deriving (Enum, Eq, Foldable, Functor, Meet, Num, Read, Show, Traversable)
+
+instance (Eq a, Meet a) => Ord (GreaterThan a) where
+  compare a b
+    | a == b      = EQ
+    | a /\ b == a = LT
+    | otherwise   = GT
+
+  a <= b = a /\ b == a
