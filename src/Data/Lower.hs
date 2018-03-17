@@ -31,6 +31,9 @@ instance Lower Bool where
 instance Lower Ordering where
   bottom = LT
 
+instance Lower Int where
+  bottom = minBound
+
 instance Bounded a => Lower (Max a) where
   bottom = minBound
 

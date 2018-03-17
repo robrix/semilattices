@@ -30,5 +30,8 @@ instance Upper Bool where
 instance Upper Ordering where
   top = GT
 
+instance Upper Int where
+  top = maxBound
+
 instance Bounded a => Upper (Min a) where
   top = maxBound
