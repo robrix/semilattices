@@ -4,9 +4,9 @@ module Data.Join where
 import Data.Lower
 import Data.Semigroup
 import Data.Set
+import Data.Upper
 
 -- $setup
--- >>> import Data.Upper
 -- >>> import Test.QuickCheck
 
 -- | A join semilattice is an idempotent commutative semigroup.
@@ -115,6 +115,31 @@ instance Join a => Semigroup (Joining a) where
 instance (Lower a, Join a) => Monoid (Joining a) where
   mappend = (<>)
   mempty = bottom
+
+
+-- | Orderings form a join semilattice.
+--
+--   Idempotence:
+--   prop> \ x -> Joined x \/ Joined x == Joined (x :: Int)
+--
+--   Associativity:
+--   prop> \ a b c -> Joined a \/ (Joined b \/ Joined c) == (Joined a \/ Joined b) \/ (Joined (c :: Int))
+--
+--   Commutativity:
+--   prop> \ a b -> Joined a \/ Joined b == Joined b \/ Joined (a :: Int)
+--
+--   Identity:
+--   prop> \ a -> bottom \/ Joined a == Joined (a :: Int)
+--
+--   Absorption:
+--   prop> \ a -> top \/ Joined a == (top :: Joined Int)
+newtype Joined a = Joined a
+  deriving (Bounded, Enum, Eq, Foldable, Functor, Lower, Num, Ord, Read, Show, Traversable, Upper)
+
+instance Ord a => Join (Joined a) where
+  a \/ b
+    | a <= b    = b
+    | otherwise = a
 
 
 newtype LessThan a = LessThan { getLessThan :: a }
