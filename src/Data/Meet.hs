@@ -27,15 +27,15 @@ class Meet s where
   --
   --   > a /\ b = b /\ a
   --
-  --   Additionally, if @s@ has an 'Upper' bound, then 'top' must be its left- and right-identity:
+  --   Additionally, if @s@ has an 'Upper' bound, then 'upper' must be its left- and right-identity:
   --
-  --   > top /\ a = a
-  --   > a /\ top = a
+  --   > upper /\ a = a
+  --   > a /\ upper = a
   --
-  --   If @s@ has a 'Lower' bound, then 'bottom' must be its left- and right-annihilator:
+  --   If @s@ has a 'Lower' bound, then 'lower' must be its left- and right-annihilator:
   --
-  --   > bottom /\ a = bottom
-  --   > a /\ bottom = bottom
+  --   > lower /\ a = lower
+  --   > a /\ lower = lower
   (/\) :: s -> s -> s
 
   infixr 7 /\
@@ -56,10 +56,10 @@ instance Meet () where
 --   prop> \ a b -> a /\ b == b /\ (a :: Bool)
 --
 --   Identity:
---   prop> \ a -> top /\ a == (a :: Bool)
+--   prop> \ a -> upper /\ a == (a :: Bool)
 --
 --   Absorption:
---   prop> \ a -> bottom /\ a == (bottom :: Bool)
+--   prop> \ a -> lower /\ a == (lower :: Bool)
 instance Meet Bool where
   (/\) = (&&)
 
@@ -75,10 +75,10 @@ instance Meet Bool where
 --   prop> \ a b -> a /\ b == b /\ (a :: Ordering)
 --
 --   Identity:
---   prop> \ a -> top /\ a == (a :: Ordering)
+--   prop> \ a -> upper /\ a == (a :: Ordering)
 --
 --   Absorption:
---   prop> \ a -> bottom /\ a == (bottom :: Ordering)
+--   prop> \ a -> lower /\ a == (lower :: Ordering)
 instance Meet Ordering where
   LT /\ _ = LT
   _ /\ LT = LT
@@ -101,7 +101,7 @@ instance Ord a => Meet (Min a) where
 --   prop> \ a b -> a /\ b == b /\ (a :: Set Char)
 --
 --   Absorption:
---   prop> \ a -> bottom /\ a == (bottom :: Set Char)
+--   prop> \ a -> lower /\ a == (lower :: Set Char)
 instance Ord a => Meet (Set a) where
   (/\) = intersection
 
@@ -114,7 +114,7 @@ instance Meet a => Semigroup (Meeting a) where
 
 instance (Upper a, Meet a) => Monoid (Meeting a) where
   mappend = (<>)
-  mempty = top
+  mempty = upper
 
 
 -- | Orderings form a meet semilattice.
@@ -129,10 +129,10 @@ instance (Upper a, Meet a) => Monoid (Meeting a) where
 --   prop> \ a b -> Met a /\ Met b == Met b /\ Met (a :: Int)
 --
 --   Identity:
---   prop> \ a -> top /\ Met a == Met (a :: Int)
+--   prop> \ a -> upper /\ Met a == Met (a :: Int)
 --
 --   Absorption:
---   prop> \ a -> bottom /\ Met a == (bottom :: Met Int)
+--   prop> \ a -> lower /\ Met a == (lower :: Met Int)
 newtype Met a = Met { getMet :: a }
   deriving (Bounded, Enum, Eq, Foldable, Functor, Lower, Num, Ord, Read, Show, Traversable, Upper)
 

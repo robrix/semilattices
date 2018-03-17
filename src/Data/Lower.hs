@@ -25,20 +25,20 @@ class Lower s where
   --
   --   Laws:
   --
-  --   If @s@ is 'Bounded', we require 'bottom' and 'minBound' to agree:
+  --   If @s@ is 'Bounded', we require 'lower' and 'minBound' to agree:
   --
-  --   > bottom = minBound
+  --   > lower = minBound
   --
-  --   If @s@ is a 'Join', 'bottom' must be the identity of '(\/)':
+  --   If @s@ is a 'Join', 'lower' must be the identity of '(\/)':
   --
-  --   > bottom \/ a = a
+  --   > lower \/ a = a
   --
-  --   If @s@ is 'Ord'ered, 'bottom' must be at least as small as every terminating value:
+  --   If @s@ is 'Ord'ered, 'lower' must be at least as small as every terminating value:
   --
-  --   > compare bottom a /= GT
-  bottom :: s
-  default bottom :: Bounded s => s
-  bottom = minBound
+  --   > compare lower a /= GT
+  lower :: s
+  default lower :: Bounded s => s
+  lower = minBound
 
 
 -- Prelude
@@ -47,23 +47,23 @@ instance Lower Bool
 instance Lower Ordering
 instance Lower Char
 instance Lower Int
-instance (Lower a, Lower b) => Lower (a, b) where bottom = (bottom, bottom)
-instance (Lower a, Lower b, Lower c) => Lower (a, b, c) where bottom = (bottom, bottom, bottom)
-instance (Lower a, Lower b, Lower c, Lower d) => Lower (a, b, c, d) where bottom = (bottom, bottom, bottom, bottom)
-instance (Lower a, Lower b, Lower c, Lower d, Lower e) => Lower (a, b, c, d, e) where bottom = (bottom, bottom, bottom, bottom, bottom)
-instance (Lower a, Lower b, Lower c, Lower d, Lower e, Lower f) => Lower (a, b, c, d, e, f) where bottom = (bottom, bottom, bottom, bottom, bottom, bottom)
-instance (Lower a, Lower b, Lower c, Lower d, Lower e, Lower f, Lower g) => Lower (a, b, c, d, e, f, g) where bottom = (bottom, bottom, bottom, bottom, bottom, bottom, bottom)
-instance (Lower a, Lower b, Lower c, Lower d, Lower e, Lower f, Lower g, Lower h) => Lower (a, b, c, d, e, f, g, h) where bottom = (bottom, bottom, bottom, bottom, bottom, bottom, bottom, bottom)
-instance (Lower a, Lower b, Lower c, Lower d, Lower e, Lower f, Lower g, Lower h, Lower i) => Lower (a, b, c, d, e, f, g, h, i) where bottom = (bottom, bottom, bottom, bottom, bottom, bottom, bottom, bottom, bottom)
-instance (Lower a, Lower b, Lower c, Lower d, Lower e, Lower f, Lower g, Lower h, Lower i, Lower j) => Lower (a, b, c, d, e, f, g, h, i, j) where bottom = (bottom, bottom, bottom, bottom, bottom, bottom, bottom, bottom, bottom, bottom)
-instance (Lower a, Lower b, Lower c, Lower d, Lower e, Lower f, Lower g, Lower h, Lower i, Lower j, Lower k) => Lower (a, b, c, d, e, f, g, h, i, j, k) where bottom = (bottom, bottom, bottom, bottom, bottom, bottom, bottom, bottom, bottom, bottom, bottom)
-instance (Lower a, Lower b, Lower c, Lower d, Lower e, Lower f, Lower g, Lower h, Lower i, Lower j, Lower k, Lower l) => Lower (a, b, c, d, e, f, g, h, i, j, k, l) where bottom = (bottom, bottom, bottom, bottom, bottom, bottom, bottom, bottom, bottom, bottom, bottom, bottom)
-instance (Lower a, Lower b, Lower c, Lower d, Lower e, Lower f, Lower g, Lower h, Lower i, Lower j, Lower k, Lower l, Lower m) => Lower (a, b, c, d, e, f, g, h, i, j, k, l, m) where bottom = (bottom, bottom, bottom, bottom, bottom, bottom, bottom, bottom, bottom, bottom, bottom, bottom, bottom)
-instance (Lower a, Lower b, Lower c, Lower d, Lower e, Lower f, Lower g, Lower h, Lower i, Lower j, Lower k, Lower l, Lower m, Lower n) => Lower (a, b, c, d, e, f, g, h, i, j, k, l, m, n) where bottom = (bottom, bottom, bottom, bottom, bottom, bottom, bottom, bottom, bottom, bottom, bottom, bottom, bottom, bottom)
-instance (Lower a, Lower b, Lower c, Lower d, Lower e, Lower f, Lower g, Lower h, Lower i, Lower j, Lower k, Lower l, Lower m, Lower n, Lower o) => Lower (a, b, c, d, e, f, g, h, i, j, k, l, m, n, o) where bottom = (bottom, bottom, bottom, bottom, bottom, bottom, bottom, bottom, bottom, bottom, bottom, bottom, bottom, bottom, bottom)
+instance (Lower a, Lower b) => Lower (a, b) where lower = (lower, lower)
+instance (Lower a, Lower b, Lower c) => Lower (a, b, c) where lower = (lower, lower, lower)
+instance (Lower a, Lower b, Lower c, Lower d) => Lower (a, b, c, d) where lower = (lower, lower, lower, lower)
+instance (Lower a, Lower b, Lower c, Lower d, Lower e) => Lower (a, b, c, d, e) where lower = (lower, lower, lower, lower, lower)
+instance (Lower a, Lower b, Lower c, Lower d, Lower e, Lower f) => Lower (a, b, c, d, e, f) where lower = (lower, lower, lower, lower, lower, lower)
+instance (Lower a, Lower b, Lower c, Lower d, Lower e, Lower f, Lower g) => Lower (a, b, c, d, e, f, g) where lower = (lower, lower, lower, lower, lower, lower, lower)
+instance (Lower a, Lower b, Lower c, Lower d, Lower e, Lower f, Lower g, Lower h) => Lower (a, b, c, d, e, f, g, h) where lower = (lower, lower, lower, lower, lower, lower, lower, lower)
+instance (Lower a, Lower b, Lower c, Lower d, Lower e, Lower f, Lower g, Lower h, Lower i) => Lower (a, b, c, d, e, f, g, h, i) where lower = (lower, lower, lower, lower, lower, lower, lower, lower, lower)
+instance (Lower a, Lower b, Lower c, Lower d, Lower e, Lower f, Lower g, Lower h, Lower i, Lower j) => Lower (a, b, c, d, e, f, g, h, i, j) where lower = (lower, lower, lower, lower, lower, lower, lower, lower, lower, lower)
+instance (Lower a, Lower b, Lower c, Lower d, Lower e, Lower f, Lower g, Lower h, Lower i, Lower j, Lower k) => Lower (a, b, c, d, e, f, g, h, i, j, k) where lower = (lower, lower, lower, lower, lower, lower, lower, lower, lower, lower, lower)
+instance (Lower a, Lower b, Lower c, Lower d, Lower e, Lower f, Lower g, Lower h, Lower i, Lower j, Lower k, Lower l) => Lower (a, b, c, d, e, f, g, h, i, j, k, l) where lower = (lower, lower, lower, lower, lower, lower, lower, lower, lower, lower, lower, lower)
+instance (Lower a, Lower b, Lower c, Lower d, Lower e, Lower f, Lower g, Lower h, Lower i, Lower j, Lower k, Lower l, Lower m) => Lower (a, b, c, d, e, f, g, h, i, j, k, l, m) where lower = (lower, lower, lower, lower, lower, lower, lower, lower, lower, lower, lower, lower, lower)
+instance (Lower a, Lower b, Lower c, Lower d, Lower e, Lower f, Lower g, Lower h, Lower i, Lower j, Lower k, Lower l, Lower m, Lower n) => Lower (a, b, c, d, e, f, g, h, i, j, k, l, m, n) where lower = (lower, lower, lower, lower, lower, lower, lower, lower, lower, lower, lower, lower, lower, lower)
+instance (Lower a, Lower b, Lower c, Lower d, Lower e, Lower f, Lower g, Lower h, Lower i, Lower j, Lower k, Lower l, Lower m, Lower n, Lower o) => Lower (a, b, c, d, e, f, g, h, i, j, k, l, m, n, o) where lower = (lower, lower, lower, lower, lower, lower, lower, lower, lower, lower, lower, lower, lower, lower, lower)
 
-instance Lower (Maybe a) where bottom = Nothing
-instance Lower [a] where bottom = []
+instance Lower (Maybe a) where lower = Nothing
+instance Lower [a] where lower = []
 
 
 -- Data.Char
@@ -76,27 +76,27 @@ instance Lower Int32
 instance Lower Int64
 
 -- Data.Functor.Const
-instance Lower a => Lower (Const a b) where bottom = Const bottom
+instance Lower a => Lower (Const a b) where lower = Const lower
 
 -- Data.Functor.Identity
-instance Lower a => Lower (Identity a) where bottom = Identity bottom
+instance Lower a => Lower (Identity a) where lower = Identity lower
 
 -- Data.Monoid
 instance Lower All
 instance Lower Any
-instance Lower a => Lower (Product a) where bottom = Product bottom
-instance Lower a => Lower (Sum a) where bottom = Sum bottom
-instance Lower a => Lower (Dual a) where bottom = Dual bottom
+instance Lower a => Lower (Product a) where lower = Product lower
+instance Lower a => Lower (Sum a) where lower = Sum lower
+instance Lower a => Lower (Dual a) where lower = Dual lower
 
 -- Data.Proxy
 instance Lower (Proxy a)
 
 -- Data.Semigroup
-instance Lower a => Lower (Semigroup.First a) where bottom = Semigroup.First bottom
-instance Lower a => Lower (Semigroup.Last a) where bottom = Semigroup.Last bottom
-instance Lower a => Lower (Max a) where bottom = Max bottom
-instance Lower a => Lower (Min a) where bottom = Min bottom
-instance Lower a => Lower (WrappedMonoid a) where bottom = WrapMonoid bottom
+instance Lower a => Lower (Semigroup.First a) where lower = Semigroup.First lower
+instance Lower a => Lower (Semigroup.Last a) where lower = Semigroup.Last lower
+instance Lower a => Lower (Max a) where lower = Max lower
+instance Lower a => Lower (Min a) where lower = Min lower
+instance Lower a => Lower (WrappedMonoid a) where lower = WrapMonoid lower
 
 -- Data.Type.Coercion
 instance Coercible a b => Lower (Coercion a b)
@@ -165,6 +165,6 @@ instance Lower CIno
 instance Lower CDev
 
 -- containers
-instance Lower (IntMap a) where bottom = IntMap.empty
-instance Lower (Map k a) where bottom = Map.empty
-instance Lower (Set a) where bottom = Set.empty
+instance Lower (IntMap a) where lower = IntMap.empty
+instance Lower (Map k a) where lower = Map.empty
+instance Lower (Set a) where lower = Set.empty

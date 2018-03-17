@@ -27,15 +27,15 @@ class Join s where
   --
   --   > a \/ b = b \/ a
   --
-  --   Additionally, if @s@ has a 'Lower' bound, then 'bottom' must be its left- and right-identity:
+  --   Additionally, if @s@ has a 'Lower' bound, then 'lower' must be its left- and right-identity:
   --
-  --   > bottom \/ a = a
-  --   > a \/ bottom = a
+  --   > lower \/ a = a
+  --   > a \/ lower = a
   --
-  --   If @s@ has an 'Upper' bound, then 'top' must be its left- and right-annihilator:
+  --   If @s@ has an 'Upper' bound, then 'upper' must be its left- and right-annihilator:
   --
-  --   > top \/ a = top
-  --   > a \/ top = top
+  --   > upper \/ a = upper
+  --   > a \/ upper = upper
   (\/) :: s -> s -> s
 
   infixr 6 \/
@@ -56,10 +56,10 @@ instance Join () where
 --   prop> \ a b -> a \/ b == b \/ (a :: Bool)
 --
 --   Identity:
---   prop> \ a -> bottom \/ a == (a :: Bool)
+--   prop> \ a -> lower \/ a == (a :: Bool)
 --
 --   Absorption:
---   prop> \ a -> top \/ a == (top :: Bool)
+--   prop> \ a -> upper \/ a == (upper :: Bool)
 instance Join Bool where
   (\/) = (||)
 
@@ -75,10 +75,10 @@ instance Join Bool where
 --   prop> \ a b -> a \/ b == b \/ (a :: Ordering)
 --
 --   Identity:
---   prop> \ a -> bottom \/ a == (a :: Ordering)
+--   prop> \ a -> lower \/ a == (a :: Ordering)
 --
 --   Absorption:
---   prop> \ a -> top \/ a == (top :: Ordering)
+--   prop> \ a -> upper \/ a == (upper :: Ordering)
 instance Join Ordering where
   GT \/ _ = GT
   _ \/ GT = GT
@@ -101,7 +101,7 @@ instance Ord a => Join (Max a) where
 --   prop> \ a b -> a \/ b == b \/ (a :: Set Char)
 --
 --   Identity:
---   prop> \ a -> bottom \/ a == (a :: Set Char)
+--   prop> \ a -> lower \/ a == (a :: Set Char)
 instance Ord a => Join (Set a) where
   (\/) = union
 
@@ -114,7 +114,7 @@ instance Join a => Semigroup (Joining a) where
 
 instance (Lower a, Join a) => Monoid (Joining a) where
   mappend = (<>)
-  mempty = bottom
+  mempty = lower
 
 
 -- | Orderings form a join semilattice.
@@ -129,10 +129,10 @@ instance (Lower a, Join a) => Monoid (Joining a) where
 --   prop> \ a b -> Joined a \/ Joined b == Joined b \/ Joined (a :: Int)
 --
 --   Identity:
---   prop> \ a -> bottom \/ Joined a == Joined (a :: Int)
+--   prop> \ a -> lower \/ Joined a == Joined (a :: Int)
 --
 --   Absorption:
---   prop> \ a -> top \/ Joined a == (top :: Joined Int)
+--   prop> \ a -> upper \/ Joined a == (upper :: Joined Int)
 newtype Joined a = Joined { getJoined :: a }
   deriving (Bounded, Enum, Eq, Foldable, Functor, Lower, Num, Ord, Read, Show, Traversable, Upper)
 
