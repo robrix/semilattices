@@ -228,12 +228,21 @@ instance (Eq a, Hashable a) => Meet (HashSet a) where
   (/\) = HashSet.intersection
 
 
+-- | A 'Semigroup' for any 'Meet' semilattice.
+--
+--   If the semilattice has an 'Upper' bound, there is additionally a 'Monoid' instance.
 newtype Meeting a = Meeting { getMeeting :: a }
   deriving (Bounded, Enum, Eq, Foldable, Functor, Meet, Num, Ord, Read, Show, Traversable, Upper)
 
+-- | 'Meeting' '(<>)' is associative.
+--
+--   prop> \ a b c -> Meeting a <> (Meeting b <> Meeting c) == (Meeting a <> Meeting b) <> Meeting (c :: IntSet)
 instance Meet a => Semigroup (Meeting a) where
   (<>) = (/\)
 
+-- | 'Meeting' 'mempty' is the left- and right-identity.
+--
+--   prop> \ x -> let (l, r) = (mappend mempty (Meeting x), mappend (Meeting x) mempty) in l == Meeting x && r == Meeting (x :: Bool)
 instance (Upper a, Meet a) => Monoid (Meeting a) where
   mappend = (<>)
   mempty = upper
