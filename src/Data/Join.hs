@@ -59,6 +59,9 @@ instance Ord a => Join (Max a) where
 --
 --   Commutativity:
 --   prop> \ a b -> a \/ b == b \/ (a :: Set.Set Char)
+--
+--   Identity:
+--   prop> \ a -> bottom \/ a == (a :: Set.Set Char)
 instance Ord a => Join (Set.Set a) where
   (\/) = Set.union
 
