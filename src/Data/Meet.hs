@@ -1,9 +1,10 @@
 {-# LANGUAGE DeriveTraversable, GeneralizedNewtypeDeriving #-}
 module Data.Meet where
 
+import Data.IntSet as IntSet
 import Data.Lower
 import Data.Semigroup
-import Data.Set
+import Data.Set as Set
 import Data.Upper
 
 -- $setup
@@ -97,6 +98,22 @@ instance Ord a => Meet (Min a) where
 
 -- containers
 
+-- | IntSet intersection forms a semilattice.
+--
+--   Idempotence:
+--   prop> \ x -> x /\ x == (x :: IntSet)
+--
+--   Associativity:
+--   prop> \ a b c -> a /\ (b /\ c) == (a /\ b) /\ (c :: IntSet)
+--
+--   Commutativity:
+--   prop> \ a b -> a /\ b == b /\ (a :: IntSet)
+--
+--   Absorption:
+--   prop> \ a -> lower /\ a == (lower :: IntSet)
+instance Meet IntSet where
+  (/\) = IntSet.intersection
+
 -- | Set intersection forms a semilattice.
 --
 --   Idempotence:
@@ -111,7 +128,7 @@ instance Ord a => Meet (Min a) where
 --   Absorption:
 --   prop> \ a -> lower /\ a == (lower :: Set Char)
 instance Ord a => Meet (Set a) where
-  (/\) = intersection
+  (/\) = Set.intersection
 
 
 newtype Meeting a = Meeting { getMeeting :: a }
