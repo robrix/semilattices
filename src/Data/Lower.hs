@@ -6,6 +6,8 @@ import Data.Coerce
 import Data.Functor.Const
 import Data.Functor.Identity
 import Data.Int
+import Data.HashMap.Lazy as HashMap
+import Data.HashSet as HashSet
 import Data.IntMap as IntMap
 import Data.IntSet as IntSet
 import Data.Map as Map
@@ -170,3 +172,7 @@ instance Lower (IntMap a) where lower = IntMap.empty
 instance Lower IntSet where lower = IntSet.empty
 instance Lower (Map k a) where lower = Map.empty
 instance Lower (Set a) where lower = Set.empty
+
+-- unordered-containers
+instance Lower (HashMap k a) where lower = HashMap.empty
+instance Lower (HashSet a) where lower = HashSet.empty
