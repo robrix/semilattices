@@ -1,7 +1,7 @@
 name:                semilattices
 version:             0.0.0.0
 synopsis:            Semilattices
--- description:
+description:         Join- and meet-semilattices, with optional upper and lower bounds, and a variety of instances for each.
 homepage:            https://github.com/robrix/semilattices
 license:             BSD3
 license-file:        LICENSE
