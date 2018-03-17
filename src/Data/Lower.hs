@@ -1,9 +1,10 @@
-{-# LANGUAGE DefaultSignatures, PolyKinds #-}
+{-# LANGUAGE DefaultSignatures, PolyKinds, TypeFamilies, TypeOperators #-}
 module Data.Lower where
 
 import Data.Proxy
 import Data.Semigroup as Semigroup
 import Data.Set
+import Data.Type.Equality
 
 class Lower s where
   -- | The greatest lower bound of @s@.
@@ -39,5 +40,9 @@ instance Lower (Proxy a)
 -- Data.Semigroup
 instance Lower a => Lower (Max a) where bottom = Max bottom
 
+-- Data.Type.Equality
+instance a ~ b => Lower (a :~: b)
+
+-- containers
 instance Lower (Set a) where
   bottom = empty
