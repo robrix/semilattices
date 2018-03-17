@@ -25,17 +25,16 @@ class Lower s where
   bottom = minBound
 
 
-instance Lower () where
-  bottom = ()
-
-instance Lower Bool where
-  bottom = False
-
-instance Lower Ordering where
-  bottom = LT
-
+-- Prelude
+instance Lower ()
+instance Lower Bool
+instance Lower Ordering
 instance Lower Int
-instance Bounded a => Lower (Max a)
+
+
+
+-- Data.Semigroup
+instance Lower a => Lower (Max a) where bottom = Max bottom
 
 instance Lower (Set a) where
   bottom = empty
