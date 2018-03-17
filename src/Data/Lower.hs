@@ -2,12 +2,14 @@
 module Data.Lower where
 
 import Data.Char
+import Data.Coerce
 import Data.Functor.Const
 import Data.Functor.Identity
 import Data.Int
 import Data.Proxy
 import Data.Semigroup as Semigroup
 import Data.Set
+import Data.Type.Coercion
 import Data.Type.Equality
 
 class Lower s where
@@ -73,6 +75,9 @@ instance Lower (Proxy a)
 
 -- Data.Semigroup
 instance Lower a => Lower (Max a) where bottom = Max bottom
+
+-- Data.Type.Coercion
+instance Coercible a b => Lower (Coercion a b)
 
 -- Data.Type.Equality
 instance a ~ b => Lower (a :~: b)
