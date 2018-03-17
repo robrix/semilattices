@@ -9,10 +9,10 @@ import Data.IntSet as IntSet
 import Data.Map as Map
 import Data.Semigroup
 import Data.Semilattice.Lower
-import Data.Semilattice.Upper
 import Data.Set as Set
 
 -- $setup
+-- >>> import Data.Semilattice.Upper
 -- >>> import Test.QuickCheck
 -- >>> import Test.QuickCheck.Function
 -- >>> import Test.QuickCheck.Instances.UnorderedContainers ()
@@ -246,31 +246,6 @@ instance Join a => Semigroup (Joining a) where
 instance (Lower a, Join a) => Monoid (Joining a) where
   mappend = (<>)
   mempty = lower
-
-
--- | Orderings form a join semilattice.
---
---   Idempotence:
---   prop> \ x -> Joined x \/ Joined x == Joined (x :: Int)
---
---   Associativity:
---   prop> \ a b c -> Joined a \/ (Joined b \/ Joined c) == (Joined a \/ Joined b) \/ (Joined (c :: Int))
---
---   Commutativity:
---   prop> \ a b -> Joined a \/ Joined b == Joined b \/ Joined (a :: Int)
---
---   Identity:
---   prop> \ a -> lower \/ Joined a == Joined (a :: Int)
---
---   Absorption:
---   prop> \ a -> upper \/ Joined a == (upper :: Joined Int)
-newtype Joined a = Joined { getJoined :: a }
-  deriving (Bounded, Enum, Eq, Foldable, Functor, Lower, Num, Ord, Read, Show, Traversable, Upper)
-
-instance Ord a => Join (Joined a) where
-  a \/ b
-    | compare a b == LT = b
-    | otherwise         = a
 
 
 newtype LessThan a = LessThan { getLessThan :: a }

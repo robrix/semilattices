@@ -8,11 +8,11 @@ import Data.IntMap as IntMap
 import Data.IntSet as IntSet
 import Data.Map as Map
 import Data.Semigroup
-import Data.Semilattice.Lower
 import Data.Semilattice.Upper
 import Data.Set as Set
 
 -- $setup
+-- >>> import Data.Semilattice.Lower
 -- >>> import Test.QuickCheck
 -- >>> import Test.QuickCheck.Function
 -- >>> import Test.QuickCheck.Instances.UnorderedContainers ()
@@ -246,31 +246,6 @@ instance Meet a => Semigroup (Meeting a) where
 instance (Upper a, Meet a) => Monoid (Meeting a) where
   mappend = (<>)
   mempty = upper
-
-
--- | Orderings form a meet semilattice.
---
---   Idempotence:
---   prop> \ x -> Met x /\ Met x == Met (x :: Int)
---
---   Associativity:
---   prop> \ a b c -> Met a /\ (Met b /\ Met c) == (Met a /\ Met b) /\ (Met (c :: Int))
---
---   Commutativity:
---   prop> \ a b -> Met a /\ Met b == Met b /\ Met (a :: Int)
---
---   Identity:
---   prop> \ a -> upper /\ Met a == Met (a :: Int)
---
---   Absorption:
---   prop> \ a -> lower /\ Met a == (lower :: Met Int)
-newtype Met a = Met { getMet :: a }
-  deriving (Bounded, Enum, Eq, Foldable, Functor, Lower, Num, Ord, Read, Show, Traversable, Upper)
-
-instance Ord a => Meet (Met a) where
-  a /\ b
-    | compare a b == LT = a
-    | otherwise         = b
 
 
 newtype GreaterThan a = GreaterThan { getGreaterThan :: a }
