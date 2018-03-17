@@ -1,8 +1,10 @@
 {-# LANGUAGE DeriveTraversable, GeneralizedNewtypeDeriving #-}
 module Data.Join where
 
+import Data.IntMap as IntMap
 import Data.IntSet as IntSet
 import Data.Lower
+import Data.Map as Map
 import Data.Semigroup
 import Data.Set as Set
 import Data.Upper
@@ -98,6 +100,22 @@ instance Ord a => Join (Max a) where
 
 -- containers
 
+-- | IntMap union with 'Join'able values forms a semilattice.
+--
+--   Idempotence:
+--   prop> \ x -> x \/ x == (x :: IntMap (Set Char))
+--
+--   Associativity:
+--   prop> \ a b c -> a \/ (b \/ c) == (a \/ b) \/ (c :: IntMap (Set Char))
+--
+--   Commutativity:
+--   prop> \ a b -> a \/ b == b \/ (a :: IntMap (Set Char))
+--
+--   Identity:
+--   prop> \ a -> lower \/ a == (a :: IntMap (Set Char))
+instance Join a => Join (IntMap a) where
+  (\/) = IntMap.unionWith (\/)
+
 -- | IntSet union forms a semilattice.
 --
 --   Idempotence:
@@ -113,6 +131,22 @@ instance Ord a => Join (Max a) where
 --   prop> \ a -> lower \/ a == (a :: IntSet)
 instance Join IntSet where
   (\/) = IntSet.union
+
+-- | Map union with 'Join'able values forms a semilattice.
+--
+--   Idempotence:
+--   prop> \ x -> x \/ x == (x :: Map Char (Set Char))
+--
+--   Associativity:
+--   prop> \ a b c -> a \/ (b \/ c) == (a \/ b) \/ (c :: Map Char (Set Char))
+--
+--   Commutativity:
+--   prop> \ a b -> a \/ b == b \/ (a :: Map Char (Set Char))
+--
+--   Identity:
+--   prop> \ a -> lower \/ a == (a :: Map Char (Set Char))
+instance (Ord k, Join a) => Join (Map k a) where
+  (\/) = Map.unionWith (\/)
 
 -- | Set union forms a semilattice.
 --
