@@ -2,6 +2,7 @@
 module Data.Lower where
 
 import Data.Char
+import Data.Int
 import Data.Proxy
 import Data.Semigroup as Semigroup
 import Data.Set
@@ -52,6 +53,12 @@ instance (Lower a, Lower b, Lower c, Lower d, Lower e, Lower f, Lower g, Lower h
 
 -- Data.Char
 instance Lower GeneralCategory
+
+-- Data.Int
+instance Lower Int8
+instance Lower Int16
+instance Lower Int32
+instance Lower Int64
 
 -- Data.Proxy
 instance Lower (Proxy a)
