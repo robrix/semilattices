@@ -31,6 +31,7 @@ class Lower s where
 instance Lower ()
 instance Lower Bool
 instance Lower Ordering
+instance Lower Char
 instance Lower Int
 instance (Lower a, Lower b) => Lower (a, b) where bottom = (bottom, bottom)
 instance (Lower a, Lower b, Lower c) => Lower (a, b, c) where bottom = (bottom, bottom, bottom)
