@@ -1,9 +1,10 @@
 {-# LANGUAGE DeriveTraversable, GeneralizedNewtypeDeriving #-}
 module Data.Join where
 
+import Data.IntSet as IntSet
 import Data.Lower
 import Data.Semigroup
-import Data.Set
+import Data.Set as Set
 import Data.Upper
 
 -- $setup
@@ -97,6 +98,22 @@ instance Ord a => Join (Max a) where
 
 -- containers
 
+-- | IntSet union forms a semilattice.
+--
+--   Idempotence:
+--   prop> \ x -> x \/ x == (x :: IntSet)
+--
+--   Associativity:
+--   prop> \ a b c -> a \/ (b \/ c) == (a \/ b) \/ (c :: IntSet)
+--
+--   Commutativity:
+--   prop> \ a b -> a \/ b == b \/ (a :: IntSet)
+--
+--   Identity:
+--   prop> \ a -> lower \/ a == (a :: IntSet)
+instance Join IntSet where
+  (\/) = IntSet.union
+
 -- | Set union forms a semilattice.
 --
 --   Idempotence:
@@ -111,7 +128,7 @@ instance Ord a => Join (Max a) where
 --   Identity:
 --   prop> \ a -> lower \/ a == (a :: Set Char)
 instance Ord a => Join (Set a) where
-  (\/) = union
+  (\/) = Set.union
 
 
 newtype Joining a = Joining { getJoining :: a }
