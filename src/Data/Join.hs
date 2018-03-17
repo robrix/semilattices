@@ -6,6 +6,7 @@ import Data.Semigroup
 import qualified Data.Set as Set
 
 -- $setup
+-- >>> import Data.Upper
 -- >>> import Test.QuickCheck
 
 -- | A join semilattice is an idempotent commutative semigroup.
@@ -56,6 +57,9 @@ instance Join () where
 --
 --   Identity:
 --   prop> \ a -> bottom \/ a == (a :: Bool)
+--
+--   Absorption:
+--   prop> \ a -> top \/ a == (top :: Bool)
 instance Join Bool where
   (\/) = (||)
 
