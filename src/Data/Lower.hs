@@ -1,3 +1,4 @@
+{-# LANGUAGE DefaultSignatures #-}
 module Data.Lower where
 
 import Data.Semigroup
@@ -20,6 +21,8 @@ class Lower s where
   --
   --   > compare bottom a /= GT
   bottom :: s
+  default bottom :: Bounded s => s
+  bottom = minBound
 
 
 instance Lower () where
@@ -31,11 +34,8 @@ instance Lower Bool where
 instance Lower Ordering where
   bottom = LT
 
-instance Lower Int where
-  bottom = minBound
-
-instance Bounded a => Lower (Max a) where
-  bottom = minBound
+instance Lower Int
+instance Bounded a => Lower (Max a)
 
 instance Lower (Set a) where
   bottom = empty

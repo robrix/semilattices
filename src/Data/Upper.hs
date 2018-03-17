@@ -1,3 +1,4 @@
+{-# LANGUAGE DefaultSignatures #-}
 module Data.Upper where
 
 import Data.Semigroup
@@ -19,6 +20,8 @@ class Upper s where
   --
   --   > compare top a /= LT
   top :: s
+  default top :: Bounded s => s
+  top = maxBound
 
 
 instance Upper () where
@@ -30,8 +33,5 @@ instance Upper Bool where
 instance Upper Ordering where
   top = GT
 
-instance Upper Int where
-  top = maxBound
-
-instance Bounded a => Upper (Min a) where
-  top = maxBound
+instance Upper Int
+instance Bounded a => Upper (Min a)
