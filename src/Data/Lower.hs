@@ -1,6 +1,7 @@
 {-# LANGUAGE DefaultSignatures, PolyKinds, TypeFamilies, TypeOperators #-}
 module Data.Lower where
 
+import Data.Char
 import Data.Proxy
 import Data.Semigroup as Semigroup
 import Data.Set
@@ -48,6 +49,9 @@ instance (Lower a, Lower b, Lower c, Lower d, Lower e, Lower f, Lower g, Lower h
 instance (Lower a, Lower b, Lower c, Lower d, Lower e, Lower f, Lower g, Lower h, Lower i, Lower j, Lower k, Lower l, Lower m, Lower n) => Lower (a, b, c, d, e, f, g, h, i, j, k, l, m, n) where bottom = (bottom, bottom, bottom, bottom, bottom, bottom, bottom, bottom, bottom, bottom, bottom, bottom, bottom, bottom)
 instance (Lower a, Lower b, Lower c, Lower d, Lower e, Lower f, Lower g, Lower h, Lower i, Lower j, Lower k, Lower l, Lower m, Lower n, Lower o) => Lower (a, b, c, d, e, f, g, h, i, j, k, l, m, n, o) where bottom = (bottom, bottom, bottom, bottom, bottom, bottom, bottom, bottom, bottom, bottom, bottom, bottom, bottom, bottom, bottom)
 
+
+-- Data.Char
+instance Lower GeneralCategory
 
 -- Data.Proxy
 instance Lower (Proxy a)
