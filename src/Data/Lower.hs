@@ -13,6 +13,7 @@ import Data.Set
 import Data.Type.Coercion
 import Data.Type.Equality
 import Data.Word
+import Foreign.C.Types
 
 class Lower s where
   -- | The greatest lower bound of @s@.
@@ -101,6 +102,28 @@ instance Lower Word8
 instance Lower Word16
 instance Lower Word32
 instance Lower Word64
+
+-- Foreign.C.Types
+instance Lower CUIntMax
+instance Lower CIntMax
+instance Lower CUIntPtr
+instance Lower CIntPtr
+instance Lower CSigAtomic
+instance Lower CWchar
+instance Lower CSize
+instance Lower CPtrdiff
+instance Lower CBool
+instance Lower CULLong
+instance Lower CLLong
+instance Lower CULong
+instance Lower CLong
+instance Lower CUInt
+instance Lower CInt
+instance Lower CUShort
+instance Lower CShort
+instance Lower CUChar
+instance Lower CSChar
+instance Lower CChar
 
 -- containers
 instance Lower (Set a) where
