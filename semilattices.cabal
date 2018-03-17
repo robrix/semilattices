@@ -36,3 +36,7 @@ test-suite doctests
                      , doctest
                      , QuickCheck
                      , quickcheck-instances
+
+source-repository head
+  type:     git
+  location: https://github.com/robrix/semilattices
