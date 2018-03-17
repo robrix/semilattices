@@ -92,3 +92,15 @@ instance Join a => Semigroup (Joining a) where
 instance (Lower a, Join a) => Monoid (Joining a) where
   mappend = (<>)
   mempty = bottom
+
+
+newtype LessThan a = LessThan { getLessThan :: a }
+  deriving (Enum, Eq, Foldable, Functor, Join, Num, Read, Show, Traversable)
+
+instance (Eq a, Join a) => Ord (LessThan a) where
+  compare a b
+    | a == b      = EQ
+    | a \/ b == b = LT
+    | otherwise   = GT
+
+  a <= b = a \/ b == b
