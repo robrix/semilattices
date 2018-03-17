@@ -73,6 +73,19 @@ instance Ord a => Meet (Set.Set a) where
 newtype Meeting a = Meeting { getMeeting :: a }
   deriving (Enum, Eq, Foldable, Functor, Meet, Num, Ord, Read, Show, Traversable, Upper)
 
+-- | Set intersection forms a semilattice.
+--
+--   Idempotence:
+--   prop> \ x -> x /\ x == (x :: Set.Set Char)
+--
+--   Associativity:
+--   prop> \ a b c -> a /\ (b /\ c) == (a /\ b) /\ (c :: Set.Set Char)
+--
+--   Commutativity:
+--   prop> \ a b -> a /\ b == b /\ (a :: Set.Set Char)
+--
+--   Absorption:
+--   prop> \ a -> bottom /\ a == (bottom :: Set.Set Char)
 instance Meet a => Semigroup (Meeting a) where
   (<>) = (/\)
 
