@@ -41,6 +41,8 @@ class Join s where
   infixr 6 \/
 
 
+-- Prelude
+
 instance Join () where
   _ \/ _ = ()
 
@@ -86,8 +88,14 @@ instance Join Ordering where
   a \/ LT = a
   _ \/ _ = EQ
 
+
+-- Data.Semigroup
+
 instance Ord a => Join (Max a) where
   (\/) = (<>)
+
+
+-- containers
 
 -- | Set union forms a semilattice.
 --

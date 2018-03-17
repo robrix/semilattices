@@ -41,6 +41,8 @@ class Meet s where
   infixr 7 /\
 
 
+-- Prelude
+
 instance Meet () where
   _ /\ _ = ()
 
@@ -86,8 +88,14 @@ instance Meet Ordering where
   a /\ GT = a
   _ /\ _ = EQ
 
+
+-- Data.Semigroup
+
 instance Ord a => Meet (Min a) where
   (/\) = (<>)
+
+
+-- containers
 
 -- | Set intersection forms a semilattice.
 --
