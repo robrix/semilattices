@@ -12,6 +12,7 @@ import Data.Semigroup as Semigroup
 import Data.Set
 import Data.Type.Coercion
 import Data.Type.Equality
+import Data.Word
 
 class Lower s where
   -- | The greatest lower bound of @s@.
@@ -94,6 +95,12 @@ instance Coercible a b => Lower (Coercion a b)
 -- Data.Type.Equality
 instance a ~ b => Lower (a :~: b)
 instance a ~~ b => Lower (a :~~: b)
+
+-- Data.Word
+instance Lower Word8
+instance Lower Word16
+instance Lower Word32
+instance Lower Word64
 
 -- containers
 instance Lower (Set a) where
