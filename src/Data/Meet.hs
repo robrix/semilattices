@@ -1,8 +1,10 @@
 {-# LANGUAGE DeriveTraversable, GeneralizedNewtypeDeriving #-}
 module Data.Meet where
 
+import Data.IntMap as IntMap
 import Data.IntSet as IntSet
 import Data.Lower
+import Data.Map as Map
 import Data.Semigroup
 import Data.Set as Set
 import Data.Upper
@@ -98,6 +100,22 @@ instance Ord a => Meet (Min a) where
 
 -- containers
 
+-- | IntMap union with 'Meet'able values forms a semilattice.
+--
+--   Idempotence:
+--   prop> \ x -> x /\ x == (x :: IntMap (Set Char))
+--
+--   Associativity:
+--   prop> \ a b c -> a /\ (b /\ c) == (a /\ b) /\ (c :: IntMap (Set Char))
+--
+--   Commutativity:
+--   prop> \ a b -> a /\ b == b /\ (a :: IntMap (Set Char))
+--
+--   Absorption:
+--   prop> \ a -> lower /\ a == (lower :: IntMap (Set Char))
+instance Meet a => Meet (IntMap a) where
+  (/\) = IntMap.intersectionWith (/\)
+
 -- | IntSet intersection forms a semilattice.
 --
 --   Idempotence:
@@ -113,6 +131,22 @@ instance Ord a => Meet (Min a) where
 --   prop> \ a -> lower /\ a == (lower :: IntSet)
 instance Meet IntSet where
   (/\) = IntSet.intersection
+
+-- | Map union with 'Meet'able values forms a semilattice.
+--
+--   Idempotence:
+--   prop> \ x -> x /\ x == (x :: Map Char (Set Char))
+--
+--   Associativity:
+--   prop> \ a b c -> a /\ (b /\ c) == (a /\ b) /\ (c :: Map Char (Set Char))
+--
+--   Commutativity:
+--   prop> \ a b -> a /\ b == b /\ (a :: Map Char (Set Char))
+--
+--   Absorption:
+--   prop> \ a -> lower /\ a == (lower :: Map Char (Set Char))
+instance (Ord k, Meet a) => Meet (Map k a) where
+  (/\) = Map.intersectionWith (/\)
 
 -- | Set intersection forms a semilattice.
 --
