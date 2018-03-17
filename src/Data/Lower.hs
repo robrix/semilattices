@@ -62,6 +62,9 @@ instance (Lower a, Lower b, Lower c, Lower d, Lower e, Lower f, Lower g, Lower h
 instance (Lower a, Lower b, Lower c, Lower d, Lower e, Lower f, Lower g, Lower h, Lower i, Lower j, Lower k, Lower l, Lower m, Lower n) => Lower (a, b, c, d, e, f, g, h, i, j, k, l, m, n) where bottom = (bottom, bottom, bottom, bottom, bottom, bottom, bottom, bottom, bottom, bottom, bottom, bottom, bottom, bottom)
 instance (Lower a, Lower b, Lower c, Lower d, Lower e, Lower f, Lower g, Lower h, Lower i, Lower j, Lower k, Lower l, Lower m, Lower n, Lower o) => Lower (a, b, c, d, e, f, g, h, i, j, k, l, m, n, o) where bottom = (bottom, bottom, bottom, bottom, bottom, bottom, bottom, bottom, bottom, bottom, bottom, bottom, bottom, bottom, bottom)
 
+instance Lower (Maybe a) where bottom = Nothing
+instance Lower [a] where bottom = []
+
 
 -- Data.Char
 instance Lower GeneralCategory
