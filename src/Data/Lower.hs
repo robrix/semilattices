@@ -74,7 +74,11 @@ instance Lower a => Lower (Identity a) where bottom = Identity bottom
 instance Lower (Proxy a)
 
 -- Data.Semigroup
+instance Lower a => Lower (Semigroup.First a) where bottom = Semigroup.First bottom
+instance Lower a => Lower (Semigroup.Last a) where bottom = Semigroup.Last bottom
 instance Lower a => Lower (Max a) where bottom = Max bottom
+instance Lower a => Lower (Min a) where bottom = Min bottom
+instance Lower a => Lower (WrappedMonoid a) where bottom = WrapMonoid bottom
 
 -- Data.Type.Coercion
 instance Coercible a b => Lower (Coercion a b)
