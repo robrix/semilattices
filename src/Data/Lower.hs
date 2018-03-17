@@ -1,7 +1,8 @@
-{-# LANGUAGE DefaultSignatures #-}
+{-# LANGUAGE DefaultSignatures, PolyKinds #-}
 module Data.Lower where
 
-import Data.Semigroup
+import Data.Proxy
+import Data.Semigroup as Semigroup
 import Data.Set
 
 class Lower s where
@@ -32,6 +33,8 @@ instance Lower Ordering
 instance Lower Int
 
 
+-- Data.Proxy
+instance Lower (Proxy a)
 
 -- Data.Semigroup
 instance Lower a => Lower (Max a) where bottom = Max bottom
