@@ -63,6 +63,13 @@ instance Join () where
 instance Join Bool where
   (\/) = (||)
 
+instance Join Ordering where
+  GT \/ _ = GT
+  _ \/ GT = GT
+  LT \/ b = b
+  a \/ LT = a
+  _ \/ _ = EQ
+
 instance Ord a => Join (Max a) where
   (\/) = (<>)
 
