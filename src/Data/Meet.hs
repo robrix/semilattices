@@ -1,6 +1,9 @@
 {-# LANGUAGE DeriveTraversable, GeneralizedNewtypeDeriving #-}
 module Data.Meet where
 
+import Data.Hashable
+import Data.HashMap.Lazy as HashMap
+import Data.HashSet as HashSet
 import Data.IntMap as IntMap
 import Data.IntSet as IntSet
 import Data.Lower
@@ -11,6 +14,7 @@ import Data.Upper
 
 -- $setup
 -- >>> import Test.QuickCheck
+-- >>> import Test.QuickCheck.Instances.UnorderedContainers ()
 
 -- | A meet semilattice is an idempotent commutative semigroup.
 class Meet s where
@@ -163,6 +167,41 @@ instance (Ord k, Meet a) => Meet (Map k a) where
 --   prop> \ a -> lower /\ a == (lower :: Set Char)
 instance Ord a => Meet (Set a) where
   (/\) = Set.intersection
+
+
+-- unordered-containers
+
+-- | HashMap union with 'Meet'able values forms a semilattice.
+--
+--   Idempotence:
+--   prop> \ x -> x /\ x == (x :: HashMap Char (Set Char))
+--
+--   Associativity:
+--   prop> \ a b c -> a /\ (b /\ c) == (a /\ b) /\ (c :: HashMap Char (Set Char))
+--
+--   Commutativity:
+--   prop> \ a b -> a /\ b == b /\ (a :: HashMap Char (Set Char))
+--
+--   Absorption:
+--   prop> \ a -> lower /\ a == (lower :: HashMap Char (Set Char))
+instance (Eq k, Hashable k, Meet a) => Meet (HashMap k a) where
+  (/\) = HashMap.intersectionWith (/\)
+
+-- | HashSet intersection forms a semilattice.
+--
+--   Idempotence:
+--   prop> \ x -> x /\ x == (x :: HashSet Char)
+--
+--   Associativity:
+--   prop> \ a b c -> a /\ (b /\ c) == (a /\ b) /\ (c :: HashSet Char)
+--
+--   Commutativity:
+--   prop> \ a b -> a /\ b == b /\ (a :: HashSet Char)
+--
+--   Absorption:
+--   prop> \ a -> lower /\ a == (lower :: HashSet Char)
+instance (Eq a, Hashable a) => Meet (HashSet a) where
+  (/\) = HashSet.intersection
 
 
 newtype Meeting a = Meeting { getMeeting :: a }
