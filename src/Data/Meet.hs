@@ -18,7 +18,7 @@ import Data.Upper
 -- >>> import Test.QuickCheck.Instances.UnorderedContainers ()
 -- >>> :{
 -- let infix 4 ~=
---     f ~= g = \ x -> f x == g x
+--     f ~= g = (==) <$> f <*> g
 -- :}
 
 -- | A meet semilattice is an idempotent commutative semigroup.
