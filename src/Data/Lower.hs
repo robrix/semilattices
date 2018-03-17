@@ -6,10 +6,12 @@ import Data.Coerce
 import Data.Functor.Const
 import Data.Functor.Identity
 import Data.Int
+import Data.IntMap as IntMap
+import Data.Map as Map
 import Data.Monoid as Monoid
 import Data.Proxy
 import Data.Semigroup as Semigroup
-import Data.Set
+import Data.Set as Set
 import Data.Type.Coercion
 import Data.Type.Equality
 import Data.Word
@@ -160,5 +162,6 @@ instance Lower CIno
 instance Lower CDev
 
 -- containers
-instance Lower (Set a) where
-  bottom = empty
+instance Lower (IntMap a) where bottom = IntMap.empty
+instance Lower (Map k a) where bottom = Map.empty
+instance Lower (Set a) where bottom = Set.empty
