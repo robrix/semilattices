@@ -235,8 +235,8 @@ newtype Joined a = Joined { getJoined :: a }
 
 instance Ord a => Join (Joined a) where
   a \/ b
-    | a <= b    = b
-    | otherwise = a
+    | compare a b == LT = b
+    | otherwise         = a
 
 
 newtype LessThan a = LessThan { getLessThan :: a }

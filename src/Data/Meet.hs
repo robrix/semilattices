@@ -236,8 +236,8 @@ newtype Met a = Met { getMet :: a }
 
 instance Ord a => Meet (Met a) where
   a /\ b
-    | a <= b    = a
-    | otherwise = b
+    | compare a b == LT = a
+    | otherwise         = b
 
 
 newtype GreaterThan a = GreaterThan { getGreaterThan :: a }
