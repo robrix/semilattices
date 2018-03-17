@@ -2,6 +2,8 @@
 module Data.Lower where
 
 import Data.Char
+import Data.Functor.Const
+import Data.Functor.Identity
 import Data.Int
 import Data.Proxy
 import Data.Semigroup as Semigroup
@@ -59,6 +61,12 @@ instance Lower Int8
 instance Lower Int16
 instance Lower Int32
 instance Lower Int64
+
+-- Data.Functor.Const
+instance Lower a => Lower (Const a b) where bottom = Const bottom
+
+-- Data.Functor.Identity
+instance Lower a => Lower (Identity a) where bottom = Identity bottom
 
 -- Data.Proxy
 instance Lower (Proxy a)
