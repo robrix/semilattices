@@ -93,6 +93,7 @@ instance Coercible a b => Lower (Coercion a b)
 
 -- Data.Type.Equality
 instance a ~ b => Lower (a :~: b)
+instance a ~~ b => Lower (a :~~: b)
 
 -- containers
 instance Lower (Set a) where
