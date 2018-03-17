@@ -3,7 +3,7 @@ module Data.Join where
 
 import Data.Lower
 import Data.Semigroup
-import qualified Data.Set as Set
+import Data.Set
 
 -- $setup
 -- >>> import Data.Upper
@@ -69,18 +69,18 @@ instance Ord a => Join (Max a) where
 -- | Set union forms a semilattice.
 --
 --   Idempotence:
---   prop> \ x -> x \/ x == (x :: Set.Set Char)
+--   prop> \ x -> x \/ x == (x :: Set Char)
 --
 --   Associativity:
---   prop> \ a b c -> a \/ (b \/ c) == (a \/ b) \/ (c :: Set.Set Char)
+--   prop> \ a b c -> a \/ (b \/ c) == (a \/ b) \/ (c :: Set Char)
 --
 --   Commutativity:
---   prop> \ a b -> a \/ b == b \/ (a :: Set.Set Char)
+--   prop> \ a b -> a \/ b == b \/ (a :: Set Char)
 --
 --   Identity:
---   prop> \ a -> bottom \/ a == (a :: Set.Set Char)
-instance Ord a => Join (Set.Set a) where
-  (\/) = Set.union
+--   prop> \ a -> bottom \/ a == (a :: Set Char)
+instance Ord a => Join (Set a) where
+  (\/) = union
 
 
 newtype Joining a = Joining { getJoining :: a }

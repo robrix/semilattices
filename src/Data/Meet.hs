@@ -2,7 +2,7 @@
 module Data.Meet where
 
 import Data.Semigroup
-import qualified Data.Set as Set
+import Data.Set
 import Data.Upper
 
 -- $setup
@@ -66,8 +66,8 @@ instance Meet Bool where
 instance Ord a => Meet (Min a) where
   (/\) = (<>)
 
-instance Ord a => Meet (Set.Set a) where
-  (/\) = Set.intersection
+instance Ord a => Meet (Set a) where
+  (/\) = intersection
 
 
 newtype Meeting a = Meeting { getMeeting :: a }
@@ -76,16 +76,16 @@ newtype Meeting a = Meeting { getMeeting :: a }
 -- | Set intersection forms a semilattice.
 --
 --   Idempotence:
---   prop> \ x -> x /\ x == (x :: Set.Set Char)
+--   prop> \ x -> x /\ x == (x :: Set Char)
 --
 --   Associativity:
---   prop> \ a b c -> a /\ (b /\ c) == (a /\ b) /\ (c :: Set.Set Char)
+--   prop> \ a b c -> a /\ (b /\ c) == (a /\ b) /\ (c :: Set Char)
 --
 --   Commutativity:
---   prop> \ a b -> a /\ b == b /\ (a :: Set.Set Char)
+--   prop> \ a b -> a /\ b == b /\ (a :: Set Char)
 --
 --   Absorption:
---   prop> \ a -> bottom /\ a == (bottom :: Set.Set Char)
+--   prop> \ a -> bottom /\ a == (bottom :: Set Char)
 instance Meet a => Semigroup (Meeting a) where
   (<>) = (/\)
 

@@ -1,7 +1,7 @@
 module Data.Lower where
 
 import Data.Semigroup
-import qualified Data.Set as Set
+import Data.Set
 
 class Lower s where
   -- | The greatest lower bound of @s@.
@@ -31,5 +31,5 @@ instance Lower Bool where
 instance Bounded a => Lower (Max a) where
   bottom = minBound
 
-instance Lower (Set.Set a) where
-  bottom = Set.empty
+instance Lower (Set a) where
+  bottom = empty
