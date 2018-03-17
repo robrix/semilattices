@@ -66,13 +66,6 @@ instance Meet Bool where
 instance Ord a => Meet (Min a) where
   (/\) = (<>)
 
-instance Ord a => Meet (Set a) where
-  (/\) = intersection
-
-
-newtype Meeting a = Meeting { getMeeting :: a }
-  deriving (Enum, Eq, Foldable, Functor, Meet, Num, Ord, Read, Show, Traversable, Upper)
-
 -- | Set intersection forms a semilattice.
 --
 --   Idempotence:
@@ -86,6 +79,13 @@ newtype Meeting a = Meeting { getMeeting :: a }
 --
 --   Absorption:
 --   prop> \ a -> bottom /\ a == (bottom :: Set Char)
+instance Ord a => Meet (Set a) where
+  (/\) = intersection
+
+
+newtype Meeting a = Meeting { getMeeting :: a }
+  deriving (Enum, Eq, Foldable, Functor, Meet, Num, Ord, Read, Show, Traversable, Upper)
+
 instance Meet a => Semigroup (Meeting a) where
   (<>) = (/\)
 
