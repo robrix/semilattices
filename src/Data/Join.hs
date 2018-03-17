@@ -5,6 +5,9 @@ import Data.Lower
 import Data.Semigroup
 import qualified Data.Set as Set
 
+-- $setup
+-- >>> import Test.QuickCheck
+
 -- | A join semilattice is an idempotent commutative semigroup.
 class Join s where
   -- | The join operation.
@@ -46,6 +49,10 @@ instance Join Bool where
 instance Ord a => Join (Max a) where
   (\/) = (<>)
 
+-- | Set union forms a semilattice.
+--
+--   Idempotence:
+--   prop> \ x -> x \/ x == (x :: Set.Set Char)
 instance Ord a => Join (Set.Set a) where
   (\/) = Set.union
 
