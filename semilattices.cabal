@@ -17,6 +17,7 @@ library
                      , Data.Semilattice.Join
                      , Data.Semilattice.Lower
                      , Data.Semilattice.Meet
+                     , Data.Semilattice.Order
                      , Data.Semilattice.Tumble
                      , Data.Semilattice.Upper
   build-depends:       base >=4.10 && <4.11
