@@ -14,6 +14,7 @@ import Data.Type.Coercion
 import Data.Type.Equality
 import Data.Word
 import Foreign.C.Types
+import Foreign.Ptr
 
 class Lower s where
   -- | The greatest lower bound of @s@.
@@ -124,6 +125,10 @@ instance Lower CShort
 instance Lower CUChar
 instance Lower CSChar
 instance Lower CChar
+
+-- Foreign.Ptr
+instance Lower IntPtr
+instance Lower WordPtr
 
 -- containers
 instance Lower (Set a) where
