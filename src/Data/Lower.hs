@@ -16,6 +16,7 @@ import Data.Word
 import Foreign.C.Types
 import Foreign.Ptr
 import GHC.Generics
+import System.Posix.Types
 
 class Lower s where
   -- | The greatest lower bound of @s@.
@@ -136,6 +137,27 @@ instance Lower DecidedStrictness
 instance Lower SourceStrictness
 instance Lower SourceUnpackedness
 instance Lower Associativity
+
+-- System.Posix.Types
+instance Lower Fd
+instance Lower CKey
+instance Lower CId
+instance Lower CFsFilCnt
+instance Lower CFsBlkCnt
+instance Lower CClockId
+instance Lower CBlkCnt
+instance Lower CBlkSize
+instance Lower CRLim
+instance Lower CTcflag
+instance Lower CUid
+instance Lower CNlink
+instance Lower CGid
+instance Lower CSsize
+instance Lower CPid
+instance Lower COff
+instance Lower CMode
+instance Lower CIno
+instance Lower CDev
 
 -- containers
 instance Lower (Set a) where
