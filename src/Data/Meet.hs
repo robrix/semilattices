@@ -63,6 +63,13 @@ instance Meet () where
 instance Meet Bool where
   (/\) = (&&)
 
+instance Meet Ordering where
+  LT /\ _ = LT
+  _ /\ LT = LT
+  GT /\ b = b
+  a /\ GT = a
+  _ /\ _ = EQ
+
 instance Ord a => Meet (Min a) where
   (/\) = (<>)
 
