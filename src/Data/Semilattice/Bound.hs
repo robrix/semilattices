@@ -1,8 +1,8 @@
 {-# LANGUAGE DeriveTraversable, GeneralizedNewtypeDeriving #-}
-module Data.Bound where
+module Data.Semilattice.Bound where
 
-import Data.Lower
-import Data.Upper
+import Data.Semilattice.Lower
+import Data.Semilattice.Upper
 
 newtype Bound a = Bound { getBound :: a }
   deriving (Bounded, Enum, Eq, Foldable, Functor, Num, Ord, Read, Show, Traversable)

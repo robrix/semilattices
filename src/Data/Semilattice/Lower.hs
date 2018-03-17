@@ -1,5 +1,5 @@
 {-# LANGUAGE DefaultSignatures, PolyKinds, TypeFamilies, TypeOperators #-}
-module Data.Lower where
+module Data.Semilattice.Lower where
 
 import Data.Char
 import Data.Coerce

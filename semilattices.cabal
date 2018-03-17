@@ -13,12 +13,12 @@ build-type:          Simple
 cabal-version:       >=1.10
 
 library
-  exposed-modules:     Data.Bound
-                     , Data.Join
-                     , Data.Lower
-                     , Data.Meet
-                     , Data.Tumble
-                     , Data.Upper
+  exposed-modules:     Data.Semilattice.Bound
+                     , Data.Semilattice.Join
+                     , Data.Semilattice.Lower
+                     , Data.Semilattice.Meet
+                     , Data.Semilattice.Tumble
+                     , Data.Semilattice.Upper
   build-depends:       base >=4.10 && <4.11
                      , containers
                      , hashable

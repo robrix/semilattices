@@ -1,10 +1,10 @@
 {-# LANGUAGE DeriveTraversable, GeneralizedNewtypeDeriving #-}
-module Data.Tumble where
+module Data.Semilattice.Tumble where
 
-import Data.Join
-import Data.Lower
-import Data.Meet
-import Data.Upper
+import Data.Semilattice.Join
+import Data.Semilattice.Lower
+import Data.Semilattice.Meet
+import Data.Semilattice.Upper
 
 newtype Tumble a = Tumble { getTumble :: a }
   deriving (Enum, Eq, Foldable, Functor, Num, Ord, Read, Show, Traversable)

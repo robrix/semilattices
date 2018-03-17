@@ -1,16 +1,16 @@
 {-# LANGUAGE DeriveTraversable, GeneralizedNewtypeDeriving #-}
-module Data.Join where
+module Data.Semilattice.Join where
 
 import Data.Hashable
 import Data.HashMap.Lazy as HashMap
 import Data.HashSet as HashSet
 import Data.IntMap as IntMap
 import Data.IntSet as IntSet
-import Data.Lower
 import Data.Map as Map
 import Data.Semigroup
+import Data.Semilattice.Lower
+import Data.Semilattice.Upper
 import Data.Set as Set
-import Data.Upper
 
 -- $setup
 -- >>> import Test.QuickCheck
