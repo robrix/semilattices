@@ -6,6 +6,7 @@ import Data.Coerce
 import Data.Functor.Const
 import Data.Functor.Identity
 import Data.Int
+import Data.Monoid as Monoid
 import Data.Proxy
 import Data.Semigroup as Semigroup
 import Data.Set
@@ -69,6 +70,13 @@ instance Lower a => Lower (Const a b) where bottom = Const bottom
 
 -- Data.Functor.Identity
 instance Lower a => Lower (Identity a) where bottom = Identity bottom
+
+-- Data.Monoid
+instance Lower All
+instance Lower Any
+instance Lower a => Lower (Product a) where bottom = Product bottom
+instance Lower a => Lower (Sum a) where bottom = Sum bottom
+instance Lower a => Lower (Dual a) where bottom = Dual bottom
 
 -- Data.Proxy
 instance Lower (Proxy a)
