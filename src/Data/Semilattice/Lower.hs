@@ -106,8 +106,8 @@ instance Lower a => Lower (WrappedMonoid a) where lower = WrapMonoid lower
 instance Coercible a b => Lower (Coercion a b)
 
 -- Data.Type.Equality
-instance a ~ b => Lower (a :~: b)
-instance a ~~ b => Lower (a :~~: b)
+instance (a ~ b) => Lower (a :~: b)
+instance (a ~~ b) => Lower (a :~~: b)
 
 -- Data.Word
 instance Lower Word8

@@ -97,8 +97,8 @@ instance Upper a => Upper (WrappedMonoid a) where upper = WrapMonoid upper
 instance Coercible a b => Upper (Coercion a b)
 
 -- Data.Type.Equality
-instance a ~ b => Upper (a :~: b)
-instance a ~~ b => Upper (a :~~: b)
+instance (a ~ b) => Upper (a :~: b)
+instance (a ~~ b) => Upper (a :~~: b)
 
 -- Data.Word
 instance Upper Word8
