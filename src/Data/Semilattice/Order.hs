@@ -19,7 +19,7 @@ newtype Order a = Order { getOrder :: a }
 --   prop> \ x -> Order x \/ Order x == Order x
 --
 --   Associativity:
---   prop> \ a b c -> Order a \/ (Order b \/ Order c) == (Order a \/ Order b) \/ (Order c)
+--   prop> \ a b c -> Order a \/ (Order b \/ Order c) == (Order a \/ Order b) \/ Order c
 --
 --   Commutativity:
 --   prop> \ a b -> Order a \/ Order b == Order b \/ Order a
@@ -43,7 +43,7 @@ instance Ord a => Join (Order a) where
 --   prop> \ x -> Order x /\ Order x == Order x
 --
 --   Associativity:
---   prop> \ a b c -> Order a /\ (Order b /\ Order c) == (Order a /\ Order b) /\ (Order c)
+--   prop> \ a b c -> Order a /\ (Order b /\ Order c) == (Order a /\ Order b) /\ Order c
 --
 --   Commutativity:
 --   prop> \ a b -> Order a /\ Order b == Order b /\ Order a
