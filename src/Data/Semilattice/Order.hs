@@ -34,8 +34,8 @@ newtype Order a = Order { getOrder :: a }
 --   prop> \ a b c -> Order a \/ Order b /\ Order c == (Order a \/ Order b) /\ (Order a \/ Order c)
 instance Ord a => Join (Order a) where
   a \/ b
-    | compare a b == LT = b
-    | otherwise         = a
+    | a <= b    = b
+    | otherwise = a
 
 -- | Total 'Ord'erings give rise to a meet semilattice satisfying:
 --
@@ -58,5 +58,5 @@ instance Ord a => Join (Order a) where
 --   prop> \ a b c -> Order a /\ (Order b \/ Order c) == Order a /\ Order b \/ Order a /\ Order c
 instance Ord a => Meet (Order a) where
   a /\ b
-    | compare a b == LT = a
-    | otherwise         = b
+    | a <= b    = a
+    | otherwise = b
