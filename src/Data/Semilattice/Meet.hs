@@ -16,6 +16,7 @@ import Data.Set as Set
 -- >>> import Test.QuickCheck
 -- >>> import Test.QuickCheck.Function
 -- >>> import Test.QuickCheck.Instances.UnorderedContainers ()
+-- >>> instance Arbitrary a => Arbitrary (Min a) where arbitrary = Min <$> arbitrary
 -- >>> :{
 -- infix 4 ~=
 -- f ~= g = (==) <$> f <*> g
@@ -122,6 +123,22 @@ instance Meet b => Meet (a -> b) where
 
 -- Data.Semigroup
 
+-- | The greatest lower bound gives rise to a meet semilattice.
+--
+--   Idempotence:
+--   prop> \ x -> x /\ x == (x :: Min Int)
+--
+--   Associativity:
+--   prop> \ a b c -> a /\ (b /\ c) == (a /\ b) /\ (c :: Min Int)
+--
+--   Commutativity:
+--   prop> \ a b -> a /\ b == b /\ (a :: Min Int)
+--
+--   Identity:
+--   prop> \ a -> upper /\ a == (a :: Min Int)
+--
+--   Absorption:
+--   prop> \ a -> lower /\ a == (lower :: Min Int)
 instance Ord a => Meet (Min a) where
   (/\) = (<>)
 
