@@ -40,12 +40,12 @@ class Meet s where
   --
   --   > a /\ b = b /\ a
   --
-  --   Additionally, if @s@ has an 'Upper' bound, then 'upper' must be its left- and right-identity:
+  --   Additionally, if @s@ has an 'Upper' bound, then 'upper' must be its identity:
   --
   --   > upper /\ a = a
   --   > a /\ upper = a
   --
-  --   If @s@ has a 'Lower' bound, then 'lower' must be its left- and right-annihilator:
+  --   If @s@ has a 'Lower' bound, then 'lower' must be its absorbing element:
   --
   --   > lower /\ a = lower
   --   > a /\ lower = lower

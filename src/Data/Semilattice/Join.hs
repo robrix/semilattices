@@ -40,12 +40,12 @@ class Join s where
   --
   --   > a \/ b = b \/ a
   --
-  --   Additionally, if @s@ has a 'Lower' bound, then 'lower' must be its left- and right-identity:
+  --   Additionally, if @s@ has a 'Lower' bound, then 'lower' must be its identity:
   --
   --   > lower \/ a = a
   --   > a \/ lower = a
   --
-  --   If @s@ has an 'Upper' bound, then 'upper' must be its left- and right-annihilator:
+  --   If @s@ has an 'Upper' bound, then 'upper' must be its absorbing element:
   --
   --   > upper \/ a = upper
   --   > a \/ upper = upper
