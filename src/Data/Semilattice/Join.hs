@@ -16,6 +16,7 @@ import Data.Set as Set
 -- >>> import Test.QuickCheck
 -- >>> import Test.QuickCheck.Function
 -- >>> import Test.QuickCheck.Instances.UnorderedContainers ()
+-- >>> instance Arbitrary a => Arbitrary (Max a) where arbitrary = Max <$> arbitrary
 -- >>> :{
 -- infix 4 ~=
 -- f ~= g = (==) <$> f <*> g
@@ -122,6 +123,22 @@ instance Join b => Join (a -> b) where
 
 -- Data.Semigroup
 
+-- | The least upper bound gives rise to a join semilattice.
+--
+--   Idempotence:
+--   prop> \ x -> x \/ x == (x :: Max Int)
+--
+--   Associativity:
+--   prop> \ a b c -> a \/ (b \/ c) == (a \/ b) \/ (c :: Max Int)
+--
+--   Commutativity:
+--   prop> \ a b -> a \/ b == b \/ (a :: Max Int)
+--
+--   Identity:
+--   prop> \ a -> lower \/ a == (a :: Max Int)
+--
+--   Absorption:
+--   prop> \ a -> upper \/ a == (upper :: Max Int)
 instance Ord a => Join (Max a) where
   (\/) = (<>)
 
