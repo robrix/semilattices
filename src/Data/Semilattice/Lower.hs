@@ -24,24 +24,24 @@ import GHC.Generics
 import System.Posix.Types
 
 class Lower s where
-  -- | The greatest lower bound of @s@.
+  -- | The greatest lowerBound bound of @s@.
   --
   --   Laws:
   --
-  --   If @s@ is 'Bounded', we require 'lower' and 'minBound' to agree:
+  --   If @s@ is 'Bounded', we require 'lowerBound' and 'minBound' to agree:
   --
-  --   > lower = minBound
+  --   > lowerBound = minBound
   --
-  --   If @s@ is a 'Join', 'lower' must be the identity of '(\/)':
+  --   If @s@ is a 'Join', 'lowerBound' must be the identity of '(\/)':
   --
-  --   > lower \/ a = a
+  --   > lowerBound \/ a = a
   --
-  --   If @s@ is 'Ord'ered, 'lower' must be at least as small as every terminating value:
+  --   If @s@ is 'Ord'ered, 'lowerBound' must be at least as small as every terminating value:
   --
-  --   > compare lower a /= GT
-  lower :: s
-  default lower :: Bounded s => s
-  lower = minBound
+  --   > compare lowerBound a /= GT
+  lowerBound :: s
+  default lowerBound :: Bounded s => s
+  lowerBound = minBound
 
 
 -- Prelude
@@ -50,24 +50,24 @@ instance Lower Bool
 instance Lower Ordering
 instance Lower Char
 instance Lower Int
-instance (Lower a, Lower b) => Lower (a, b) where lower = (lower, lower)
-instance (Lower a, Lower b, Lower c) => Lower (a, b, c) where lower = (lower, lower, lower)
-instance (Lower a, Lower b, Lower c, Lower d) => Lower (a, b, c, d) where lower = (lower, lower, lower, lower)
-instance (Lower a, Lower b, Lower c, Lower d, Lower e) => Lower (a, b, c, d, e) where lower = (lower, lower, lower, lower, lower)
-instance (Lower a, Lower b, Lower c, Lower d, Lower e, Lower f) => Lower (a, b, c, d, e, f) where lower = (lower, lower, lower, lower, lower, lower)
-instance (Lower a, Lower b, Lower c, Lower d, Lower e, Lower f, Lower g) => Lower (a, b, c, d, e, f, g) where lower = (lower, lower, lower, lower, lower, lower, lower)
-instance (Lower a, Lower b, Lower c, Lower d, Lower e, Lower f, Lower g, Lower h) => Lower (a, b, c, d, e, f, g, h) where lower = (lower, lower, lower, lower, lower, lower, lower, lower)
-instance (Lower a, Lower b, Lower c, Lower d, Lower e, Lower f, Lower g, Lower h, Lower i) => Lower (a, b, c, d, e, f, g, h, i) where lower = (lower, lower, lower, lower, lower, lower, lower, lower, lower)
-instance (Lower a, Lower b, Lower c, Lower d, Lower e, Lower f, Lower g, Lower h, Lower i, Lower j) => Lower (a, b, c, d, e, f, g, h, i, j) where lower = (lower, lower, lower, lower, lower, lower, lower, lower, lower, lower)
-instance (Lower a, Lower b, Lower c, Lower d, Lower e, Lower f, Lower g, Lower h, Lower i, Lower j, Lower k) => Lower (a, b, c, d, e, f, g, h, i, j, k) where lower = (lower, lower, lower, lower, lower, lower, lower, lower, lower, lower, lower)
-instance (Lower a, Lower b, Lower c, Lower d, Lower e, Lower f, Lower g, Lower h, Lower i, Lower j, Lower k, Lower l) => Lower (a, b, c, d, e, f, g, h, i, j, k, l) where lower = (lower, lower, lower, lower, lower, lower, lower, lower, lower, lower, lower, lower)
-instance (Lower a, Lower b, Lower c, Lower d, Lower e, Lower f, Lower g, Lower h, Lower i, Lower j, Lower k, Lower l, Lower m) => Lower (a, b, c, d, e, f, g, h, i, j, k, l, m) where lower = (lower, lower, lower, lower, lower, lower, lower, lower, lower, lower, lower, lower, lower)
-instance (Lower a, Lower b, Lower c, Lower d, Lower e, Lower f, Lower g, Lower h, Lower i, Lower j, Lower k, Lower l, Lower m, Lower n) => Lower (a, b, c, d, e, f, g, h, i, j, k, l, m, n) where lower = (lower, lower, lower, lower, lower, lower, lower, lower, lower, lower, lower, lower, lower, lower)
-instance (Lower a, Lower b, Lower c, Lower d, Lower e, Lower f, Lower g, Lower h, Lower i, Lower j, Lower k, Lower l, Lower m, Lower n, Lower o) => Lower (a, b, c, d, e, f, g, h, i, j, k, l, m, n, o) where lower = (lower, lower, lower, lower, lower, lower, lower, lower, lower, lower, lower, lower, lower, lower, lower)
-instance Lower b => Lower (a -> b) where lower = const lower
+instance (Lower a, Lower b) => Lower (a, b) where lowerBound = (lowerBound, lowerBound)
+instance (Lower a, Lower b, Lower c) => Lower (a, b, c) where lowerBound = (lowerBound, lowerBound, lowerBound)
+instance (Lower a, Lower b, Lower c, Lower d) => Lower (a, b, c, d) where lowerBound = (lowerBound, lowerBound, lowerBound, lowerBound)
+instance (Lower a, Lower b, Lower c, Lower d, Lower e) => Lower (a, b, c, d, e) where lowerBound = (lowerBound, lowerBound, lowerBound, lowerBound, lowerBound)
+instance (Lower a, Lower b, Lower c, Lower d, Lower e, Lower f) => Lower (a, b, c, d, e, f) where lowerBound = (lowerBound, lowerBound, lowerBound, lowerBound, lowerBound, lowerBound)
+instance (Lower a, Lower b, Lower c, Lower d, Lower e, Lower f, Lower g) => Lower (a, b, c, d, e, f, g) where lowerBound = (lowerBound, lowerBound, lowerBound, lowerBound, lowerBound, lowerBound, lowerBound)
+instance (Lower a, Lower b, Lower c, Lower d, Lower e, Lower f, Lower g, Lower h) => Lower (a, b, c, d, e, f, g, h) where lowerBound = (lowerBound, lowerBound, lowerBound, lowerBound, lowerBound, lowerBound, lowerBound, lowerBound)
+instance (Lower a, Lower b, Lower c, Lower d, Lower e, Lower f, Lower g, Lower h, Lower i) => Lower (a, b, c, d, e, f, g, h, i) where lowerBound = (lowerBound, lowerBound, lowerBound, lowerBound, lowerBound, lowerBound, lowerBound, lowerBound, lowerBound)
+instance (Lower a, Lower b, Lower c, Lower d, Lower e, Lower f, Lower g, Lower h, Lower i, Lower j) => Lower (a, b, c, d, e, f, g, h, i, j) where lowerBound = (lowerBound, lowerBound, lowerBound, lowerBound, lowerBound, lowerBound, lowerBound, lowerBound, lowerBound, lowerBound)
+instance (Lower a, Lower b, Lower c, Lower d, Lower e, Lower f, Lower g, Lower h, Lower i, Lower j, Lower k) => Lower (a, b, c, d, e, f, g, h, i, j, k) where lowerBound = (lowerBound, lowerBound, lowerBound, lowerBound, lowerBound, lowerBound, lowerBound, lowerBound, lowerBound, lowerBound, lowerBound)
+instance (Lower a, Lower b, Lower c, Lower d, Lower e, Lower f, Lower g, Lower h, Lower i, Lower j, Lower k, Lower l) => Lower (a, b, c, d, e, f, g, h, i, j, k, l) where lowerBound = (lowerBound, lowerBound, lowerBound, lowerBound, lowerBound, lowerBound, lowerBound, lowerBound, lowerBound, lowerBound, lowerBound, lowerBound)
+instance (Lower a, Lower b, Lower c, Lower d, Lower e, Lower f, Lower g, Lower h, Lower i, Lower j, Lower k, Lower l, Lower m) => Lower (a, b, c, d, e, f, g, h, i, j, k, l, m) where lowerBound = (lowerBound, lowerBound, lowerBound, lowerBound, lowerBound, lowerBound, lowerBound, lowerBound, lowerBound, lowerBound, lowerBound, lowerBound, lowerBound)
+instance (Lower a, Lower b, Lower c, Lower d, Lower e, Lower f, Lower g, Lower h, Lower i, Lower j, Lower k, Lower l, Lower m, Lower n) => Lower (a, b, c, d, e, f, g, h, i, j, k, l, m, n) where lowerBound = (lowerBound, lowerBound, lowerBound, lowerBound, lowerBound, lowerBound, lowerBound, lowerBound, lowerBound, lowerBound, lowerBound, lowerBound, lowerBound, lowerBound)
+instance (Lower a, Lower b, Lower c, Lower d, Lower e, Lower f, Lower g, Lower h, Lower i, Lower j, Lower k, Lower l, Lower m, Lower n, Lower o) => Lower (a, b, c, d, e, f, g, h, i, j, k, l, m, n, o) where lowerBound = (lowerBound, lowerBound, lowerBound, lowerBound, lowerBound, lowerBound, lowerBound, lowerBound, lowerBound, lowerBound, lowerBound, lowerBound, lowerBound, lowerBound, lowerBound)
+instance Lower b => Lower (a -> b) where lowerBound = const lowerBound
 
-instance Lower (Maybe a) where lower = Nothing
-instance Lower [a] where lower = []
+instance Lower (Maybe a) where lowerBound = Nothing
+instance Lower [a] where lowerBound = []
 
 
 -- Data.Char
@@ -80,27 +80,27 @@ instance Lower Int32
 instance Lower Int64
 
 -- Data.Functor.Const
-instance Lower a => Lower (Const a b) where lower = Const lower
+instance Lower a => Lower (Const a b) where lowerBound = Const lowerBound
 
 -- Data.Functor.Identity
-instance Lower a => Lower (Identity a) where lower = Identity lower
+instance Lower a => Lower (Identity a) where lowerBound = Identity lowerBound
 
 -- Data.Monoid
 instance Lower All
 instance Lower Any
-instance Lower a => Lower (Product a) where lower = Product lower
-instance Lower a => Lower (Sum a) where lower = Sum lower
-instance Lower a => Lower (Dual a) where lower = Dual lower
+instance Lower a => Lower (Product a) where lowerBound = Product lowerBound
+instance Lower a => Lower (Sum a) where lowerBound = Sum lowerBound
+instance Lower a => Lower (Dual a) where lowerBound = Dual lowerBound
 
 -- Data.Proxy
 instance Lower (Proxy a)
 
 -- Data.Semigroup
-instance Lower a => Lower (Semigroup.First a) where lower = Semigroup.First lower
-instance Lower a => Lower (Semigroup.Last a) where lower = Semigroup.Last lower
-instance Lower a => Lower (Max a) where lower = Max lower
-instance Lower a => Lower (Min a) where lower = Min lower
-instance Lower a => Lower (WrappedMonoid a) where lower = WrapMonoid lower
+instance Lower a => Lower (Semigroup.First a) where lowerBound = Semigroup.First lowerBound
+instance Lower a => Lower (Semigroup.Last a) where lowerBound = Semigroup.Last lowerBound
+instance Lower a => Lower (Max a) where lowerBound = Max lowerBound
+instance Lower a => Lower (Min a) where lowerBound = Min lowerBound
+instance Lower a => Lower (WrappedMonoid a) where lowerBound = WrapMonoid lowerBound
 
 -- Data.Type.Coercion
 instance Coercible a b => Lower (Coercion a b)
@@ -169,11 +169,11 @@ instance Lower CIno
 instance Lower CDev
 
 -- containers
-instance Lower (IntMap a) where lower = IntMap.empty
-instance Lower IntSet where lower = IntSet.empty
-instance Lower (Map k a) where lower = Map.empty
-instance Lower (Set a) where lower = Set.empty
+instance Lower (IntMap a) where lowerBound = IntMap.empty
+instance Lower IntSet where lowerBound = IntSet.empty
+instance Lower (Map k a) where lowerBound = Map.empty
+instance Lower (Set a) where lowerBound = Set.empty
 
 -- unordered-containers
-instance Lower (HashMap k a) where lower = HashMap.empty
-instance Lower (HashSet a) where lower = HashSet.empty
+instance Lower (HashMap k a) where lowerBound = HashMap.empty
+instance Lower (HashSet a) where lowerBound = HashSet.empty

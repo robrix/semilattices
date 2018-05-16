@@ -25,7 +25,7 @@ newtype Order a = Order { getOrder :: a }
 --   prop> \ a b -> Order a \/ Order b == Order b \/ Order a
 --
 --   Identity:
---   prop> \ a -> lower \/ Order a == Order (a :: Int)
+--   prop> \ a -> lowerBound \/ Order a == Order (a :: Int)
 --
 --   Absorption:
 --   prop> \ a -> upper \/ Order a == (upper :: Order Int)
@@ -52,7 +52,7 @@ instance Ord a => Join (Order a) where
 --   prop> \ a -> upper /\ Order a == Order (a :: Int)
 --
 --   Absorption:
---   prop> \ a -> lower /\ Order a == (lower :: Order Int)
+--   prop> \ a -> lowerBound /\ Order a == (lowerBound :: Order Int)
 --
 --   Distributivity:
 --   prop> \ a b c -> Order a /\ (Order b \/ Order c) == Order a /\ Order b \/ Order a /\ Order c
