@@ -24,7 +24,7 @@ import GHC.Generics
 import System.Posix.Types
 
 class Lower s where
-  -- | The greatest lowerBound bound of @s@.
+  -- | The greatest lower bound of @s@.
   --
   --   Laws:
   --
