@@ -20,7 +20,7 @@ library
                      , Data.Semilattice.Order
                      , Data.Semilattice.Tumble
                      , Data.Semilattice.Upper
-  build-depends:       base >=4.11 && <4.12
+  build-depends:       base >=4.10 && <4.12
                      , containers
                      , hashable
                      , unordered-containers
