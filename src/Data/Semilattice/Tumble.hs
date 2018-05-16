@@ -20,7 +20,7 @@ instance Bounded a => Bounded (Tumble a) where
   maxBound = Tumble minBound
 
 instance Lower a => Upper (Tumble a) where
-  upper = Tumble lowerBound
+  upperBound = Tumble lowerBound
 
 instance Upper a => Lower (Tumble a) where
-  lowerBound = Tumble upper
+  lowerBound = Tumble upperBound

@@ -45,10 +45,10 @@ class Join s where
   --   > lowerBound \/ a = a
   --   > a \/ lowerBound = a
   --
-  --   If @s@ has an 'Upper' bound, then 'upper' must be its absorbing element:
+  --   If @s@ has an 'Upper' bound, then 'upperBound' must be its absorbing element:
   --
-  --   > upper \/ a = upper
-  --   > a \/ upper = upper
+  --   > upperBound \/ a = upperBound
+  --   > a \/ upperBound = upperBound
   (\/) :: s -> s -> s
 
   infixr 6 \/
@@ -74,7 +74,7 @@ instance Join () where
 --   prop> \ a -> lowerBound \/ a == (a :: Bool)
 --
 --   Absorption:
---   prop> \ a -> upper \/ a == (upper :: Bool)
+--   prop> \ a -> upperBound \/ a == (upperBound :: Bool)
 instance Join Bool where
   (\/) = (||)
 
@@ -93,7 +93,7 @@ instance Join Bool where
 --   prop> \ a -> lowerBound \/ a == (a :: Ordering)
 --
 --   Absorption:
---   prop> \ a -> upper \/ a == (upper :: Ordering)
+--   prop> \ a -> upperBound \/ a == (upperBound :: Ordering)
 instance Join Ordering where
   GT \/ _ = GT
   _ \/ GT = GT
@@ -116,14 +116,14 @@ instance Join Ordering where
 --   prop> \ (Fn a) -> lowerBound \/ a ~= (a :: Int -> Bool)
 --
 --   Absorption:
---   prop> \ (Fn a) -> upper \/ a ~= (upper :: Int -> Bool)
+--   prop> \ (Fn a) -> upperBound \/ a ~= (upperBound :: Int -> Bool)
 instance Join b => Join (a -> b) where
   f \/ g = (\/) <$> f <*> g
 
 
 -- Data.Semigroup
 
--- | The least upper bound gives rise to a join semilattice.
+-- | The least upperBound bound gives rise to a join semilattice.
 --
 --   Idempotence:
 --   prop> \ x -> x \/ x == (x :: Max Int)
@@ -138,7 +138,7 @@ instance Join b => Join (a -> b) where
 --   prop> \ a -> lowerBound \/ a == (a :: Max Int)
 --
 --   Absorption:
---   prop> \ a -> upper \/ a == (upper :: Max Int)
+--   prop> \ a -> upperBound \/ a == (upperBound :: Max Int)
 instance Ord a => Join (Max a) where
   (\/) = (<>)
 

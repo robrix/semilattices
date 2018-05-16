@@ -40,10 +40,10 @@ class Meet s where
   --
   --   > a /\ b = b /\ a
   --
-  --   Additionally, if @s@ has an 'Upper' bound, then 'upper' must be its identity:
+  --   Additionally, if @s@ has an 'Upper' bound, then 'upperBound' must be its identity:
   --
-  --   > upper /\ a = a
-  --   > a /\ upper = a
+  --   > upperBound /\ a = a
+  --   > a /\ upperBound = a
   --
   --   If @s@ has a 'Lower' bound, then 'lowerBound' must be its absorbing element:
   --
@@ -71,7 +71,7 @@ instance Meet () where
 --   prop> \ a b -> a /\ b == b /\ (a :: Bool)
 --
 --   Identity:
---   prop> \ a -> upper /\ a == (a :: Bool)
+--   prop> \ a -> upperBound /\ a == (a :: Bool)
 --
 --   Absorption:
 --   prop> \ a -> lowerBound /\ a == (lowerBound :: Bool)
@@ -90,7 +90,7 @@ instance Meet Bool where
 --   prop> \ a b -> a /\ b == b /\ (a :: Ordering)
 --
 --   Identity:
---   prop> \ a -> upper /\ a == (a :: Ordering)
+--   prop> \ a -> upperBound /\ a == (a :: Ordering)
 --
 --   Absorption:
 --   prop> \ a -> lowerBound /\ a == (lowerBound :: Ordering)
@@ -113,7 +113,7 @@ instance Meet Ordering where
 --   prop> \ (Fn a) (Fn b) -> a /\ b ~= b /\ (a :: Int -> Bool)
 --
 --   Identity:
---   prop> \ (Fn a) -> upper /\ a ~= (a :: Int -> Bool)
+--   prop> \ (Fn a) -> upperBound /\ a ~= (a :: Int -> Bool)
 --
 --   Absorption:
 --   prop> \ (Fn a) -> lowerBound /\ a ~= (lowerBound :: Int -> Bool)
@@ -135,7 +135,7 @@ instance Meet b => Meet (a -> b) where
 --   prop> \ a b -> a /\ b == b /\ (a :: Min Int)
 --
 --   Identity:
---   prop> \ a -> upper /\ a == (a :: Min Int)
+--   prop> \ a -> upperBound /\ a == (a :: Min Int)
 --
 --   Absorption:
 --   prop> \ a -> lowerBound /\ a == (lowerBound :: Min Int)
@@ -262,7 +262,7 @@ instance Meet a => Semigroup (Meeting a) where
 --   prop> \ x -> let (l, r) = (mappend mempty (Meeting x), mappend (Meeting x) mempty) in l == Meeting x && r == Meeting (x :: Bool)
 instance (Upper a, Meet a) => Monoid (Meeting a) where
   mappend = (<>)
-  mempty = upper
+  mempty = upperBound
 
 
 newtype GreaterThan a = GreaterThan { getGreaterThan :: a }
