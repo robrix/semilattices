@@ -22,20 +22,20 @@ class Upper s where
   --
   --   Laws:
   --
-  --   If @s@ is 'Bounded', we require 'upper' and 'maxBound' to agree:
+  --   If @s@ is 'Bounded', we require 'upperBound' and 'maxBound' to agree:
   --
-  --   > upper = maxBound
+  --   > upperBound = maxBound
   --
-  --   If @s@ is a 'Meet', 'upper' must be the identity of '(/\)':
+  --   If @s@ is a 'Meet', 'upperBound' must be the identity of '(/\)':
   --
-  --   > upper \/ a = a
+  --   > upperBound \/ a = a
   --
-  --   If @s@ is 'Ord'ered, 'upper' must be at least as large as every terminating value:
+  --   If @s@ is 'Ord'ered, 'upperBound' must be at least as large as every terminating value:
   --
-  --   > compare upper a /= LT
-  upper :: s
-  default upper :: Bounded s => s
-  upper = maxBound
+  --   > compare upperBound a /= LT
+  upperBound :: s
+  default upperBound :: Bounded s => s
+  upperBound = maxBound
 
 
 -- Prelude
@@ -44,21 +44,21 @@ instance Upper Bool
 instance Upper Ordering
 instance Upper Char
 instance Upper Int
-instance (Upper a, Upper b) => Upper (a, b) where upper = (upper, upper)
-instance (Upper a, Upper b, Upper c) => Upper (a, b, c) where upper = (upper, upper, upper)
-instance (Upper a, Upper b, Upper c, Upper d) => Upper (a, b, c, d) where upper = (upper, upper, upper, upper)
-instance (Upper a, Upper b, Upper c, Upper d, Upper e) => Upper (a, b, c, d, e) where upper = (upper, upper, upper, upper, upper)
-instance (Upper a, Upper b, Upper c, Upper d, Upper e, Upper f) => Upper (a, b, c, d, e, f) where upper = (upper, upper, upper, upper, upper, upper)
-instance (Upper a, Upper b, Upper c, Upper d, Upper e, Upper f, Upper g) => Upper (a, b, c, d, e, f, g) where upper = (upper, upper, upper, upper, upper, upper, upper)
-instance (Upper a, Upper b, Upper c, Upper d, Upper e, Upper f, Upper g, Upper h) => Upper (a, b, c, d, e, f, g, h) where upper = (upper, upper, upper, upper, upper, upper, upper, upper)
-instance (Upper a, Upper b, Upper c, Upper d, Upper e, Upper f, Upper g, Upper h, Upper i) => Upper (a, b, c, d, e, f, g, h, i) where upper = (upper, upper, upper, upper, upper, upper, upper, upper, upper)
-instance (Upper a, Upper b, Upper c, Upper d, Upper e, Upper f, Upper g, Upper h, Upper i, Upper j) => Upper (a, b, c, d, e, f, g, h, i, j) where upper = (upper, upper, upper, upper, upper, upper, upper, upper, upper, upper)
-instance (Upper a, Upper b, Upper c, Upper d, Upper e, Upper f, Upper g, Upper h, Upper i, Upper j, Upper k) => Upper (a, b, c, d, e, f, g, h, i, j, k) where upper = (upper, upper, upper, upper, upper, upper, upper, upper, upper, upper, upper)
-instance (Upper a, Upper b, Upper c, Upper d, Upper e, Upper f, Upper g, Upper h, Upper i, Upper j, Upper k, Upper l) => Upper (a, b, c, d, e, f, g, h, i, j, k, l) where upper = (upper, upper, upper, upper, upper, upper, upper, upper, upper, upper, upper, upper)
-instance (Upper a, Upper b, Upper c, Upper d, Upper e, Upper f, Upper g, Upper h, Upper i, Upper j, Upper k, Upper l, Upper m) => Upper (a, b, c, d, e, f, g, h, i, j, k, l, m) where upper = (upper, upper, upper, upper, upper, upper, upper, upper, upper, upper, upper, upper, upper)
-instance (Upper a, Upper b, Upper c, Upper d, Upper e, Upper f, Upper g, Upper h, Upper i, Upper j, Upper k, Upper l, Upper m, Upper n) => Upper (a, b, c, d, e, f, g, h, i, j, k, l, m, n) where upper = (upper, upper, upper, upper, upper, upper, upper, upper, upper, upper, upper, upper, upper, upper)
-instance (Upper a, Upper b, Upper c, Upper d, Upper e, Upper f, Upper g, Upper h, Upper i, Upper j, Upper k, Upper l, Upper m, Upper n, Upper o) => Upper (a, b, c, d, e, f, g, h, i, j, k, l, m, n, o) where upper = (upper, upper, upper, upper, upper, upper, upper, upper, upper, upper, upper, upper, upper, upper, upper)
-instance Upper b => Upper (a -> b) where upper = const upper
+instance (Upper a, Upper b) => Upper (a, b) where upperBound = (upperBound, upperBound)
+instance (Upper a, Upper b, Upper c) => Upper (a, b, c) where upperBound = (upperBound, upperBound, upperBound)
+instance (Upper a, Upper b, Upper c, Upper d) => Upper (a, b, c, d) where upperBound = (upperBound, upperBound, upperBound, upperBound)
+instance (Upper a, Upper b, Upper c, Upper d, Upper e) => Upper (a, b, c, d, e) where upperBound = (upperBound, upperBound, upperBound, upperBound, upperBound)
+instance (Upper a, Upper b, Upper c, Upper d, Upper e, Upper f) => Upper (a, b, c, d, e, f) where upperBound = (upperBound, upperBound, upperBound, upperBound, upperBound, upperBound)
+instance (Upper a, Upper b, Upper c, Upper d, Upper e, Upper f, Upper g) => Upper (a, b, c, d, e, f, g) where upperBound = (upperBound, upperBound, upperBound, upperBound, upperBound, upperBound, upperBound)
+instance (Upper a, Upper b, Upper c, Upper d, Upper e, Upper f, Upper g, Upper h) => Upper (a, b, c, d, e, f, g, h) where upperBound = (upperBound, upperBound, upperBound, upperBound, upperBound, upperBound, upperBound, upperBound)
+instance (Upper a, Upper b, Upper c, Upper d, Upper e, Upper f, Upper g, Upper h, Upper i) => Upper (a, b, c, d, e, f, g, h, i) where upperBound = (upperBound, upperBound, upperBound, upperBound, upperBound, upperBound, upperBound, upperBound, upperBound)
+instance (Upper a, Upper b, Upper c, Upper d, Upper e, Upper f, Upper g, Upper h, Upper i, Upper j) => Upper (a, b, c, d, e, f, g, h, i, j) where upperBound = (upperBound, upperBound, upperBound, upperBound, upperBound, upperBound, upperBound, upperBound, upperBound, upperBound)
+instance (Upper a, Upper b, Upper c, Upper d, Upper e, Upper f, Upper g, Upper h, Upper i, Upper j, Upper k) => Upper (a, b, c, d, e, f, g, h, i, j, k) where upperBound = (upperBound, upperBound, upperBound, upperBound, upperBound, upperBound, upperBound, upperBound, upperBound, upperBound, upperBound)
+instance (Upper a, Upper b, Upper c, Upper d, Upper e, Upper f, Upper g, Upper h, Upper i, Upper j, Upper k, Upper l) => Upper (a, b, c, d, e, f, g, h, i, j, k, l) where upperBound = (upperBound, upperBound, upperBound, upperBound, upperBound, upperBound, upperBound, upperBound, upperBound, upperBound, upperBound, upperBound)
+instance (Upper a, Upper b, Upper c, Upper d, Upper e, Upper f, Upper g, Upper h, Upper i, Upper j, Upper k, Upper l, Upper m) => Upper (a, b, c, d, e, f, g, h, i, j, k, l, m) where upperBound = (upperBound, upperBound, upperBound, upperBound, upperBound, upperBound, upperBound, upperBound, upperBound, upperBound, upperBound, upperBound, upperBound)
+instance (Upper a, Upper b, Upper c, Upper d, Upper e, Upper f, Upper g, Upper h, Upper i, Upper j, Upper k, Upper l, Upper m, Upper n) => Upper (a, b, c, d, e, f, g, h, i, j, k, l, m, n) where upperBound = (upperBound, upperBound, upperBound, upperBound, upperBound, upperBound, upperBound, upperBound, upperBound, upperBound, upperBound, upperBound, upperBound, upperBound)
+instance (Upper a, Upper b, Upper c, Upper d, Upper e, Upper f, Upper g, Upper h, Upper i, Upper j, Upper k, Upper l, Upper m, Upper n, Upper o) => Upper (a, b, c, d, e, f, g, h, i, j, k, l, m, n, o) where upperBound = (upperBound, upperBound, upperBound, upperBound, upperBound, upperBound, upperBound, upperBound, upperBound, upperBound, upperBound, upperBound, upperBound, upperBound, upperBound)
+instance Upper b => Upper (a -> b) where upperBound = const upperBound
 
 
 -- Data.Char
@@ -71,27 +71,27 @@ instance Upper Int32
 instance Upper Int64
 
 -- Data.Functor.Const
-instance Upper a => Upper (Const a b) where upper = Const upper
+instance Upper a => Upper (Const a b) where upperBound = Const upperBound
 
 -- Data.Functor.Identity
-instance Upper a => Upper (Identity a) where upper = Identity upper
+instance Upper a => Upper (Identity a) where upperBound = Identity upperBound
 
 -- Data.Monoid
 instance Upper All
 instance Upper Any
-instance Upper a => Upper (Product a) where upper = Product upper
-instance Upper a => Upper (Sum a) where upper = Sum upper
-instance Upper a => Upper (Dual a) where upper = Dual upper
+instance Upper a => Upper (Product a) where upperBound = Product upperBound
+instance Upper a => Upper (Sum a) where upperBound = Sum upperBound
+instance Upper a => Upper (Dual a) where upperBound = Dual upperBound
 
 -- Data.Proxy
 instance Upper (Proxy a)
 
 -- Data.Semigroup
-instance Upper a => Upper (Semigroup.First a) where upper = Semigroup.First upper
-instance Upper a => Upper (Semigroup.Last a) where upper = Semigroup.Last upper
-instance Upper a => Upper (Max a) where upper = Max upper
-instance Upper a => Upper (Min a) where upper = Min upper
-instance Upper a => Upper (WrappedMonoid a) where upper = WrapMonoid upper
+instance Upper a => Upper (Semigroup.First a) where upperBound = Semigroup.First upperBound
+instance Upper a => Upper (Semigroup.Last a) where upperBound = Semigroup.Last upperBound
+instance Upper a => Upper (Max a) where upperBound = Max upperBound
+instance Upper a => Upper (Min a) where upperBound = Min upperBound
+instance Upper a => Upper (WrappedMonoid a) where upperBound = WrapMonoid upperBound
 
 -- Data.Type.Coercion
 instance Coercible a b => Upper (Coercion a b)

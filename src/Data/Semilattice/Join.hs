@@ -40,15 +40,15 @@ class Join s where
   --
   --   > a \/ b = b \/ a
   --
-  --   Additionally, if @s@ has a 'Lower' bound, then 'lower' must be its identity:
+  --   Additionally, if @s@ has a 'Lower' bound, then 'lowerBound' must be its identity:
   --
-  --   > lower \/ a = a
-  --   > a \/ lower = a
+  --   > lowerBound \/ a = a
+  --   > a \/ lowerBound = a
   --
-  --   If @s@ has an 'Upper' bound, then 'upper' must be its absorbing element:
+  --   If @s@ has an 'Upper' bound, then 'upperBound' must be its absorbing element:
   --
-  --   > upper \/ a = upper
-  --   > a \/ upper = upper
+  --   > upperBound \/ a = upperBound
+  --   > a \/ upperBound = upperBound
   (\/) :: s -> s -> s
 
   infixr 6 \/
@@ -71,10 +71,10 @@ instance Join () where
 --   prop> \ a b -> a \/ b == b \/ (a :: Bool)
 --
 --   Identity:
---   prop> \ a -> lower \/ a == (a :: Bool)
+--   prop> \ a -> lowerBound \/ a == (a :: Bool)
 --
 --   Absorption:
---   prop> \ a -> upper \/ a == (upper :: Bool)
+--   prop> \ a -> upperBound \/ a == (upperBound :: Bool)
 instance Join Bool where
   (\/) = (||)
 
@@ -90,10 +90,10 @@ instance Join Bool where
 --   prop> \ a b -> a \/ b == b \/ (a :: Ordering)
 --
 --   Identity:
---   prop> \ a -> lower \/ a == (a :: Ordering)
+--   prop> \ a -> lowerBound \/ a == (a :: Ordering)
 --
 --   Absorption:
---   prop> \ a -> upper \/ a == (upper :: Ordering)
+--   prop> \ a -> upperBound \/ a == (upperBound :: Ordering)
 instance Join Ordering where
   GT \/ _ = GT
   _ \/ GT = GT
@@ -113,17 +113,17 @@ instance Join Ordering where
 --   prop> \ (Fn a) (Fn b) -> a \/ b ~= b \/ (a :: Int -> Bool)
 --
 --   Identity:
---   prop> \ (Fn a) -> lower \/ a ~= (a :: Int -> Bool)
+--   prop> \ (Fn a) -> lowerBound \/ a ~= (a :: Int -> Bool)
 --
 --   Absorption:
---   prop> \ (Fn a) -> upper \/ a ~= (upper :: Int -> Bool)
+--   prop> \ (Fn a) -> upperBound \/ a ~= (upperBound :: Int -> Bool)
 instance Join b => Join (a -> b) where
   f \/ g = (\/) <$> f <*> g
 
 
 -- Data.Semigroup
 
--- | The least upper bound gives rise to a join semilattice.
+-- | The least upperBound bound gives rise to a join semilattice.
 --
 --   Idempotence:
 --   prop> \ x -> x \/ x == (x :: Max Int)
@@ -135,10 +135,10 @@ instance Join b => Join (a -> b) where
 --   prop> \ a b -> a \/ b == b \/ (a :: Max Int)
 --
 --   Identity:
---   prop> \ a -> lower \/ a == (a :: Max Int)
+--   prop> \ a -> lowerBound \/ a == (a :: Max Int)
 --
 --   Absorption:
---   prop> \ a -> upper \/ a == (upper :: Max Int)
+--   prop> \ a -> upperBound \/ a == (upperBound :: Max Int)
 instance Ord a => Join (Max a) where
   (\/) = (<>)
 
@@ -157,7 +157,7 @@ instance Ord a => Join (Max a) where
 --   prop> \ a b -> a \/ b == b \/ (a :: IntMap (Set Char))
 --
 --   Identity:
---   prop> \ a -> lower \/ a == (a :: IntMap (Set Char))
+--   prop> \ a -> lowerBound \/ a == (a :: IntMap (Set Char))
 instance Join a => Join (IntMap a) where
   (\/) = IntMap.unionWith (\/)
 
@@ -173,7 +173,7 @@ instance Join a => Join (IntMap a) where
 --   prop> \ a b -> a \/ b == b \/ (a :: IntSet)
 --
 --   Identity:
---   prop> \ a -> lower \/ a == (a :: IntSet)
+--   prop> \ a -> lowerBound \/ a == (a :: IntSet)
 instance Join IntSet where
   (\/) = IntSet.union
 
@@ -189,7 +189,7 @@ instance Join IntSet where
 --   prop> \ a b -> a \/ b == b \/ (a :: Map Char (Set Char))
 --
 --   Identity:
---   prop> \ a -> lower \/ a == (a :: Map Char (Set Char))
+--   prop> \ a -> lowerBound \/ a == (a :: Map Char (Set Char))
 instance (Ord k, Join a) => Join (Map k a) where
   (\/) = Map.unionWith (\/)
 
@@ -205,7 +205,7 @@ instance (Ord k, Join a) => Join (Map k a) where
 --   prop> \ a b -> a \/ b == b \/ (a :: Set Char)
 --
 --   Identity:
---   prop> \ a -> lower \/ a == (a :: Set Char)
+--   prop> \ a -> lowerBound \/ a == (a :: Set Char)
 instance Ord a => Join (Set a) where
   (\/) = Set.union
 
@@ -224,7 +224,7 @@ instance Ord a => Join (Set a) where
 --   prop> \ a b -> a \/ b == b \/ (a :: HashMap Char (Set Char))
 --
 --   Identity:
---   prop> \ a -> lower \/ a == (a :: HashMap Char (Set Char))
+--   prop> \ a -> lowerBound \/ a == (a :: HashMap Char (Set Char))
 instance (Eq k, Hashable k, Join a) => Join (HashMap k a) where
   (\/) = HashMap.unionWith (\/)
 
@@ -240,7 +240,7 @@ instance (Eq k, Hashable k, Join a) => Join (HashMap k a) where
 --   prop> \ a b -> a \/ b == b \/ (a :: HashSet Char)
 --
 --   Identity:
---   prop> \ a -> lower \/ a == (a :: HashSet Char)
+--   prop> \ a -> lowerBound \/ a == (a :: HashSet Char)
 instance (Eq a, Hashable a) => Join (HashSet a) where
   (\/) = HashSet.union
 
@@ -262,7 +262,7 @@ instance Join a => Semigroup (Joining a) where
 --   prop> \ x -> let (l, r) = (mappend mempty (Joining x), mappend (Joining x) mempty) in l == Joining x && r == Joining (x :: IntSet)
 instance (Lower a, Join a) => Monoid (Joining a) where
   mappend = (<>)
-  mempty = lower
+  mempty = lowerBound
 
 
 newtype LessThan a = LessThan { getLessThan :: a }

@@ -40,15 +40,15 @@ class Meet s where
   --
   --   > a /\ b = b /\ a
   --
-  --   Additionally, if @s@ has an 'Upper' bound, then 'upper' must be its identity:
+  --   Additionally, if @s@ has an 'Upper' bound, then 'upperBound' must be its identity:
   --
-  --   > upper /\ a = a
-  --   > a /\ upper = a
+  --   > upperBound /\ a = a
+  --   > a /\ upperBound = a
   --
-  --   If @s@ has a 'Lower' bound, then 'lower' must be its absorbing element:
+  --   If @s@ has a 'Lower' bound, then 'lowerBound' must be its absorbing element:
   --
-  --   > lower /\ a = lower
-  --   > a /\ lower = lower
+  --   > lowerBound /\ a = lowerBound
+  --   > a /\ lowerBound = lowerBound
   (/\) :: s -> s -> s
 
   infixr 7 /\
@@ -71,10 +71,10 @@ instance Meet () where
 --   prop> \ a b -> a /\ b == b /\ (a :: Bool)
 --
 --   Identity:
---   prop> \ a -> upper /\ a == (a :: Bool)
+--   prop> \ a -> upperBound /\ a == (a :: Bool)
 --
 --   Absorption:
---   prop> \ a -> lower /\ a == (lower :: Bool)
+--   prop> \ a -> lowerBound /\ a == (lowerBound :: Bool)
 instance Meet Bool where
   (/\) = (&&)
 
@@ -90,10 +90,10 @@ instance Meet Bool where
 --   prop> \ a b -> a /\ b == b /\ (a :: Ordering)
 --
 --   Identity:
---   prop> \ a -> upper /\ a == (a :: Ordering)
+--   prop> \ a -> upperBound /\ a == (a :: Ordering)
 --
 --   Absorption:
---   prop> \ a -> lower /\ a == (lower :: Ordering)
+--   prop> \ a -> lowerBound /\ a == (lowerBound :: Ordering)
 instance Meet Ordering where
   LT /\ _ = LT
   _ /\ LT = LT
@@ -113,17 +113,17 @@ instance Meet Ordering where
 --   prop> \ (Fn a) (Fn b) -> a /\ b ~= b /\ (a :: Int -> Bool)
 --
 --   Identity:
---   prop> \ (Fn a) -> upper /\ a ~= (a :: Int -> Bool)
+--   prop> \ (Fn a) -> upperBound /\ a ~= (a :: Int -> Bool)
 --
 --   Absorption:
---   prop> \ (Fn a) -> lower /\ a ~= (lower :: Int -> Bool)
+--   prop> \ (Fn a) -> lowerBound /\ a ~= (lowerBound :: Int -> Bool)
 instance Meet b => Meet (a -> b) where
   f /\ g = (/\) <$> f <*> g
 
 
 -- Data.Semigroup
 
--- | The greatest lower bound gives rise to a meet semilattice.
+-- | The greatest lowerBound bound gives rise to a meet semilattice.
 --
 --   Idempotence:
 --   prop> \ x -> x /\ x == (x :: Min Int)
@@ -135,10 +135,10 @@ instance Meet b => Meet (a -> b) where
 --   prop> \ a b -> a /\ b == b /\ (a :: Min Int)
 --
 --   Identity:
---   prop> \ a -> upper /\ a == (a :: Min Int)
+--   prop> \ a -> upperBound /\ a == (a :: Min Int)
 --
 --   Absorption:
---   prop> \ a -> lower /\ a == (lower :: Min Int)
+--   prop> \ a -> lowerBound /\ a == (lowerBound :: Min Int)
 instance Ord a => Meet (Min a) where
   (/\) = (<>)
 
@@ -157,7 +157,7 @@ instance Ord a => Meet (Min a) where
 --   prop> \ a b -> a /\ b == b /\ (a :: IntMap (Set Char))
 --
 --   Absorption:
---   prop> \ a -> lower /\ a == (lower :: IntMap (Set Char))
+--   prop> \ a -> lowerBound /\ a == (lowerBound :: IntMap (Set Char))
 instance Meet a => Meet (IntMap a) where
   (/\) = IntMap.intersectionWith (/\)
 
@@ -173,7 +173,7 @@ instance Meet a => Meet (IntMap a) where
 --   prop> \ a b -> a /\ b == b /\ (a :: IntSet)
 --
 --   Absorption:
---   prop> \ a -> lower /\ a == (lower :: IntSet)
+--   prop> \ a -> lowerBound /\ a == (lowerBound :: IntSet)
 instance Meet IntSet where
   (/\) = IntSet.intersection
 
@@ -189,7 +189,7 @@ instance Meet IntSet where
 --   prop> \ a b -> a /\ b == b /\ (a :: Map Char (Set Char))
 --
 --   Absorption:
---   prop> \ a -> lower /\ a == (lower :: Map Char (Set Char))
+--   prop> \ a -> lowerBound /\ a == (lowerBound :: Map Char (Set Char))
 instance (Ord k, Meet a) => Meet (Map k a) where
   (/\) = Map.intersectionWith (/\)
 
@@ -205,7 +205,7 @@ instance (Ord k, Meet a) => Meet (Map k a) where
 --   prop> \ a b -> a /\ b == b /\ (a :: Set Char)
 --
 --   Absorption:
---   prop> \ a -> lower /\ a == (lower :: Set Char)
+--   prop> \ a -> lowerBound /\ a == (lowerBound :: Set Char)
 instance Ord a => Meet (Set a) where
   (/\) = Set.intersection
 
@@ -224,7 +224,7 @@ instance Ord a => Meet (Set a) where
 --   prop> \ a b -> a /\ b == b /\ (a :: HashMap Char (Set Char))
 --
 --   Absorption:
---   prop> \ a -> lower /\ a == (lower :: HashMap Char (Set Char))
+--   prop> \ a -> lowerBound /\ a == (lowerBound :: HashMap Char (Set Char))
 instance (Eq k, Hashable k, Meet a) => Meet (HashMap k a) where
   (/\) = HashMap.intersectionWith (/\)
 
@@ -240,7 +240,7 @@ instance (Eq k, Hashable k, Meet a) => Meet (HashMap k a) where
 --   prop> \ a b -> a /\ b == b /\ (a :: HashSet Char)
 --
 --   Absorption:
---   prop> \ a -> lower /\ a == (lower :: HashSet Char)
+--   prop> \ a -> lowerBound /\ a == (lowerBound :: HashSet Char)
 instance (Eq a, Hashable a) => Meet (HashSet a) where
   (/\) = HashSet.intersection
 
@@ -262,7 +262,7 @@ instance Meet a => Semigroup (Meeting a) where
 --   prop> \ x -> let (l, r) = (mappend mempty (Meeting x), mappend (Meeting x) mempty) in l == Meeting x && r == Meeting (x :: Bool)
 instance (Upper a, Meet a) => Monoid (Meeting a) where
   mappend = (<>)
-  mempty = upper
+  mempty = upperBound
 
 
 newtype GreaterThan a = GreaterThan { getGreaterThan :: a }
