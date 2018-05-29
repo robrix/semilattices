@@ -17,22 +17,22 @@ import Foreign.Ptr
 import GHC.Generics
 import System.Posix.Types
 
+-- | The least upper bound of @s@.
+--
+--   Laws:
+--
+--   If @s@ is 'Bounded', we require 'upperBound' and 'maxBound' to agree:
+--
+--   > upperBound = maxBound
+--
+--   If @s@ is a 'Meet', 'upperBound' must be the identity of '(/\)':
+--
+--   > upperBound \/ a = a
+--
+--   If @s@ is 'Ord'ered, 'upperBound' must be at least as large as every terminating value:
+--
+--   > compare upperBound a /= LT
 class Upper s where
-  -- | The least upper bound of @s@.
-  --
-  --   Laws:
-  --
-  --   If @s@ is 'Bounded', we require 'upperBound' and 'maxBound' to agree:
-  --
-  --   > upperBound = maxBound
-  --
-  --   If @s@ is a 'Meet', 'upperBound' must be the identity of '(/\)':
-  --
-  --   > upperBound \/ a = a
-  --
-  --   If @s@ is 'Ord'ered, 'upperBound' must be at least as large as every terminating value:
-  --
-  --   > compare upperBound a /= LT
   upperBound :: s
   default upperBound :: Bounded s => s
   upperBound = maxBound
