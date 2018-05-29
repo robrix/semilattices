@@ -15,17 +15,6 @@ import Data.Semigroup
 import Data.Semilattice.Upper
 import Data.Set as Set
 
--- $setup
--- >>> import Data.Semilattice.Lower
--- >>> import Test.QuickCheck
--- >>> import Test.QuickCheck.Function
--- >>> import Test.QuickCheck.Instances.UnorderedContainers ()
--- >>> instance Arbitrary a => Arbitrary (Min a) where arbitrary = Min <$> arbitrary
--- >>> :{
--- infix 4 ~=
--- f ~= g = (==) <$> f <*> g
--- :}
-
 -- | A meet semilattice is an idempotent commutative semigroup.
 class Meet s where
   -- | The meet operation.
@@ -323,3 +312,15 @@ instance (Eq a, Meet a) => Ord (GreaterThan a) where
     | otherwise   = GT
 
   a <= b = a /\ b == a
+
+
+-- $setup
+-- >>> import Data.Semilattice.Lower
+-- >>> import Test.QuickCheck
+-- >>> import Test.QuickCheck.Function
+-- >>> import Test.QuickCheck.Instances.UnorderedContainers ()
+-- >>> instance Arbitrary a => Arbitrary (Min a) where arbitrary = Min <$> arbitrary
+-- >>> :{
+-- infix 4 ~=
+-- f ~= g = (==) <$> f <*> g
+-- :}

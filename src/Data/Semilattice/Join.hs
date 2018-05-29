@@ -15,17 +15,6 @@ import Data.Semigroup
 import Data.Semilattice.Lower
 import Data.Set as Set
 
--- $setup
--- >>> import Data.Semilattice.Upper
--- >>> import Test.QuickCheck
--- >>> import Test.QuickCheck.Function
--- >>> import Test.QuickCheck.Instances.UnorderedContainers ()
--- >>> instance Arbitrary a => Arbitrary (Max a) where arbitrary = Max <$> arbitrary
--- >>> :{
--- infix 4 ~=
--- f ~= g = (==) <$> f <*> g
--- :}
-
 -- | A join semilattice is an idempotent commutative semigroup.
 class Join s where
   -- | The join operation.
@@ -323,3 +312,15 @@ instance (Eq a, Join a) => Ord (LessThan a) where
     | otherwise   = GT
 
   a <= b = a \/ b == b
+
+
+-- $setup
+-- >>> import Data.Semilattice.Upper
+-- >>> import Test.QuickCheck
+-- >>> import Test.QuickCheck.Function
+-- >>> import Test.QuickCheck.Instances.UnorderedContainers ()
+-- >>> instance Arbitrary a => Arbitrary (Max a) where arbitrary = Max <$> arbitrary
+-- >>> :{
+-- infix 4 ~=
+-- f ~= g = (==) <$> f <*> g
+-- :}
