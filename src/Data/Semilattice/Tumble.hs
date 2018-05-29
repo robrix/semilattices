@@ -63,9 +63,43 @@ instance Bounded a => Bounded (Tumble a) where
   minBound = Tumble maxBound
   maxBound = Tumble minBound
 
+-- $
+--
+-- Bounded:
+--
+-- prop> upperBound == (maxBound :: Tumble Bool)
+--
+-- Identity of '/\':
+--
+-- prop> upperBound /\ a == (a :: Tumble Bool)
+--
+-- Absorbing element of '\/':
+--
+-- prop> upperBound \/ a == (upperBound :: Tumble Bool)
+--
+-- Ord:
+--
+-- prop> compare upperBound (a :: Tumble Bool) /= LT
 instance Lower a => Upper (Tumble a) where
   upperBound = Tumble lowerBound
 
+-- $
+--
+-- Bounded:
+--
+-- prop> lowerBound == (minBound :: Tumble Bool)
+--
+-- Identity of '\/':
+--
+-- prop> lowerBound \/ a == (a :: Tumble Bool)
+--
+-- Absorbing element of '/\':
+--
+-- prop> lowerBound /\ a == (lowerBound :: Tumble Bool)
+--
+-- Ord:
+--
+-- prop> compare lowerBound (a :: Tumble Bool) /= GT
 instance Upper a => Lower (Tumble a) where
   lowerBound = Tumble upperBound
 
