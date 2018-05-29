@@ -53,6 +53,24 @@ class Upper s where
 
 -- Prelude
 instance Upper ()
+
+-- $
+--
+-- Bounded:
+--
+-- prop> upperBound == (maxBound :: Bool)
+--
+-- Identity of '/\':
+--
+-- prop> upperBound /\ a == (a :: Bool)
+--
+-- Absorbing element of '\/':
+--
+-- prop> upperBound \/ a == (upperBound :: Bool)
+--
+-- Ord:
+--
+-- prop> compare upperBound (a :: Bool) /= LT
 instance Upper Bool
 instance Upper Ordering
 instance Upper Char
@@ -171,3 +189,10 @@ instance Upper COff
 instance Upper CMode
 instance Upper CIno
 instance Upper CDev
+
+
+-- $setup
+-- >>> import Data.Semilattice.Join
+-- >>> import Data.Semilattice.Meet
+-- >>> import Test.QuickCheck (Arbitrary(..))
+-- >>> import Test.QuickCheck.Function
