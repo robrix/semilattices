@@ -1,5 +1,9 @@
 {-# LANGUAGE DeriveTraversable, GeneralizedNewtypeDeriving #-}
-module Data.Semilattice.Meet where
+module Data.Semilattice.Meet
+( Meet(..)
+, Meeting(..)
+, GreaterThan(..)
+) where
 
 import Data.Hashable
 import Data.HashMap.Lazy as HashMap

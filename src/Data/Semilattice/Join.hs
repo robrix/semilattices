@@ -1,5 +1,9 @@
 {-# LANGUAGE DeriveTraversable, GeneralizedNewtypeDeriving #-}
-module Data.Semilattice.Join where
+module Data.Semilattice.Join
+( Join(..)
+, Joining(..)
+, LessThan(..)
+) where
 
 import Data.Hashable
 import Data.HashMap.Lazy as HashMap
