@@ -1,4 +1,5 @@
 {-# LANGUAGE DeriveTraversable, GeneralizedNewtypeDeriving #-}
+-- | 'Lower' and 'Upper' bounds from 'Bounded' instances.
 module Data.Semilattice.Bound where
 
 import Data.Semilattice.Lower
