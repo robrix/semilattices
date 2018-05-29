@@ -16,21 +16,27 @@ newtype Order a = Order { getOrder :: a }
 -- | Total 'Ord'erings give rise to a join semilattice satisfying:
 --
 --   Idempotence:
+--
 --   prop> \ x -> Order x \/ Order x == Order x
 --
 --   Associativity:
+--
 --   prop> \ a b c -> Order a \/ (Order b \/ Order c) == (Order a \/ Order b) \/ Order c
 --
 --   Commutativity:
+--
 --   prop> \ a b -> Order a \/ Order b == Order b \/ Order a
 --
 --   Identity:
+--
 --   prop> \ a -> lowerBound \/ Order a == Order (a :: Int)
 --
 --   Absorption:
+--
 --   prop> \ a -> upperBound \/ Order a == (upperBound :: Order Int)
 --
 --   Distributivity:
+--
 --   prop> \ a b c -> Order a \/ Order b /\ Order c == (Order a \/ Order b) /\ (Order a \/ Order c)
 instance Ord a => Join (Order a) where
   a \/ b
@@ -40,21 +46,27 @@ instance Ord a => Join (Order a) where
 -- | Total 'Ord'erings give rise to a meet semilattice satisfying:
 --
 --   Idempotence:
+--
 --   prop> \ x -> Order x /\ Order x == Order x
 --
 --   Associativity:
+--
 --   prop> \ a b c -> Order a /\ (Order b /\ Order c) == (Order a /\ Order b) /\ Order c
 --
 --   Commutativity:
+--
 --   prop> \ a b -> Order a /\ Order b == Order b /\ Order a
 --
 --   Identity:
+--
 --   prop> \ a -> upperBound /\ Order a == Order (a :: Int)
 --
 --   Absorption:
+--
 --   prop> \ a -> lowerBound /\ Order a == (lowerBound :: Order Int)
 --
 --   Distributivity:
+--
 --   prop> \ a b c -> Order a /\ (Order b \/ Order c) == Order a /\ Order b \/ Order a /\ Order c
 instance Ord a => Meet (Order a) where
   a /\ b

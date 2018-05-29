@@ -66,18 +66,23 @@ instance Meet () where
 -- | Boolean conjunction forms a semilattice.
 --
 --   Idempotence:
+--
 --   prop> \ x -> x /\ x == (x :: Bool)
 --
 --   Associativity:
+--
 --   prop> \ a b c -> a /\ (b /\ c) == (a /\ b) /\ (c :: Bool)
 --
 --   Commutativity:
+--
 --   prop> \ a b -> a /\ b == b /\ (a :: Bool)
 --
 --   Identity:
+--
 --   prop> \ a -> upperBound /\ a == (a :: Bool)
 --
 --   Absorption:
+--
 --   prop> \ a -> lowerBound /\ a == (lowerBound :: Bool)
 instance Meet Bool where
   (/\) = (&&)
@@ -85,18 +90,23 @@ instance Meet Bool where
 -- | Orderings form a semilattice.
 --
 --   Idempotence:
+--
 --   prop> \ x -> x /\ x == (x :: Ordering)
 --
 --   Associativity:
+--
 --   prop> \ a b c -> a /\ (b /\ c) == (a /\ b) /\ (c :: Ordering)
 --
 --   Commutativity:
+--
 --   prop> \ a b -> a /\ b == b /\ (a :: Ordering)
 --
 --   Identity:
+--
 --   prop> \ a -> upperBound /\ a == (a :: Ordering)
 --
 --   Absorption:
+--
 --   prop> \ a -> lowerBound /\ a == (lowerBound :: Ordering)
 instance Meet Ordering where
   LT /\ _ = LT
@@ -108,18 +118,23 @@ instance Meet Ordering where
 -- | Functions with semilattice codomains form a semilattice.
 --
 --   Idempotence:
+--
 --   prop> \ (Fn x) -> x /\ x ~= (x :: Int -> Bool)
 --
 --   Associativity:
+--
 --   prop> \ (Fn a) (Fn b) (Fn c) -> a /\ (b /\ c) ~= (a /\ b) /\ (c :: Int -> Bool)
 --
 --   Commutativity:
+--
 --   prop> \ (Fn a) (Fn b) -> a /\ b ~= b /\ (a :: Int -> Bool)
 --
 --   Identity:
+--
 --   prop> \ (Fn a) -> upperBound /\ a ~= (a :: Int -> Bool)
 --
 --   Absorption:
+--
 --   prop> \ (Fn a) -> lowerBound /\ a ~= (lowerBound :: Int -> Bool)
 instance Meet b => Meet (a -> b) where
   f /\ g = (/\) <$> f <*> g
@@ -130,18 +145,23 @@ instance Meet b => Meet (a -> b) where
 -- | The greatest lowerBound bound gives rise to a meet semilattice.
 --
 --   Idempotence:
+--
 --   prop> \ x -> x /\ x == (x :: Min Int)
 --
 --   Associativity:
+--
 --   prop> \ a b c -> a /\ (b /\ c) == (a /\ b) /\ (c :: Min Int)
 --
 --   Commutativity:
+--
 --   prop> \ a b -> a /\ b == b /\ (a :: Min Int)
 --
 --   Identity:
+--
 --   prop> \ a -> upperBound /\ a == (a :: Min Int)
 --
 --   Absorption:
+--
 --   prop> \ a -> lowerBound /\ a == (lowerBound :: Min Int)
 instance Ord a => Meet (Min a) where
   (/\) = (<>)
@@ -152,15 +172,19 @@ instance Ord a => Meet (Min a) where
 -- | IntMap union with 'Meet'able values forms a semilattice.
 --
 --   Idempotence:
+--
 --   prop> \ x -> x /\ x == (x :: IntMap (Set Char))
 --
 --   Associativity:
+--
 --   prop> \ a b c -> a /\ (b /\ c) == (a /\ b) /\ (c :: IntMap (Set Char))
 --
 --   Commutativity:
+--
 --   prop> \ a b -> a /\ b == b /\ (a :: IntMap (Set Char))
 --
 --   Absorption:
+--
 --   prop> \ a -> lowerBound /\ a == (lowerBound :: IntMap (Set Char))
 instance Meet a => Meet (IntMap a) where
   (/\) = IntMap.intersectionWith (/\)
@@ -168,15 +192,19 @@ instance Meet a => Meet (IntMap a) where
 -- | IntSet intersection forms a semilattice.
 --
 --   Idempotence:
+--
 --   prop> \ x -> x /\ x == (x :: IntSet)
 --
 --   Associativity:
+--
 --   prop> \ a b c -> a /\ (b /\ c) == (a /\ b) /\ (c :: IntSet)
 --
 --   Commutativity:
+--
 --   prop> \ a b -> a /\ b == b /\ (a :: IntSet)
 --
 --   Absorption:
+--
 --   prop> \ a -> lowerBound /\ a == (lowerBound :: IntSet)
 instance Meet IntSet where
   (/\) = IntSet.intersection
@@ -184,15 +212,19 @@ instance Meet IntSet where
 -- | Map union with 'Meet'able values forms a semilattice.
 --
 --   Idempotence:
+--
 --   prop> \ x -> x /\ x == (x :: Map Char (Set Char))
 --
 --   Associativity:
+--
 --   prop> \ a b c -> a /\ (b /\ c) == (a /\ b) /\ (c :: Map Char (Set Char))
 --
 --   Commutativity:
+--
 --   prop> \ a b -> a /\ b == b /\ (a :: Map Char (Set Char))
 --
 --   Absorption:
+--
 --   prop> \ a -> lowerBound /\ a == (lowerBound :: Map Char (Set Char))
 instance (Ord k, Meet a) => Meet (Map k a) where
   (/\) = Map.intersectionWith (/\)
@@ -200,15 +232,19 @@ instance (Ord k, Meet a) => Meet (Map k a) where
 -- | Set intersection forms a semilattice.
 --
 --   Idempotence:
+--
 --   prop> \ x -> x /\ x == (x :: Set Char)
 --
 --   Associativity:
+--
 --   prop> \ a b c -> a /\ (b /\ c) == (a /\ b) /\ (c :: Set Char)
 --
 --   Commutativity:
+--
 --   prop> \ a b -> a /\ b == b /\ (a :: Set Char)
 --
 --   Absorption:
+--
 --   prop> \ a -> lowerBound /\ a == (lowerBound :: Set Char)
 instance Ord a => Meet (Set a) where
   (/\) = Set.intersection
@@ -219,15 +255,19 @@ instance Ord a => Meet (Set a) where
 -- | HashMap union with 'Meet'able values forms a semilattice.
 --
 --   Idempotence:
+--
 --   prop> \ x -> x /\ x == (x :: HashMap Char (Set Char))
 --
 --   Associativity:
+--
 --   prop> \ a b c -> a /\ (b /\ c) == (a /\ b) /\ (c :: HashMap Char (Set Char))
 --
 --   Commutativity:
+--
 --   prop> \ a b -> a /\ b == b /\ (a :: HashMap Char (Set Char))
 --
 --   Absorption:
+--
 --   prop> \ a -> lowerBound /\ a == (lowerBound :: HashMap Char (Set Char))
 instance (Eq k, Hashable k, Meet a) => Meet (HashMap k a) where
   (/\) = HashMap.intersectionWith (/\)
@@ -235,15 +275,19 @@ instance (Eq k, Hashable k, Meet a) => Meet (HashMap k a) where
 -- | HashSet intersection forms a semilattice.
 --
 --   Idempotence:
+--
 --   prop> \ x -> x /\ x == (x :: HashSet Char)
 --
 --   Associativity:
+--
 --   prop> \ a b c -> a /\ (b /\ c) == (a /\ b) /\ (c :: HashSet Char)
 --
 --   Commutativity:
+--
 --   prop> \ a b -> a /\ b == b /\ (a :: HashSet Char)
 --
 --   Absorption:
+--
 --   prop> \ a -> lowerBound /\ a == (lowerBound :: HashSet Char)
 instance (Eq a, Hashable a) => Meet (HashSet a) where
   (/\) = HashSet.intersection

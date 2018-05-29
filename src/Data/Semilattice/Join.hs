@@ -66,18 +66,23 @@ instance Join () where
 -- | Boolean disjunction forms a semilattice.
 --
 --   Idempotence:
+--
 --   prop> \ x -> x \/ x == (x :: Bool)
 --
 --   Associativity:
+--
 --   prop> \ a b c -> a \/ (b \/ c) == (a \/ b) \/ (c :: Bool)
 --
 --   Commutativity:
+--
 --   prop> \ a b -> a \/ b == b \/ (a :: Bool)
 --
 --   Identity:
+--
 --   prop> \ a -> lowerBound \/ a == (a :: Bool)
 --
 --   Absorption:
+--
 --   prop> \ a -> upperBound \/ a == (upperBound :: Bool)
 instance Join Bool where
   (\/) = (||)
@@ -85,18 +90,23 @@ instance Join Bool where
 -- | Orderings form a semilattice.
 --
 --   Idempotence:
+--
 --   prop> \ x -> x \/ x == (x :: Ordering)
 --
 --   Associativity:
+--
 --   prop> \ a b c -> a \/ (b \/ c) == (a \/ b) \/ (c :: Ordering)
 --
 --   Commutativity:
+--
 --   prop> \ a b -> a \/ b == b \/ (a :: Ordering)
 --
 --   Identity:
+--
 --   prop> \ a -> lowerBound \/ a == (a :: Ordering)
 --
 --   Absorption:
+--
 --   prop> \ a -> upperBound \/ a == (upperBound :: Ordering)
 instance Join Ordering where
   GT \/ _ = GT
@@ -108,18 +118,23 @@ instance Join Ordering where
 -- | Functions with semilattice codomains form a semilattice.
 --
 --   Idempotence:
+--
 --   prop> \ (Fn x) -> x \/ x ~= (x :: Int -> Bool)
 --
 --   Associativity:
+--
 --   prop> \ (Fn a) (Fn b) (Fn c) -> a \/ (b \/ c) ~= (a \/ b) \/ (c :: Int -> Bool)
 --
 --   Commutativity:
+--
 --   prop> \ (Fn a) (Fn b) -> a \/ b ~= b \/ (a :: Int -> Bool)
 --
 --   Identity:
+--
 --   prop> \ (Fn a) -> lowerBound \/ a ~= (a :: Int -> Bool)
 --
 --   Absorption:
+--
 --   prop> \ (Fn a) -> upperBound \/ a ~= (upperBound :: Int -> Bool)
 instance Join b => Join (a -> b) where
   f \/ g = (\/) <$> f <*> g
@@ -130,18 +145,23 @@ instance Join b => Join (a -> b) where
 -- | The least upperBound bound gives rise to a join semilattice.
 --
 --   Idempotence:
+--
 --   prop> \ x -> x \/ x == (x :: Max Int)
 --
 --   Associativity:
+--
 --   prop> \ a b c -> a \/ (b \/ c) == (a \/ b) \/ (c :: Max Int)
 --
 --   Commutativity:
+--
 --   prop> \ a b -> a \/ b == b \/ (a :: Max Int)
 --
 --   Identity:
+--
 --   prop> \ a -> lowerBound \/ a == (a :: Max Int)
 --
 --   Absorption:
+--
 --   prop> \ a -> upperBound \/ a == (upperBound :: Max Int)
 instance Ord a => Join (Max a) where
   (\/) = (<>)
@@ -152,15 +172,19 @@ instance Ord a => Join (Max a) where
 -- | IntMap union with 'Join'able values forms a semilattice.
 --
 --   Idempotence:
+--
 --   prop> \ x -> x \/ x == (x :: IntMap (Set Char))
 --
 --   Associativity:
+--
 --   prop> \ a b c -> a \/ (b \/ c) == (a \/ b) \/ (c :: IntMap (Set Char))
 --
 --   Commutativity:
+--
 --   prop> \ a b -> a \/ b == b \/ (a :: IntMap (Set Char))
 --
 --   Identity:
+--
 --   prop> \ a -> lowerBound \/ a == (a :: IntMap (Set Char))
 instance Join a => Join (IntMap a) where
   (\/) = IntMap.unionWith (\/)
@@ -168,15 +192,19 @@ instance Join a => Join (IntMap a) where
 -- | IntSet union forms a semilattice.
 --
 --   Idempotence:
+--
 --   prop> \ x -> x \/ x == (x :: IntSet)
 --
 --   Associativity:
+--
 --   prop> \ a b c -> a \/ (b \/ c) == (a \/ b) \/ (c :: IntSet)
 --
 --   Commutativity:
+--
 --   prop> \ a b -> a \/ b == b \/ (a :: IntSet)
 --
 --   Identity:
+--
 --   prop> \ a -> lowerBound \/ a == (a :: IntSet)
 instance Join IntSet where
   (\/) = IntSet.union
@@ -184,15 +212,19 @@ instance Join IntSet where
 -- | Map union with 'Join'able values forms a semilattice.
 --
 --   Idempotence:
+--
 --   prop> \ x -> x \/ x == (x :: Map Char (Set Char))
 --
 --   Associativity:
+--
 --   prop> \ a b c -> a \/ (b \/ c) == (a \/ b) \/ (c :: Map Char (Set Char))
 --
 --   Commutativity:
+--
 --   prop> \ a b -> a \/ b == b \/ (a :: Map Char (Set Char))
 --
 --   Identity:
+--
 --   prop> \ a -> lowerBound \/ a == (a :: Map Char (Set Char))
 instance (Ord k, Join a) => Join (Map k a) where
   (\/) = Map.unionWith (\/)
@@ -200,15 +232,19 @@ instance (Ord k, Join a) => Join (Map k a) where
 -- | Set union forms a semilattice.
 --
 --   Idempotence:
+--
 --   prop> \ x -> x \/ x == (x :: Set Char)
 --
 --   Associativity:
+--
 --   prop> \ a b c -> a \/ (b \/ c) == (a \/ b) \/ (c :: Set Char)
 --
 --   Commutativity:
+--
 --   prop> \ a b -> a \/ b == b \/ (a :: Set Char)
 --
 --   Identity:
+--
 --   prop> \ a -> lowerBound \/ a == (a :: Set Char)
 instance Ord a => Join (Set a) where
   (\/) = Set.union
@@ -219,15 +255,19 @@ instance Ord a => Join (Set a) where
 -- | HashMap union with 'Join'able values forms a semilattice.
 --
 --   Idempotence:
+--
 --   prop> \ x -> x \/ x == (x :: HashMap Char (Set Char))
 --
 --   Associativity:
+--
 --   prop> \ a b c -> a \/ (b \/ c) == (a \/ b) \/ (c :: HashMap Char (Set Char))
 --
 --   Commutativity:
+--
 --   prop> \ a b -> a \/ b == b \/ (a :: HashMap Char (Set Char))
 --
 --   Identity:
+--
 --   prop> \ a -> lowerBound \/ a == (a :: HashMap Char (Set Char))
 instance (Eq k, Hashable k, Join a) => Join (HashMap k a) where
   (\/) = HashMap.unionWith (\/)
@@ -235,15 +275,19 @@ instance (Eq k, Hashable k, Join a) => Join (HashMap k a) where
 -- | HashSet union forms a semilattice.
 --
 --   Idempotence:
+--
 --   prop> \ x -> x \/ x == (x :: HashSet Char)
 --
 --   Associativity:
+--
 --   prop> \ a b c -> a \/ (b \/ c) == (a \/ b) \/ (c :: HashSet Char)
 --
 --   Commutativity:
+--
 --   prop> \ a b -> a \/ b == b \/ (a :: HashSet Char)
 --
 --   Identity:
+--
 --   prop> \ a -> lowerBound \/ a == (a :: HashSet Char)
 instance (Eq a, Hashable a) => Join (HashSet a) where
   (\/) = HashSet.union
