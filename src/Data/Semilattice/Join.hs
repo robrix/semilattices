@@ -299,7 +299,7 @@ instance (Eq a, Hashable a) => Join (HashSet a) where
 newtype Joining a = Joining { getJoining :: a }
   deriving (Bounded, Enum, Eq, Foldable, Functor, Join, Lower, Num, Ord, Read, Show, Traversable)
 
--- | 'Joining' '(<>)' is associative.
+-- | 'Joining' '<>' is associative.
 --
 --   prop> \ a b c -> Joining a <> (Joining b <> Joining c) == (Joining a <> Joining b) <> Joining (c :: IntSet)
 instance Join a => Semigroup (Joining a) where

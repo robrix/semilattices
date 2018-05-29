@@ -26,7 +26,7 @@ import System.Posix.Types
 --
 --   > upperBound = maxBound
 --
---   If @s@ is a 'Meet', 'upperBound' must be the identity of '(/\)':
+--   If @s@ is a 'Meet', 'upperBound' must be the identity of '/\':
 --
 --   > upperBound \/ a = a
 --

@@ -32,7 +32,7 @@ import System.Posix.Types
 --
 --   > lowerBound = minBound
 --
---   If @s@ is a 'Join', 'lowerBound' must be the identity of '(\/)':
+--   If @s@ is a 'Join', 'lowerBound' must be the identity of '\/':
 --
 --   > lowerBound \/ a = a
 --

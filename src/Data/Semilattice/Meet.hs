@@ -299,7 +299,7 @@ instance (Eq a, Hashable a) => Meet (HashSet a) where
 newtype Meeting a = Meeting { getMeeting :: a }
   deriving (Bounded, Enum, Eq, Foldable, Functor, Meet, Num, Ord, Read, Show, Traversable, Upper)
 
--- | 'Meeting' '(<>)' is associative.
+-- | 'Meeting' '<>' is associative.
 --
 --   prop> \ a b c -> Meeting a <> (Meeting b <> Meeting c) == (Meeting a <> Meeting b) <> Meeting (c :: IntSet)
 instance Meet a => Semigroup (Meeting a) where
