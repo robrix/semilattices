@@ -53,6 +53,20 @@ class Lower s where
 
 -- Prelude
 instance Lower ()
+
+-- $
+--
+-- Bounded:
+--
+-- prop> lowerBound == (minBound :: Bool)
+--
+-- Identity of '\/':
+--
+-- prop> lowerBound \/ a == (a :: Bool)
+--
+-- Ord:
+--
+-- prop> compare lowerBound (a :: Bool) /= GT
 instance Lower Bool
 instance Lower Ordering
 instance Lower Char
@@ -184,3 +198,9 @@ instance Lower (Set a) where lowerBound = Set.empty
 -- unordered-containers
 instance Lower (HashMap k a) where lowerBound = HashMap.empty
 instance Lower (HashSet a) where lowerBound = HashSet.empty
+
+
+-- $setup
+-- >>> import Data.Semilattice.Join
+-- >>> import Test.QuickCheck (Arbitrary(..))
+-- >>> import Test.QuickCheck.Function
