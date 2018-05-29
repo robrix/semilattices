@@ -7,6 +7,7 @@ import Data.Semilattice.Lower
 import Data.Semilattice.Meet
 import Data.Semilattice.Upper
 
+-- | 'Tumble' gives a 'Join' semilattice for any 'Meet' semilattice and vice versa, 'Lower' bounds for 'Upper' bounds and vice versa, and swaps the bounds of 'Bounded' instances.
 newtype Tumble a = Tumble { getTumble :: a }
   deriving (Enum, Eq, Foldable, Functor, Num, Ord, Read, Show, Traversable)
 
