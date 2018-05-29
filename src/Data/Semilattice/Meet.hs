@@ -303,6 +303,7 @@ instance (Upper a, Meet a) => Monoid (Meeting a) where
   mempty = upperBound
 
 
+-- | 'Meet' semilattices give rise to a partial 'Ord'ering.
 newtype GreaterThan a = GreaterThan { getGreaterThan :: a }
   deriving (Enum, Eq, Foldable, Functor, Meet, Num, Read, Show, Traversable)
 
