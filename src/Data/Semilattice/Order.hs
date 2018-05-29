@@ -6,9 +6,6 @@ import Data.Semilattice.Lower
 import Data.Semilattice.Meet
 import Data.Semilattice.Upper
 
--- $setup
--- >>> import Test.QuickCheck
-
 -- | A 'Join'- and 'Meet'-semilattice for any total 'Ord'ering.
 newtype Order a = Order { getOrder :: a }
   deriving (Bounded, Enum, Eq, Foldable, Functor, Lower, Num, Ord, Read, Show, Traversable, Upper)
@@ -72,3 +69,7 @@ instance Ord a => Meet (Order a) where
   a /\ b
     | a <= b    = a
     | otherwise = b
+
+
+-- $setup
+-- >>> import Test.QuickCheck
