@@ -9,7 +9,7 @@ import Data.Semilattice.Upper
 
 -- | 'Tumble' gives a 'Join' semilattice for any 'Meet' semilattice and vice versa, 'Lower' bounds for 'Upper' bounds and vice versa, and swaps the bounds of 'Bounded' instances.
 newtype Tumble a = Tumble { getTumble :: a }
-  deriving (Enum, Eq, Foldable, Functor, Num, Ord, Read, Show, Traversable)
+  deriving (Enum, Eq, Foldable, Functor, Num, Read, Show, Traversable)
 
 -- $
 --
@@ -102,6 +102,10 @@ instance Lower a => Upper (Tumble a) where
 -- prop> compare lowerBound (a :: Tumble Bool) /= GT
 instance Upper a => Lower (Tumble a) where
   lowerBound = Tumble upperBound
+
+
+instance Ord a => Ord (Tumble a) where
+  compare (Tumble a) (Tumble b) = compare b a
 
 
 -- $setup
