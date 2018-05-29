@@ -1,4 +1,5 @@
 {-# LANGUAGE DeriveTraversable, GeneralizedNewtypeDeriving #-}
+-- | Inverting a 'Join' semilattice gives rise to a 'Meet' semilattice, and vice versa.
 module Data.Semilattice.Tumble where
 
 import Data.Semilattice.Join
