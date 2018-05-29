@@ -24,25 +24,35 @@ class Meet s where
   --
   --   Idempotence:
   --
-  --   > x /\ x = x
+  -- @
+  -- x '/\' x = x
+  -- @
   --
   --   Associativity:
   --
-  --   > a /\ (b /\ c) = (a /\ b) /\ c
+  -- @
+  -- a '/\' (b '/\' c) = (a '/\' b) '/\' c
+  -- @
   --
   --   Commutativity:
   --
-  --   > a /\ b = b /\ a
+  -- @
+  -- a '/\' b = b '/\' a
+  -- @
   --
   --   Additionally, if @s@ has an 'Upper' bound, then 'upperBound' must be its identity:
   --
-  --   > upperBound /\ a = a
-  --   > a /\ upperBound = a
+  -- @
+  -- 'upperBound' '/\' a = a
+  -- a '/\' 'upperBound' = a
+  -- @
   --
   --   If @s@ has a 'Lower' bound, then 'lowerBound' must be its absorbing element:
   --
-  --   > lowerBound /\ a = lowerBound
-  --   > a /\ lowerBound = lowerBound
+  -- @
+  -- 'lowerBound' '/\' a = 'lowerBound'
+  -- a '/\' 'lowerBound' = 'lowerBound'
+  -- @
   (/\) :: s -> s -> s
 
   infixr 7 /\

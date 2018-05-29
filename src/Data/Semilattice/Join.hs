@@ -24,25 +24,35 @@ class Join s where
   --
   --   Idempotence:
   --
-  --   > x \/ x = x
+  -- @
+  -- x '\/' x = x
+  -- @
   --
   --   Associativity:
   --
-  --   > a \/ (b \/ c) = (a \/ b) \/ c
+  -- @
+  -- a '\/' (b '\/' c) = (a '\/' b) '\/' c
+  -- @
   --
   --   Commutativity:
   --
-  --   > a \/ b = b \/ a
+  -- @
+  -- a '\/' b = b '\/' a
+  -- @
   --
   --   Additionally, if @s@ has a 'Lower' bound, then 'lowerBound' must be its identity:
   --
-  --   > lowerBound \/ a = a
-  --   > a \/ lowerBound = a
+  -- @
+  -- 'lowerBound' '\/' a = a
+  -- a '\/' 'lowerBound' = a
+  -- @
   --
   --   If @s@ has an 'Upper' bound, then 'upperBound' must be its absorbing element:
   --
-  --   > upperBound \/ a = upperBound
-  --   > a \/ upperBound = upperBound
+  -- @
+  -- 'upperBound' '\/' a = 'upperBound'
+  -- a '\/' 'upperBound' = 'upperBound'
+  -- @
   (\/) :: s -> s -> s
 
   infixr 6 \/

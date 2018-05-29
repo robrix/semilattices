@@ -30,15 +30,21 @@ import System.Posix.Types
 --
 --   If @s@ is 'Bounded', we require 'lowerBound' and 'minBound' to agree:
 --
---   > lowerBound = minBound
+-- @
+-- 'lowerBound' = 'minBound'
+-- @
 --
---   If @s@ is a 'Join', 'lowerBound' must be the identity of '\/':
+--   If @s@ is a 'Join' semilattice, 'lowerBound' must be the identity of '\/':
 --
---   > lowerBound \/ a = a
+-- @
+-- 'lowerBound' '\/' a = a
+-- @
 --
 --   If @s@ is 'Ord'ered, 'lowerBound' must be at least as small as every terminating value:
 --
---   > compare lowerBound a /= GT
+-- @
+-- 'compare' 'lowerBound' a /= 'GT'
+-- @
 class Lower s where
   lowerBound :: s
   default lowerBound :: Bounded s => s

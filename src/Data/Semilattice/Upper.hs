@@ -24,15 +24,21 @@ import System.Posix.Types
 --
 --   If @s@ is 'Bounded', we require 'upperBound' and 'maxBound' to agree:
 --
---   > upperBound = maxBound
+-- @
+-- 'upperBound' = 'maxBound'
+-- @
 --
---   If @s@ is a 'Meet', 'upperBound' must be the identity of '/\':
+--   If @s@ is a 'Meet' semilattice, 'upperBound' must be the identity of '/\':
 --
---   > upperBound \/ a = a
+-- @
+-- 'upperBound' '\/' a = a
+-- @
 --
 --   If @s@ is 'Ord'ered, 'upperBound' must be at least as large as every terminating value:
 --
---   > compare upperBound a /= LT
+-- @
+-- 'compare' 'upperBound' a /= 'LT'
+-- @
 class Upper s where
   upperBound :: s
   default upperBound :: Bounded s => s
