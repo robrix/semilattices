@@ -303,6 +303,7 @@ instance (Lower a, Join a) => Monoid (Joining a) where
   mempty = lowerBound
 
 
+-- | 'Join' semilattices give rise to a partial 'Ord'ering.
 newtype LessThan a = LessThan { getLessThan :: a }
   deriving (Enum, Eq, Foldable, Functor, Join, Num, Read, Show, Traversable)
 
