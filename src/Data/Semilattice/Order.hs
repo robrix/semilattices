@@ -15,27 +15,27 @@ newtype Order a = Order { getOrder :: a }
 --
 --   Idempotence:
 --
---   prop> \ x -> Order x \/ Order x == Order x
+--   prop> Order x \/ Order x == Order x
 --
 --   Associativity:
 --
---   prop> \ a b c -> Order a \/ (Order b \/ Order c) == (Order a \/ Order b) \/ Order c
+--   prop> Order a \/ (Order b \/ Order c) == (Order a \/ Order b) \/ Order c
 --
 --   Commutativity:
 --
---   prop> \ a b -> Order a \/ Order b == Order b \/ Order a
+--   prop> Order a \/ Order b == Order b \/ Order a
 --
 --   Identity:
 --
---   prop> \ a -> lowerBound \/ Order a == Order (a :: Int)
+--   prop> lowerBound \/ Order a == Order (a :: Int)
 --
 --   Absorption:
 --
---   prop> \ a -> upperBound \/ Order a == (upperBound :: Order Int)
+--   prop> upperBound \/ Order a == (upperBound :: Order Int)
 --
 --   Distributivity:
 --
---   prop> \ a b c -> Order a \/ Order b /\ Order c == (Order a \/ Order b) /\ (Order a \/ Order c)
+--   prop> Order a \/ Order b /\ Order c == (Order a \/ Order b) /\ (Order a \/ Order c)
 instance Ord a => Join (Order a) where
   a \/ b
     | a <= b    = b
@@ -45,27 +45,27 @@ instance Ord a => Join (Order a) where
 --
 --   Idempotence:
 --
---   prop> \ x -> Order x /\ Order x == Order x
+--   prop> Order x /\ Order x == Order x
 --
 --   Associativity:
 --
---   prop> \ a b c -> Order a /\ (Order b /\ Order c) == (Order a /\ Order b) /\ Order c
+--   prop> Order a /\ (Order b /\ Order c) == (Order a /\ Order b) /\ Order c
 --
 --   Commutativity:
 --
---   prop> \ a b -> Order a /\ Order b == Order b /\ Order a
+--   prop> Order a /\ Order b == Order b /\ Order a
 --
 --   Identity:
 --
---   prop> \ a -> upperBound /\ Order a == Order (a :: Int)
+--   prop> upperBound /\ Order a == Order (a :: Int)
 --
 --   Absorption:
 --
---   prop> \ a -> lowerBound /\ Order a == (lowerBound :: Order Int)
+--   prop> lowerBound /\ Order a == (lowerBound :: Order Int)
 --
 --   Distributivity:
 --
---   prop> \ a b c -> Order a /\ (Order b \/ Order c) == Order a /\ Order b \/ Order a /\ Order c
+--   prop> Order a /\ (Order b \/ Order c) == Order a /\ Order b \/ Order a /\ Order c
 instance Ord a => Meet (Order a) where
   a /\ b
     | a <= b    = a

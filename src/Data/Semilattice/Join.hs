@@ -67,23 +67,23 @@ instance Join () where
 --
 --   Idempotence:
 --
---   prop> \ x -> x \/ x == (x :: Bool)
+--   prop> x \/ x == (x :: Bool)
 --
 --   Associativity:
 --
---   prop> \ a b c -> a \/ (b \/ c) == (a \/ b) \/ (c :: Bool)
+--   prop> a \/ (b \/ c) == (a \/ b) \/ (c :: Bool)
 --
 --   Commutativity:
 --
---   prop> \ a b -> a \/ b == b \/ (a :: Bool)
+--   prop> a \/ b == b \/ (a :: Bool)
 --
 --   Identity:
 --
---   prop> \ a -> lowerBound \/ a == (a :: Bool)
+--   prop> lowerBound \/ a == (a :: Bool)
 --
 --   Absorption:
 --
---   prop> \ a -> upperBound \/ a == (upperBound :: Bool)
+--   prop> upperBound \/ a == (upperBound :: Bool)
 instance Join Bool where
   (\/) = (||)
 
@@ -91,23 +91,23 @@ instance Join Bool where
 --
 --   Idempotence:
 --
---   prop> \ x -> x \/ x == (x :: Ordering)
+--   prop> x \/ x == (x :: Ordering)
 --
 --   Associativity:
 --
---   prop> \ a b c -> a \/ (b \/ c) == (a \/ b) \/ (c :: Ordering)
+--   prop> a \/ (b \/ c) == (a \/ b) \/ (c :: Ordering)
 --
 --   Commutativity:
 --
---   prop> \ a b -> a \/ b == b \/ (a :: Ordering)
+--   prop> a \/ b == b \/ (a :: Ordering)
 --
 --   Identity:
 --
---   prop> \ a -> lowerBound \/ a == (a :: Ordering)
+--   prop> lowerBound \/ a == (a :: Ordering)
 --
 --   Absorption:
 --
---   prop> \ a -> upperBound \/ a == (upperBound :: Ordering)
+--   prop> upperBound \/ a == (upperBound :: Ordering)
 instance Join Ordering where
   GT \/ _ = GT
   _ \/ GT = GT
@@ -146,23 +146,23 @@ instance Join b => Join (a -> b) where
 --
 --   Idempotence:
 --
---   prop> \ x -> x \/ x == (x :: Max Int)
+--   prop> x \/ x == (x :: Max Int)
 --
 --   Associativity:
 --
---   prop> \ a b c -> a \/ (b \/ c) == (a \/ b) \/ (c :: Max Int)
+--   prop> a \/ (b \/ c) == (a \/ b) \/ (c :: Max Int)
 --
 --   Commutativity:
 --
---   prop> \ a b -> a \/ b == b \/ (a :: Max Int)
+--   prop> a \/ b == b \/ (a :: Max Int)
 --
 --   Identity:
 --
---   prop> \ a -> lowerBound \/ a == (a :: Max Int)
+--   prop> lowerBound \/ a == (a :: Max Int)
 --
 --   Absorption:
 --
---   prop> \ a -> upperBound \/ a == (upperBound :: Max Int)
+--   prop> upperBound \/ a == (upperBound :: Max Int)
 instance Ord a => Join (Max a) where
   (\/) = (<>)
 
@@ -173,19 +173,19 @@ instance Ord a => Join (Max a) where
 --
 --   Idempotence:
 --
---   prop> \ x -> x \/ x == (x :: IntMap (Set Char))
+--   prop> x \/ x == (x :: IntMap (Set Char))
 --
 --   Associativity:
 --
---   prop> \ a b c -> a \/ (b \/ c) == (a \/ b) \/ (c :: IntMap (Set Char))
+--   prop> a \/ (b \/ c) == (a \/ b) \/ (c :: IntMap (Set Char))
 --
 --   Commutativity:
 --
---   prop> \ a b -> a \/ b == b \/ (a :: IntMap (Set Char))
+--   prop> a \/ b == b \/ (a :: IntMap (Set Char))
 --
 --   Identity:
 --
---   prop> \ a -> lowerBound \/ a == (a :: IntMap (Set Char))
+--   prop> lowerBound \/ a == (a :: IntMap (Set Char))
 instance Join a => Join (IntMap a) where
   (\/) = IntMap.unionWith (\/)
 
@@ -193,19 +193,19 @@ instance Join a => Join (IntMap a) where
 --
 --   Idempotence:
 --
---   prop> \ x -> x \/ x == (x :: IntSet)
+--   prop> x \/ x == (x :: IntSet)
 --
 --   Associativity:
 --
---   prop> \ a b c -> a \/ (b \/ c) == (a \/ b) \/ (c :: IntSet)
+--   prop> a \/ (b \/ c) == (a \/ b) \/ (c :: IntSet)
 --
 --   Commutativity:
 --
---   prop> \ a b -> a \/ b == b \/ (a :: IntSet)
+--   prop> a \/ b == b \/ (a :: IntSet)
 --
 --   Identity:
 --
---   prop> \ a -> lowerBound \/ a == (a :: IntSet)
+--   prop> lowerBound \/ a == (a :: IntSet)
 instance Join IntSet where
   (\/) = IntSet.union
 
@@ -213,19 +213,19 @@ instance Join IntSet where
 --
 --   Idempotence:
 --
---   prop> \ x -> x \/ x == (x :: Map Char (Set Char))
+--   prop> x \/ x == (x :: Map Char (Set Char))
 --
 --   Associativity:
 --
---   prop> \ a b c -> a \/ (b \/ c) == (a \/ b) \/ (c :: Map Char (Set Char))
+--   prop> a \/ (b \/ c) == (a \/ b) \/ (c :: Map Char (Set Char))
 --
 --   Commutativity:
 --
---   prop> \ a b -> a \/ b == b \/ (a :: Map Char (Set Char))
+--   prop> a \/ b == b \/ (a :: Map Char (Set Char))
 --
 --   Identity:
 --
---   prop> \ a -> lowerBound \/ a == (a :: Map Char (Set Char))
+--   prop> lowerBound \/ a == (a :: Map Char (Set Char))
 instance (Ord k, Join a) => Join (Map k a) where
   (\/) = Map.unionWith (\/)
 
@@ -233,19 +233,19 @@ instance (Ord k, Join a) => Join (Map k a) where
 --
 --   Idempotence:
 --
---   prop> \ x -> x \/ x == (x :: Set Char)
+--   prop> x \/ x == (x :: Set Char)
 --
 --   Associativity:
 --
---   prop> \ a b c -> a \/ (b \/ c) == (a \/ b) \/ (c :: Set Char)
+--   prop> a \/ (b \/ c) == (a \/ b) \/ (c :: Set Char)
 --
 --   Commutativity:
 --
---   prop> \ a b -> a \/ b == b \/ (a :: Set Char)
+--   prop> a \/ b == b \/ (a :: Set Char)
 --
 --   Identity:
 --
---   prop> \ a -> lowerBound \/ a == (a :: Set Char)
+--   prop> lowerBound \/ a == (a :: Set Char)
 instance Ord a => Join (Set a) where
   (\/) = Set.union
 
@@ -256,19 +256,19 @@ instance Ord a => Join (Set a) where
 --
 --   Idempotence:
 --
---   prop> \ x -> x \/ x == (x :: HashMap Char (Set Char))
+--   prop> x \/ x == (x :: HashMap Char (Set Char))
 --
 --   Associativity:
 --
---   prop> \ a b c -> a \/ (b \/ c) == (a \/ b) \/ (c :: HashMap Char (Set Char))
+--   prop> a \/ (b \/ c) == (a \/ b) \/ (c :: HashMap Char (Set Char))
 --
 --   Commutativity:
 --
---   prop> \ a b -> a \/ b == b \/ (a :: HashMap Char (Set Char))
+--   prop> a \/ b == b \/ (a :: HashMap Char (Set Char))
 --
 --   Identity:
 --
---   prop> \ a -> lowerBound \/ a == (a :: HashMap Char (Set Char))
+--   prop> lowerBound \/ a == (a :: HashMap Char (Set Char))
 instance (Eq k, Hashable k, Join a) => Join (HashMap k a) where
   (\/) = HashMap.unionWith (\/)
 
@@ -276,19 +276,19 @@ instance (Eq k, Hashable k, Join a) => Join (HashMap k a) where
 --
 --   Idempotence:
 --
---   prop> \ x -> x \/ x == (x :: HashSet Char)
+--   prop> x \/ x == (x :: HashSet Char)
 --
 --   Associativity:
 --
---   prop> \ a b c -> a \/ (b \/ c) == (a \/ b) \/ (c :: HashSet Char)
+--   prop> a \/ (b \/ c) == (a \/ b) \/ (c :: HashSet Char)
 --
 --   Commutativity:
 --
---   prop> \ a b -> a \/ b == b \/ (a :: HashSet Char)
+--   prop> a \/ b == b \/ (a :: HashSet Char)
 --
 --   Identity:
 --
---   prop> \ a -> lowerBound \/ a == (a :: HashSet Char)
+--   prop> lowerBound \/ a == (a :: HashSet Char)
 instance (Eq a, Hashable a) => Join (HashSet a) where
   (\/) = HashSet.union
 
