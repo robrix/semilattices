@@ -23,22 +23,22 @@ import Foreign.Ptr
 import GHC.Generics
 import System.Posix.Types
 
+-- | The greatest lower bound of @s@.
+--
+--   Laws:
+--
+--   If @s@ is 'Bounded', we require 'lowerBound' and 'minBound' to agree:
+--
+--   > lowerBound = minBound
+--
+--   If @s@ is a 'Join', 'lowerBound' must be the identity of '(\/)':
+--
+--   > lowerBound \/ a = a
+--
+--   If @s@ is 'Ord'ered, 'lowerBound' must be at least as small as every terminating value:
+--
+--   > compare lowerBound a /= GT
 class Lower s where
-  -- | The greatest lower bound of @s@.
-  --
-  --   Laws:
-  --
-  --   If @s@ is 'Bounded', we require 'lowerBound' and 'minBound' to agree:
-  --
-  --   > lowerBound = minBound
-  --
-  --   If @s@ is a 'Join', 'lowerBound' must be the identity of '(\/)':
-  --
-  --   > lowerBound \/ a = a
-  --
-  --   If @s@ is 'Ord'ered, 'lowerBound' must be at least as small as every terminating value:
-  --
-  --   > compare lowerBound a /= GT
   lowerBound :: s
   default lowerBound :: Bounded s => s
   lowerBound = minBound
