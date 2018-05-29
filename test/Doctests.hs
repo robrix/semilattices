@@ -1,7 +1,11 @@
-module Main where
+module Main
+( main
+) where
 
-import Test.DocTest
 import System.Environment
+import Test.DocTest
 
 main :: IO ()
-main = getArgs >>= doctest . (++ ["-isrc", "src"])
+main = do
+  args <- getArgs
+  doctest ("-isrc" : "--fast" : if null args then ["src"] else args)
