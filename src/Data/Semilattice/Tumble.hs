@@ -11,9 +11,51 @@ import Data.Semilattice.Upper
 newtype Tumble a = Tumble { getTumble :: a }
   deriving (Enum, Eq, Foldable, Functor, Num, Ord, Read, Show, Traversable)
 
+-- $
+--
+-- Idempotence:
+--
+-- prop> \ x -> x /\ x == (x :: Tumble Bool)
+--
+-- Associativity:
+--
+-- prop> \ a b c -> a /\ (b /\ c) == (a /\ b) /\ (c :: Tumble Bool)
+--
+-- Commutativity:
+--
+-- prop> \ a b -> a /\ b == b /\ (a :: Tumble Bool)
+--
+-- Identity:
+--
+-- prop> \ a -> upperBound /\ a == (a :: Tumble Bool)
+--
+-- Absorption:
+--
+-- prop> \ a -> lowerBound /\ a == (lowerBound :: Tumble Bool)
 instance Join a => Meet (Tumble a) where
   Tumble a /\ Tumble b = Tumble (a \/ b)
 
+-- $
+--
+-- Idempotence:
+--
+-- prop> \ x -> x \/ x == (x :: Tumble Bool)
+--
+-- Associativity:
+--
+-- prop> \ a b c -> a \/ (b \/ c) == (a \/ b) \/ (c :: Tumble Bool)
+--
+-- Commutativity:
+--
+-- prop> \ a b -> a \/ b == b \/ (a :: Tumble Bool)
+--
+-- Identity:
+--
+-- prop> \ a -> lowerBound \/ a == (a :: Tumble Bool)
+--
+-- Absorption:
+--
+-- prop> \ a -> upperBound \/ a == (upperBound :: Tumble Bool)
 instance Meet a => Join (Tumble a) where
   Tumble a \/ Tumble b = Tumble (a /\ b)
 
@@ -26,3 +68,8 @@ instance Lower a => Upper (Tumble a) where
 
 instance Upper a => Lower (Tumble a) where
   lowerBound = Tumble upperBound
+
+
+-- $setup
+-- >>> import Test.QuickCheck
+-- >>> instance Arbitrary a => Arbitrary (Tumble a) where arbitrary = Tumble <$> arbitrary ; shrink (Tumble a) = Tumble <$> shrink a
