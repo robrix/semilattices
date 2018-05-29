@@ -34,6 +34,12 @@ import System.Posix.Types
 -- 'upperBound' '\/' a = a
 -- @
 --
+--   If @s@ is a 'Join' semilattice, 'upperBound' must be the absorbing element of '\/':
+--
+-- @
+-- 'upperBound' '\/' a = 'upperBound'
+-- @
+--
 --   If @s@ is 'Ord'ered, 'upperBound' must be at least as large as every terminating value:
 --
 -- @

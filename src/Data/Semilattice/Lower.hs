@@ -40,6 +40,12 @@ import System.Posix.Types
 -- 'lowerBound' '\/' a = a
 -- @
 --
+--   If @s@ is a 'Meet' semilattice, 'lowerBound' must be the absorbing element of '/\':
+--
+-- @
+-- 'lowerBound' '/\' a = 'lowerBound'
+-- @
+--
 --   If @s@ is 'Ord'ered, 'lowerBound' must be at least as small as every terminating value:
 --
 -- @
@@ -63,6 +69,10 @@ instance Lower ()
 -- Identity of '\/':
 --
 -- prop> lowerBound \/ a == (a :: Bool)
+--
+-- Absorbing element of '/\':
+--
+-- prop> lowerBound /\ a == (lowerBound :: Bool)
 --
 -- Ord:
 --
@@ -202,5 +212,6 @@ instance Lower (HashSet a) where lowerBound = HashSet.empty
 
 -- $setup
 -- >>> import Data.Semilattice.Join
+-- >>> import Data.Semilattice.Meet
 -- >>> import Test.QuickCheck (Arbitrary(..))
 -- >>> import Test.QuickCheck.Function
