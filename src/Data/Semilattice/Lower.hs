@@ -1,4 +1,5 @@
 {-# LANGUAGE DefaultSignatures, PolyKinds, TypeFamilies, TypeOperators #-}
+-- | Lower bounds, related to 'Bounded', 'Join', 'Meet', and 'Ord'.
 module Data.Semilattice.Lower where
 
 import Data.Char

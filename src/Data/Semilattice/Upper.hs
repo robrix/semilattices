@@ -1,4 +1,5 @@
 {-# LANGUAGE DefaultSignatures, PolyKinds, TypeFamilies, TypeOperators #-}
+-- | Upper bounds, related to 'Bounded', 'Join', 'Meet', and 'Ord'.
 module Data.Semilattice.Upper where
 
 import Data.Char
