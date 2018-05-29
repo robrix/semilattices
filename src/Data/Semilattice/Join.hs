@@ -1,4 +1,5 @@
 {-# LANGUAGE DeriveTraversable, GeneralizedNewtypeDeriving #-}
+-- | Join semilattices, related to 'Lower' and 'Upper'.
 module Data.Semilattice.Join
 ( Join(..)
 , Joining(..)
