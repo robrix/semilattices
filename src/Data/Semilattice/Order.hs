@@ -1,4 +1,5 @@
 {-# LANGUAGE DeriveTraversable, GeneralizedNewtypeDeriving #-}
+-- | Total 'Ord'erings give rise to 'Join' and 'Meet' semilattices.
 module Data.Semilattice.Order where
 
 import Data.Semilattice.Join
