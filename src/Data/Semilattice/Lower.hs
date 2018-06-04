@@ -1,4 +1,4 @@
-{-# LANGUAGE DefaultSignatures, PolyKinds, TypeFamilies, TypeOperators #-}
+{-# LANGUAGE CPP, DefaultSignatures, PolyKinds, TypeFamilies, TypeOperators #-}
 -- | Lower bounds, related to 'Bounded', 'Join', 'Meet', and 'Ord'.
 module Data.Semilattice.Lower where
 
@@ -138,7 +138,9 @@ instance Coercible a b => Lower (Coercion a b)
 
 -- Data.Type.Equality
 instance (a ~ b) => Lower (a :~: b)
+#if MIN_VERSION_base(4,10,0)
 instance (a ~~ b) => Lower (a :~~: b)
+#endif
 
 -- Data.Word
 instance Lower Word8
@@ -155,7 +157,7 @@ instance Lower CSigAtomic
 instance Lower CWchar
 instance Lower CSize
 instance Lower CPtrdiff
-instance Lower CBool
+
 instance Lower CULLong
 instance Lower CLLong
 instance Lower CULong
@@ -167,6 +169,10 @@ instance Lower CShort
 instance Lower CUChar
 instance Lower CSChar
 instance Lower CChar
+
+#if MIN_VERSION_base(4,10,0)
+instance Lower CBool
+#endif
 
 -- Foreign.Ptr
 instance Lower IntPtr
@@ -180,13 +186,6 @@ instance Lower Associativity
 
 -- System.Posix.Types
 instance Lower Fd
-instance Lower CKey
-instance Lower CId
-instance Lower CFsFilCnt
-instance Lower CFsBlkCnt
-instance Lower CClockId
-instance Lower CBlkCnt
-instance Lower CBlkSize
 instance Lower CRLim
 instance Lower CTcflag
 instance Lower CUid
@@ -198,6 +197,16 @@ instance Lower COff
 instance Lower CMode
 instance Lower CIno
 instance Lower CDev
+
+#if MIN_VERSION_base(4,10,0)
+instance Lower CKey
+instance Lower CId
+instance Lower CFsFilCnt
+instance Lower CFsBlkCnt
+instance Lower CClockId
+instance Lower CBlkCnt
+instance Lower CBlkSize
+#endif
 
 -- containers
 instance Lower (IntMap a) where lowerBound = IntMap.empty

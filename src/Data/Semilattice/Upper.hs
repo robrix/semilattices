@@ -1,4 +1,4 @@
-{-# LANGUAGE DefaultSignatures, PolyKinds, TypeFamilies, TypeOperators #-}
+{-# LANGUAGE CPP, DefaultSignatures, PolyKinds, TypeFamilies, TypeOperators #-}
 -- | Upper bounds, related to 'Bounded', 'Join', 'Meet', and 'Ord'.
 module Data.Semilattice.Upper where
 
@@ -129,7 +129,9 @@ instance Coercible a b => Upper (Coercion a b)
 
 -- Data.Type.Equality
 instance (a ~ b) => Upper (a :~: b)
+#if MIN_VERSION_base(4,10,0)
 instance (a ~~ b) => Upper (a :~~: b)
+#endif
 
 -- Data.Word
 instance Upper Word8
@@ -146,7 +148,6 @@ instance Upper CSigAtomic
 instance Upper CWchar
 instance Upper CSize
 instance Upper CPtrdiff
-instance Upper CBool
 instance Upper CULLong
 instance Upper CLLong
 instance Upper CULong
@@ -158,6 +159,10 @@ instance Upper CShort
 instance Upper CUChar
 instance Upper CSChar
 instance Upper CChar
+
+#if MIN_VERSION_base(4,10,0)
+instance Upper CBool
+#endif
 
 -- Foreign.Ptr
 instance Upper IntPtr
@@ -171,13 +176,6 @@ instance Upper Associativity
 
 -- System.Posix.Types
 instance Upper Fd
-instance Upper CKey
-instance Upper CId
-instance Upper CFsFilCnt
-instance Upper CFsBlkCnt
-instance Upper CClockId
-instance Upper CBlkCnt
-instance Upper CBlkSize
 instance Upper CRLim
 instance Upper CTcflag
 instance Upper CUid
@@ -190,6 +188,15 @@ instance Upper CMode
 instance Upper CIno
 instance Upper CDev
 
+#if MIN_VERSION_base(4,10,0)
+instance Upper CKey
+instance Upper CId
+instance Upper CFsFilCnt
+instance Upper CFsBlkCnt
+instance Upper CClockId
+instance Upper CBlkCnt
+instance Upper CBlkSize
+#endif
 
 -- $setup
 -- >>> import Data.Semilattice.Join
