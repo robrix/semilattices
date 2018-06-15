@@ -124,6 +124,7 @@ instance Lower a => Lower (Sum a) where lowerBound = Sum lowerBound
 instance Lower a => Lower (Dual a) where lowerBound = Dual lowerBound
 instance Lower (Endo a) where lowerBound = Endo id
 instance Lower (Monoid.First a) where lowerBound = mempty
+instance Lower (Monoid.Last a) where lowerBound = mempty
 
 -- Data.Proxy
 instance Lower (Proxy a)
