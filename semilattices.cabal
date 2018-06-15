@@ -12,6 +12,9 @@ category:            Algebra, Data, Data Structures, Math
 build-type:          Simple
 cabal-version:       >=1.10
 
+extra-source-files:
+  README.md
+
 library
   exposed-modules:     Data.Semilattice.Bound
                      , Data.Semilattice.Join
