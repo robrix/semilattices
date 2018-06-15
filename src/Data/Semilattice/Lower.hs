@@ -122,6 +122,7 @@ instance Lower Any
 instance Lower a => Lower (Product a) where lowerBound = Product lowerBound
 instance Lower a => Lower (Sum a) where lowerBound = Sum lowerBound
 instance Lower a => Lower (Dual a) where lowerBound = Dual lowerBound
+instance Lower (Endo a) where lowerBound = Endo id
 
 -- Data.Proxy
 instance Lower (Proxy a)
