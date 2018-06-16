@@ -317,6 +317,7 @@ instance (Lower a, Join a) => Monoid (Joining a) where
 newtype LessThan a = LessThan { getLessThan :: a }
   deriving (Enum, Eq, Foldable, Functor, Join, Num, Read, Show, Traversable)
 
+-- | NB: This is not in general a total ordering.
 instance (Eq a, Join a) => Ord (LessThan a) where
   compare a b
     | a == b      = EQ

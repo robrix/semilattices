@@ -317,6 +317,7 @@ instance (Upper a, Meet a) => Monoid (Meeting a) where
 newtype GreaterThan a = GreaterThan { getGreaterThan :: a }
   deriving (Enum, Eq, Foldable, Functor, Meet, Num, Read, Show, Traversable)
 
+-- | NB: This is not in general a total ordering.
 instance (Eq a, Meet a) => Ord (GreaterThan a) where
   compare a b
     | a == b      = EQ
