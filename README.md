@@ -12,4 +12,4 @@ Join semilattices can be combined using the `\/` operator (pronounced “lub,”
 
 ## Related work
 
-- [`lattices`](http://hackage.haskell.org/package/lattices) also offers join & meet semilattices, bounds, & a variety of operations for instances.
+- [`lattices`](http://hackage.haskell.org/package/lattices) also offers join & meet semilattices, bounds, & a variety of operations for instances. Relative to `lattices`, `semilattices` primarily offers a different class hierarchy, e.g. `Lower` & `Upper` do not have `Join` & `Meet` as superclasses.
