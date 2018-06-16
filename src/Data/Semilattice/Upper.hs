@@ -31,7 +31,7 @@ import System.Posix.Types
 --   If @s@ is a 'Meet' semilattice, 'upperBound' must be the identity of '/\':
 --
 -- @
--- 'upperBound' '\/' a = a
+-- 'upperBound' '/\' a = a
 -- @
 --
 --   If @s@ is a 'Join' semilattice, 'upperBound' must be the absorbing element of '\/':
