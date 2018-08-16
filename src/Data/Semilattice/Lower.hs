@@ -15,6 +15,7 @@ import Data.Map as Map
 import Data.Monoid as Monoid
 import Data.Proxy
 import Data.Semigroup as Semigroup
+import Data.Sequence as Seq
 import Data.Set as Set
 import Data.Type.Coercion
 import Data.Type.Equality
@@ -215,6 +216,7 @@ instance Lower CBlkSize
 instance Lower (IntMap a) where lowerBound = IntMap.empty
 instance Lower IntSet where lowerBound = IntSet.empty
 instance Lower (Map k a) where lowerBound = Map.empty
+instance Lower (Seq a) where lowerBound = Seq.empty
 instance Lower (Set a) where lowerBound = Set.empty
 
 -- unordered-containers
