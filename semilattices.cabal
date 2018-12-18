@@ -16,6 +16,10 @@ extra-source-files:
   README.md
   ChangeLog.md
 
+tested-with:         GHC == 8.2.2
+                   , GHC == 8.4.4
+                   , GHC == 8.6.2
+
 library
   exposed-modules:     Data.Semilattice.Bound
                      , Data.Semilattice.Join
