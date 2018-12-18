@@ -1,3 +1,7 @@
+# 0.0.0.3
+
+Support GHC 8.6 and its newer `containers` and `base`.
+
 # 0.0.0.2
 
 Add a `Lower` instance for `Data.Sequence.Seq`.
