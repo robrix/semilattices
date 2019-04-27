@@ -193,7 +193,9 @@ instance Upper CKey
 instance Upper CId
 instance Upper CFsFilCnt
 instance Upper CFsBlkCnt
+#ifdef HTYPE_CLOCKID_T
 instance Upper CClockId
+#endif
 instance Upper CBlkCnt
 instance Upper CBlkSize
 #endif

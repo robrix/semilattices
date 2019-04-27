@@ -207,7 +207,9 @@ instance Lower CKey
 instance Lower CId
 instance Lower CFsFilCnt
 instance Lower CFsBlkCnt
+#ifdef HTYPE_CLOCKID_T
 instance Lower CClockId
+#endif
 instance Lower CBlkCnt
 instance Lower CBlkSize
 #endif
