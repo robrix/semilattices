@@ -24,13 +24,14 @@ tested-with:
   GHCJS == 8.4.0
 
 library
-  exposed-modules:     Data.Semilattice.Bound
-                     , Data.Semilattice.Join
-                     , Data.Semilattice.Lower
-                     , Data.Semilattice.Meet
-                     , Data.Semilattice.Order
-                     , Data.Semilattice.Tumble
-                     , Data.Semilattice.Upper
+  exposed-modules:
+    Data.Semilattice.Bound
+    Data.Semilattice.Join
+    Data.Semilattice.Lower
+    Data.Semilattice.Meet
+    Data.Semilattice.Order
+    Data.Semilattice.Tumble
+    Data.Semilattice.Upper
   build-depends:       base >=4.9 && <5
                      , containers >=0.5 && <0.7
                      , hashable >=1.2 && <1.4
