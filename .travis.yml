@@ -35,13 +35,13 @@ before_install:
 - cabal --version
 
 install:
-- cabal new-update
-- cabal new-configure --enable-tests --write-ghc-environment-files=always
-- cabal new-build --only-dependencies
+- cabal v2-update -v
+- cabal v2-configure --enable-tests --write-ghc-environment-files=always
+- cabal v2-build --only-dependencies
 
 script:
-- cabal new-build
-- cabal new-test
-- cabal new-haddock
-- cabal new-sdist
+- cabal v2-build
+- cabal v2-test
+- cabal v2-haddock
+- cabal v2-sdist
 - cabal check
