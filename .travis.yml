@@ -36,7 +36,7 @@ before_install:
 
 install:
 - cabal v2-update -v
-- cabal v2-configure --enable-tests --write-ghc-environment-files=always
+- cabal v2-configure --enable-tests --write-ghc-environment-files=always -j2
 - cabal v2-build --only-dependencies
 
 script:
