@@ -1,5 +1,5 @@
 {-# LANGUAGE CPP, DefaultSignatures, PolyKinds, TypeFamilies, TypeOperators #-}
--- | Lower bounds, related to 'Bounded', 'Join', 'Meet', and 'Ord'.
+-- | Lower bounds, related to 'Bounded', 'Data.Semilattice.Join.Join', 'Data.Semilattice.Meet.Meet', and 'Ord'.
 module Data.Semilattice.Lower
 ( Lower(..)
 ) where
@@ -37,16 +37,16 @@ import System.Posix.Types
 -- 'lowerBound' = 'minBound'
 -- @
 --
---   If @s@ is a 'Join' semilattice, 'lowerBound' must be the identity of '\/':
+--   If @s@ is a 'Data.Semilattice.Join.Join' semilattice, 'lowerBound' must be the identity of 'Data.Semilattice.Join.\/':
 --
 -- @
--- 'lowerBound' '\/' a = a
+-- 'lowerBound' 'Data.Semilattice.Join.\/' a = a
 -- @
 --
---   If @s@ is a 'Meet' semilattice, 'lowerBound' must be the absorbing element of '/\':
+--   If @s@ is a 'Data.Semilattice.Meet.Meet' semilattice, 'lowerBound' must be the absorbing element of 'Data.Semilattice.Meet./\':
 --
 -- @
--- 'lowerBound' '/\' a = 'lowerBound'
+-- 'lowerBound' 'Data.Semilattice.Meet./\' a = 'lowerBound'
 -- @
 --
 --   If @s@ is 'Ord'ered, 'lowerBound' must be at least as small as every terminating value:
@@ -69,11 +69,11 @@ instance Lower ()
 --
 -- prop> lowerBound == (minBound :: Bool)
 --
--- Identity of '\/':
+-- Identity of 'Data.Semilattice.Join.\/':
 --
 -- prop> lowerBound \/ a == (a :: Bool)
 --
--- Absorbing element of '/\':
+-- Absorbing element of 'Data.Semilattice.Meet./\':
 --
 -- prop> lowerBound /\ a == (lowerBound :: Bool)
 --
