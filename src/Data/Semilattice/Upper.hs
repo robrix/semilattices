@@ -1,6 +1,8 @@
 {-# LANGUAGE CPP, DefaultSignatures, PolyKinds, TypeFamilies, TypeOperators #-}
--- | Upper bounds, related to 'Bounded', 'Join', 'Meet', and 'Ord'.
-module Data.Semilattice.Upper where
+-- | Upper bounds, related to 'Bounded', 'Data.Semilattice.Join.Join', 'Data.Semilattice.Meet.Meet', and 'Ord'.
+module Data.Semilattice.Upper
+( Upper(..)
+) where
 
 import Data.Char
 import Data.Coerce
@@ -28,16 +30,16 @@ import System.Posix.Types
 -- 'upperBound' = 'maxBound'
 -- @
 --
---   If @s@ is a 'Meet' semilattice, 'upperBound' must be the identity of '/\':
+--   If @s@ is a 'Data.Semilattice.Meet.Meet' semilattice, 'upperBound' must be the identity of 'Data.Semilattice.Meet./\':
 --
 -- @
--- 'upperBound' '/\' a = a
+-- 'upperBound' 'Data.Semilattice.Meet./\' a = a
 -- @
 --
---   If @s@ is a 'Join' semilattice, 'upperBound' must be the absorbing element of '\/':
+--   If @s@ is a 'Data.Semilattice.Join.Join' semilattice, 'upperBound' must be the absorbing element of 'Data.Semilattice.Join.\/':
 --
 -- @
--- 'upperBound' '\/' a = 'upperBound'
+-- 'upperBound' 'Data.Semilattice.Join.\/' a = 'upperBound'
 -- @
 --
 --   If @s@ is 'Ord'ered, 'upperBound' must be at least as large as every terminating value:
@@ -60,11 +62,11 @@ instance Upper ()
 --
 -- prop> upperBound == (maxBound :: Bool)
 --
--- Identity of '/\':
+-- Identity of 'Data.Semilattice.Meet./\':
 --
 -- prop> upperBound /\ a == (a :: Bool)
 --
--- Absorbing element of '\/':
+-- Absorbing element of 'Data.Semilattice.Join.\/':
 --
 -- prop> upperBound \/ a == (upperBound :: Bool)
 --

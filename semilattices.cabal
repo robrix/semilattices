@@ -1,5 +1,5 @@
 name:                semilattices
-version:             0.0.0.3
+version:             0.0.0.4
 synopsis:            Semilattices
 description:         Join- and meet-semilattices, with optional upper and lower bounds, and a variety of instances for each.
 homepage:            https://github.com/robrix/semilattices
@@ -7,7 +7,7 @@ license:             BSD3
 license-file:        LICENSE
 author:              Rob Rix
 maintainer:          rob.rix@me.com
-copyright:           2017-2018 Rob Rix
+copyright:           2017-2019 Rob Rix
 category:            Algebra, Data, Data Structures, Math
 build-type:          Simple
 cabal-version:       >=1.10
@@ -16,40 +16,55 @@ extra-source-files:
   README.md
   ChangeLog.md
 
-tested-with:         GHC   == 8.2.2
-                   , GHC   == 8.4.4
-                   , GHC   == 8.6.2
-                   , GHCJS == 8.4.0
+tested-with:
+  GHC   == 8.2.2
+  GHC   == 8.4.4
+  GHC   == 8.6.5
+  GHC   == 8.8.1
+  GHCJS == 8.4.0
 
 library
-  exposed-modules:     Data.Semilattice.Bound
-                     , Data.Semilattice.Join
-                     , Data.Semilattice.Lower
-                     , Data.Semilattice.Meet
-                     , Data.Semilattice.Order
-                     , Data.Semilattice.Tumble
-                     , Data.Semilattice.Upper
-  build-depends:       base >=4.9 && <4.13
-                     , containers >=0.5 && <0.7
-                     , hashable >=1.2 && <1.3
-                     , unordered-containers >=0.2 && <0.3
+  exposed-modules:
+    Data.Semilattice.Bound
+    Data.Semilattice.Join
+    Data.Semilattice.Lower
+    Data.Semilattice.Meet
+    Data.Semilattice.Order
+    Data.Semilattice.Tumble
+    Data.Semilattice.Upper
+  build-depends:
+      base >=4.9 && <5
+    , containers >=0.5 && <0.7
+    , hashable >=1.2 && <1.4
+    , unordered-containers >=0.2 && <0.3
   hs-source-dirs:      src
   default-language:    Haskell2010
-  ghc-options:         -Weverything -Wno-missing-local-signatures -Wno-missing-import-lists -Wno-implicit-prelude -Wno-safe -Wno-unsafe -Wno-name-shadowing -Wno-monomorphism-restriction -Wno-missed-specialisations -Wno-all-missed-specialisations
-  if (impl(ghc >= 8.4))
-    ghc-options:       -Wno-missing-export-lists
+  ghc-options:
+    -Weverything
+    -Wno-all-missed-specialisations
+    -Wno-implicit-prelude
+    -Wno-missed-specialisations
+    -Wno-missing-import-lists
+    -Wno-missing-local-signatures
+    -Wno-monomorphism-restriction
+    -Wno-name-shadowing
+    -Wno-safe
+    -Wno-unsafe
   if (impl(ghc >= 8.6))
-    ghc-options:       -Wno-star-is-type
+    ghc-options: -Wno-star-is-type
+  if (impl(ghc >= 8.8))
+    ghc-options: -Wno-missing-deriving-strategies
 
 test-suite doctests
   type:                exitcode-stdio-1.0
   hs-source-dirs:      test
   main-is:             Doctests.hs
   default-language:    Haskell2010
-  build-depends:       base
-                     , doctest >= 0.7 && < 1.0
-                     , QuickCheck >= 2.7 && < 3
-                     , quickcheck-instances == 0.3.*
+  build-depends:
+      base
+    , doctest >= 0.7 && < 1.0
+    , QuickCheck >= 2.7 && < 3
+    , quickcheck-instances == 0.3.*
 
 source-repository head
   type:     git

@@ -1,5 +1,5 @@
 {-# LANGUAGE DeriveTraversable, GeneralizedNewtypeDeriving #-}
--- | Join semilattices, related to 'Lower' and 'Upper'.
+-- | Join semilattices, related to 'Data.Semilattice.Lower.Lower' and 'Upper'.
 module Data.Semilattice.Meet
 ( Meet(..)
 , Meeting(..)
@@ -47,11 +47,11 @@ class Meet s where
   -- a '/\' 'upperBound' = a
   -- @
   --
-  --   If @s@ has a 'Lower' bound, then 'lowerBound' must be its absorbing element:
+  --   If @s@ has a 'Data.Semilattice.Lower.Lower' bound, then 'Data.Semilattice.Lower.lowerBound' must be its absorbing element:
   --
   -- @
-  -- 'lowerBound' '/\' a = 'lowerBound'
-  -- a '/\' 'lowerBound' = 'lowerBound'
+  -- 'Data.Semilattice.Lower.lowerBound' '/\' a = 'Data.Semilattice.Lower.lowerBound'
+  -- a '/\' 'Data.Semilattice.Lower.lowerBound' = 'Data.Semilattice.Lower.lowerBound'
   -- @
   (/\) :: s -> s -> s
 
