@@ -32,10 +32,11 @@ library
     Data.Semilattice.Order
     Data.Semilattice.Tumble
     Data.Semilattice.Upper
-  build-depends:       base >=4.9 && <5
-                     , containers >=0.5 && <0.7
-                     , hashable >=1.2 && <1.4
-                     , unordered-containers >=0.2 && <0.3
+  build-depends:
+      base >=4.9 && <5
+    , containers >=0.5 && <0.7
+    , hashable >=1.2 && <1.4
+    , unordered-containers >=0.2 && <0.3
   hs-source-dirs:      src
   default-language:    Haskell2010
   ghc-options:
