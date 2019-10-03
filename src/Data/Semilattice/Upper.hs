@@ -1,6 +1,8 @@
 {-# LANGUAGE CPP, DefaultSignatures, PolyKinds, TypeFamilies, TypeOperators #-}
 -- | Upper bounds, related to 'Bounded', 'Join', 'Meet', and 'Ord'.
-module Data.Semilattice.Upper where
+module Data.Semilattice.Upper
+( Upper(..)
+) where
 
 import Data.Char
 import Data.Coerce

@@ -1,6 +1,8 @@
 {-# LANGUAGE CPP, DefaultSignatures, PolyKinds, TypeFamilies, TypeOperators #-}
 -- | Lower bounds, related to 'Bounded', 'Join', 'Meet', and 'Ord'.
-module Data.Semilattice.Lower where
+module Data.Semilattice.Lower
+( Lower(..)
+) where
 
 import Data.Char
 import Data.Coerce
