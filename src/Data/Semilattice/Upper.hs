@@ -18,7 +18,10 @@ import Data.Word
 import Foreign.C.Types
 import Foreign.Ptr
 import GHC.Generics
+
+#if !defined(OS_Win32)
 import System.Posix.Types
+#endif
 
 -- | The least upper bound of @s@.
 --
@@ -176,6 +179,7 @@ instance Upper SourceStrictness
 instance Upper SourceUnpackedness
 instance Upper Associativity
 
+#if !defined(OS_Win32)
 -- System.Posix.Types
 instance Upper Fd
 instance Upper CRLim
@@ -189,6 +193,7 @@ instance Upper COff
 instance Upper CMode
 instance Upper CIno
 instance Upper CDev
+#endif
 
 #if MIN_VERSION_base(4,10,0)
 instance Upper CKey

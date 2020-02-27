@@ -8,9 +8,9 @@ import Data.Char
 import Data.Coerce
 import Data.Functor.Const
 import Data.Functor.Identity
-import Data.Int
 import Data.HashMap.Lazy as HashMap
 import Data.HashSet as HashSet
+import Data.Int
 import Data.IntMap as IntMap
 import Data.IntSet as IntSet
 import Data.Map as Map
@@ -25,7 +25,10 @@ import Data.Word
 import Foreign.C.Types
 import Foreign.Ptr
 import GHC.Generics
+
+#if !defined(OS_Win32)
 import System.Posix.Types
+#endif
 
 -- | The greatest lower bound of @s@.
 --
@@ -190,6 +193,7 @@ instance Lower SourceStrictness
 instance Lower SourceUnpackedness
 instance Lower Associativity
 
+#if !defined(OS_Win32)
 -- System.Posix.Types
 instance Lower Fd
 instance Lower CRLim
@@ -203,6 +207,7 @@ instance Lower COff
 instance Lower CMode
 instance Lower CIno
 instance Lower CDev
+#endif
 
 #if MIN_VERSION_base(4,10,0)
 instance Lower CKey
