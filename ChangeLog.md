@@ -1,3 +1,8 @@
+# 0.0.0.5
+
+Support more recent GHCs, remove some redundant constraints, and obviate the need for the dependency on `hashable`.
+
+
 # 0.0.0.4
 
 Support GHC 8.8.1 and loosen the bounds on `hashable` and `base`.
