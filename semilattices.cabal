@@ -54,6 +54,10 @@ library
     ghc-options: -Wno-star-is-type
   if (impl(ghc >= 8.8))
     ghc-options: -Wno-missing-deriving-strategies
+  if (impl(ghc >= 8.10))
+    ghc-options: -Wno-missing-safe-haskell-mode
+  if (impl(ghc >= 9.2))
+    ghc-options: -Wno-missing-kind-signatures
 
 test-suite doctests
   type:                exitcode-stdio-1.0
