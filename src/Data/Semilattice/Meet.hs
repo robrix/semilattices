@@ -6,6 +6,7 @@ module Data.Semilattice.Meet
 , GreaterThan(..)
 ) where
 
+import Data.Hashable
 import Data.HashMap.Lazy as HashMap
 import Data.HashSet as HashSet
 import Data.IntMap as IntMap
@@ -268,7 +269,7 @@ instance Ord a => Meet (Set a) where
 --   Absorption:
 --
 --   prop> lowerBound /\ a == (lowerBound :: HashMap Char (Set Char))
-instance (Eq k, Meet a) => Meet (HashMap k a) where
+instance (Eq k, Hashable k, Meet a) => Meet (HashMap k a) where
   (/\) = HashMap.intersectionWith (/\)
 
 -- | HashSet intersection forms a semilattice.
@@ -288,7 +289,7 @@ instance (Eq k, Meet a) => Meet (HashMap k a) where
 --   Absorption:
 --
 --   prop> lowerBound /\ a == (lowerBound :: HashSet Char)
-instance Eq a => Meet (HashSet a) where
+instance (Eq a, Hashable a) => Meet (HashSet a) where
   (/\) = HashSet.intersection
 
 
