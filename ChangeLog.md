@@ -1,3 +1,8 @@
+# 0.0.0.6
+
+Fix broken builds on GHC <= 9.2.
+
+
 # 0.0.0.5
 
 Support more recent GHCs, remove some redundant constraints, and obviate the need for the dependency on `hashable`.

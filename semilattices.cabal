@@ -1,5 +1,5 @@
 name:                semilattices
-version:             0.0.0.5
+version:             0.0.0.6
 synopsis:            Semilattices
 description:         Join- and meet-semilattices, with optional upper and lower bounds, and a variety of instances for each.
 homepage:            https://github.com/robrix/semilattices
@@ -35,6 +35,7 @@ library
   build-depends:
       base >=4.9 && <5
     , containers >=0.5 && <0.7
+    , hashable >=1.2 && <1.5
     , unordered-containers >=0.2 && <0.3
   hs-source-dirs:      src
   default-language:    Haskell2010
@@ -57,6 +58,9 @@ library
     ghc-options: -Wno-missing-safe-haskell-mode
   if (impl(ghc >= 9.2))
     ghc-options: -Wno-missing-kind-signatures
+  -- recent unordered-containers versions don't require Hashable for unionWith.
+  if (impl(ghc >= 9.4))
+    ghc-options: -Wno-redundant-constraints
 
 test-suite doctests
   type:                exitcode-stdio-1.0
