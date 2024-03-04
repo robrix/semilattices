@@ -58,6 +58,9 @@ library
     ghc-options: -Wno-missing-safe-haskell-mode
   if (impl(ghc >= 9.2))
     ghc-options: -Wno-missing-kind-signatures
+  -- recent unordered-containers versions don't require Hashable for unionWith.
+  if (impl(ghc >= 9.4))
+    ghc-options: -Wno-redundant-constraints
 
 test-suite doctests
   type:                exitcode-stdio-1.0
