@@ -1,5 +1,5 @@
 name:                semilattices
-version:             0.0.0.4
+version:             0.0.0.5
 synopsis:            Semilattices
 description:         Join- and meet-semilattices, with optional upper and lower bounds, and a variety of instances for each.
 homepage:            https://github.com/robrix/semilattices
