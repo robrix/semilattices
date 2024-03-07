@@ -6,7 +6,6 @@ module Data.Semilattice.Join
 , LessThan(..)
 ) where
 
-import Data.Hashable
 import Data.HashMap.Lazy as HashMap
 import Data.HashSet as HashSet
 import Data.IntMap as IntMap
@@ -269,7 +268,7 @@ instance Ord a => Join (Set a) where
 --   Identity:
 --
 --   prop> lowerBound \/ a == (a :: HashMap Char (Set Char))
-instance (Eq k, Hashable k, Join a) => Join (HashMap k a) where
+instance (Eq k, Join a) => Join (HashMap k a) where
   (\/) = HashMap.unionWith (\/)
 
 -- | HashSet union forms a semilattice.
@@ -289,7 +288,7 @@ instance (Eq k, Hashable k, Join a) => Join (HashMap k a) where
 --   Identity:
 --
 --   prop> lowerBound \/ a == (a :: HashSet Char)
-instance (Eq a, Hashable a) => Join (HashSet a) where
+instance Eq a => Join (HashSet a) where
   (\/) = HashSet.union
 
 
