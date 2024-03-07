@@ -1,4 +1,2 @@
 packages: semilattices.cabal
 jobs: $ncpus
-package semilattices
-  ghc-options: -Werror

@@ -1,3 +1,8 @@
+# 0.0.0.7
+
+Fix more broken builds 😬
+
+
 # 0.0.0.6
 
 Fix broken builds on GHC <= 9.2.
