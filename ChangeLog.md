@@ -1,3 +1,8 @@
+# 0.0.0.8
+
+Loosen the bound on `containers`.
+
+
 # 0.0.0.7
 
 Fix more broken builds 😬
