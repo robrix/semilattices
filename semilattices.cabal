@@ -1,16 +1,17 @@
+cabal-version:       3.0
+
 name:                semilattices
 version:             0.0.0.7
 synopsis:            Semilattices
 description:         Join- and meet-semilattices, with optional upper and lower bounds, and a variety of instances for each.
 homepage:            https://github.com/robrix/semilattices
-license:             BSD3
+license:             BSD-3-Clause
 license-file:        LICENSE
 author:              Rob Rix
 maintainer:          rob.rix@me.com
 copyright:           2017-2024 Rob Rix
 category:            Algebra, Data, Data Structures, Math
 build-type:          Simple
-cabal-version:       >=1.10
 
 extra-source-files:
   README.md
@@ -22,21 +23,8 @@ tested-with:
   GHC   == 8.8.1
   GHCJS == 8.4.0
 
-library
-  exposed-modules:
-    Data.Semilattice.Bound
-    Data.Semilattice.Join
-    Data.Semilattice.Lower
-    Data.Semilattice.Meet
-    Data.Semilattice.Order
-    Data.Semilattice.Tumble
-    Data.Semilattice.Upper
-  build-depends:
-      base >=4.9 && <5
-    , containers >=0.5 && <0.7
-    , unordered-containers >=0.2.20 && <0.3
-  hs-source-dirs:      src
-  default-language:    Haskell2010
+common common
+  default-language: Haskell2010
   ghc-options:
     -Weverything
     -Wno-all-missed-specialisations
@@ -53,20 +41,45 @@ library
   if (impl(ghc >= 8.8))
     ghc-options: -Wno-missing-deriving-strategies
   if (impl(ghc >= 8.10))
-    ghc-options: -Wno-missing-safe-haskell-mode
+    ghc-options:
+      -Wno-missing-safe-haskell-mode
+      -Wno-prepositive-qualified-module
   if (impl(ghc >= 9.2))
-    ghc-options: -Wno-missing-kind-signatures
+    ghc-options:
+      -Wno-missing-kind-signatures
   -- recent unordered-containers versions don't require Hashable for unionWith.
   if (impl(ghc >= 9.4))
     ghc-options: -Wno-redundant-constraints
+  if (impl(ghc >= 9.8))
+    ghc-options:
+      -Wno-missing-role-annotations
+      -Wno-term-variable-capture
+
+library
+  import: common
+  exposed-modules:
+    Data.Semilattice.Bound
+    Data.Semilattice.Join
+    Data.Semilattice.Lower
+    Data.Semilattice.Meet
+    Data.Semilattice.Order
+    Data.Semilattice.Tumble
+    Data.Semilattice.Upper
+  build-depends:
+    , base >=4.9 && <5
+    , containers >=0.5 && <0.7
+    , unordered-containers >=0.2.20 && <0.3
+  hs-source-dirs:      src
+  default-language:    Haskell2010
 
 test-suite doctests
+  import:              common
   type:                exitcode-stdio-1.0
   hs-source-dirs:      test
   main-is:             Doctests.hs
   default-language:    Haskell2010
   build-depends:
-      base
+    , base
     , doctest >= 0.7 && < 1.0
     , QuickCheck >= 2.7 && < 3
     , quickcheck-instances == 0.3.*
