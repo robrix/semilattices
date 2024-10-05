@@ -13,7 +13,7 @@ copyright:           2017-2024 Rob Rix
 category:            Algebra, Data, Data Structures, Math
 build-type:          Simple
 
-extra-source-files:
+extra-doc-files:
   README.md
   ChangeLog.md
 
