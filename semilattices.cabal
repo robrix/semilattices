@@ -1,7 +1,7 @@
 cabal-version:       3.0
 
 name:                semilattices
-version:             0.0.0.7
+version:             0.0.0.8
 synopsis:            Semilattices
 description:         Join- and meet-semilattices, with optional upper and lower bounds, and a variety of instances for each.
 homepage:            https://github.com/robrix/semilattices
@@ -13,7 +13,7 @@ copyright:           2017-2024 Rob Rix
 category:            Algebra, Data, Data Structures, Math
 build-type:          Simple
 
-extra-source-files:
+extra-doc-files:
   README.md
   ChangeLog.md
 
@@ -79,7 +79,7 @@ test-suite doctests
   main-is:             Doctests.hs
   default-language:    Haskell2010
   build-depends:
-    , base
+    , base >= 4.9 && < 5
     , doctest >= 0.7 && < 1.0
     , QuickCheck >= 2.7 && < 3
     , quickcheck-instances == 0.3.*
