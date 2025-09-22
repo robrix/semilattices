@@ -1,3 +1,8 @@
+# 0.0.0.9
+
+- Further loosen the bound on `containers`.
+- Support for GHC 9.12.
+
 # 0.0.0.8
 
 Loosen the bound on `containers`.
